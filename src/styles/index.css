@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&display=swap');
+@import url(https://rsms.me/inter/inter.css);
 
 body {
   background-color: #120f16;
@@ -10,7 +10,7 @@ main {
   align-content: center;
   box-sizing: border-box;
   display: grid;
-  font-family: 'Open Sans', 'SF Pro Text', 'SF Pro Icons', 'Helvetica Neue', 'Helvetica',
+  font-family: 'Inter', 'SF Pro Text', 'SF Pro Icons', 'Helvetica Neue', 'Helvetica',
     'Arial', sans-serif;
   hyphens: auto;
   line-height: 1.65;
@@ -30,12 +30,18 @@ p {
   font-size: 16px;
 }
 a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   color: #cd284cd2;
   cursor: pointer;
   text-decoration: none;
 }
 a:hover {
   color: #cd284c;
+}
+a img {
+  fill: #cd284cd2;
 }
 code,
 pre {
@@ -58,4 +64,15 @@ code:after {
 
 .logo-wrapper img {
   margin-right: 5px;
+}
+
+.icons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.icon {
+  margin-left: 10px;
+  margin-right: 10px;
 }
