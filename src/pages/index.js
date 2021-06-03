@@ -27,13 +27,13 @@ function Index() {
       </div>
       <div className="icons">
         <a className="icon" href="https://github.com/CorradoRossi/metastash">
-          <img src={Github} height="27" />
+          <img src={Github} height="25" />
         </a>
         <a className="icon" href="https://twitter.com/metastash">
-          <img src={Twitter} height="32" />
+          <img src={Twitter} height="30" />
         </a>
         <a className="icon" href="https://discord.gg/U2sKKjqZ2n">
-          <img src={Discord} height="32" />
+          <img src={Discord} height="30" />
         </a>
       </div>
     </main>
