@@ -1,6 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&display=swap');
+@import url(https://rsms.me/inter/inter.css);
 
 body {
+  max-width: 100vw;
+  max-height: 100vh;
   background-color: #120f16;
 }
 
@@ -10,13 +12,14 @@ main {
   align-content: center;
   box-sizing: border-box;
   display: grid;
-  font-family: 'Open Sans', 'SF Pro Text', 'SF Pro Icons', 'Helvetica Neue', 'Helvetica',
+  font-family: 'Inter', 'SF Pro Text', 'SF Pro Icons', 'Helvetica Neue', 'Helvetica',
     'Arial', sans-serif;
   hyphens: auto;
   line-height: 1.65;
   margin: 0 auto;
-  max-width: 680px;
-  min-height: 100vh;
+  max-width: 100vw;
+  max-height: 100vh;
+  min-height: 95vh;
   padding: 72px 0;
   text-align: center;
 }
@@ -30,14 +33,18 @@ p {
   font-size: 16px;
 }
 a {
-  border-bottom: 1px solid white;
-  color: #0076ff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #cd284cd2;
   cursor: pointer;
   text-decoration: none;
-  transition: all 0.2s ease;
 }
 a:hover {
-  border-bottom: 1px solid #0076ff;
+  color: #cd284c;
+}
+a img {
+  fill: #cd284cd2;
 }
 code,
 pre {
@@ -49,4 +56,24 @@ pre {
 code:before,
 code:after {
   content: '\`';
+}
+
+.logo-wrapper {
+  margin-left: 1%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo-wrapper img {
+  margin-right: 5px;
+}
+
+.icons {
+  justify-self: center;
+  align-self: center;
+  width: 15%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
