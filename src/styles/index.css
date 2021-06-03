@@ -30,14 +30,12 @@ p {
   font-size: 16px;
 }
 a {
-  border-bottom: 1px solid white;
-  color: #0076ff;
+  color: #cd284cd2;
   cursor: pointer;
   text-decoration: none;
-  transition: all 0.2s ease;
 }
 a:hover {
-  border-bottom: 1px solid #0076ff;
+  color: #cd284c;
 }
 code,
 pre {
@@ -49,4 +47,15 @@ pre {
 code:before,
 code:after {
   content: '\`';
+}
+
+.logo-wrapper {
+  margin-left: 3%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo-wrapper img {
+  margin-right: 5px;
 }
