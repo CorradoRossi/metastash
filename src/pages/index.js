@@ -18,22 +18,6 @@ function Index() {
         <title>Metastash</title>
       </Helmet>
       <h1>Metastash</h1>
-      <h2>
-        Deployed by{" "}
-        <a href="https://rssi.dev" target="_blank" rel="noreferrer noopener">
-          @Metastash
-        </a>
-      </h2>
-      <p>
-        <a
-          href="https://github.com/CorradoRossi/"
-          target="_blank"
-          rel="noreferrer noopener"
-        >
-          This project
-        </a>{" "}
-        is a <a href="https://www.rssi.dev/">Metastash</a> app
-      </p>
     </main>
   );
 }
