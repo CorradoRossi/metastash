@@ -1,5 +1,5 @@
 # Metastash
 
-### Skeleton for Metastash site
+### Future home of the Metastash token $STASH
 
 Live at metastash.xyz
