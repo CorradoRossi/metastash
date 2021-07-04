@@ -90,6 +90,7 @@ export type GitHubOAuthData =
     };
 
 export type HomeProps = {
+  acctData: object;
   defaultUserData: UserData;
   sharePage?: boolean;
   defaultPageState?: PageState;
@@ -174,6 +175,7 @@ export type UserData = {
 };
 
 export type HomeDataContextType = {
+  acctData?: object;
   userData: UserData;
   setUserData: React.Dispatch<React.SetStateAction<UserData>>;
   setPageState: React.Dispatch<React.SetStateAction<PageState>>;

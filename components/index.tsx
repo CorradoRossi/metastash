@@ -8,7 +8,7 @@ import Layout from './layout/layout';
 import Hero from './home/hero';
 import Form from './form/form';
 import Profile from './collection/profile';
-import { OPENSEA_BASE_URL, OPENSEA_ASSETS } from '@lib/constants';
+import { fetchData } from '@lib/opensea-fetch';
 
 const HomeContent = ({ defaultUserData, defaultPageState = 'registration' }: HomeProps) => {
   const { account }: any = useWeb3React();
@@ -24,32 +24,22 @@ const HomeContent = ({ defaultUserData, defaultPageState = 'registration' }: Hom
   useEffect(() => {
     setEthAccount(account);
     setAcctBalance(data);
-  }, [account, data]);
+    setIsLoading(true);
+    fetchData(account).then(res => setAcctData(res));
+    setIsLoading(false);
+  }, []);
 
   useEffect(() => {
     setEthAccount(account);
     setAcctBalance(data);
-  }, []);
+  }, [account, data]);
 
-  useEffect(() => {
-    async function fetchData() {
-      const url = `${
-        OPENSEA_BASE_URL + OPENSEA_ASSETS
-      }?owner=${account}&order_direction=desc&offset=0&limit=100`;
-      const options = { method: 'GET' };
-      setIsLoading(true);
-      const fetcher = await window.fetch(url, options);
-      const response = await fetcher.json();
-      setAcctData(response);
-      console.log(response);
-      setIsLoading(false);
-    }
-    fetchData();
-  }, []);
-
-  return (
+  return isLoading ? (
+    <div></div>
+  ) : (
     <HomeDataContext.Provider
       value={{
+        acctData,
         userData,
         setUserData,
         setPageState

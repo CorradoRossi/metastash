@@ -51,7 +51,7 @@ export const API_TOKEN = process.env.DATOCMS_FULL_API_TOKEN;
 export const NAVIGATION = [
   {
     name: 'Profile',
-    route: '/'
+    route: '/#/'
   },
   {
     name: 'Collection',
