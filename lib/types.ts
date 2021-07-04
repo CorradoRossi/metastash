@@ -175,7 +175,6 @@ export type UserData = {
 };
 
 export type HomeDataContextType = {
-  acctData?: object;
   userData: UserData;
   setUserData: React.Dispatch<React.SetStateAction<UserData>>;
   setPageState: React.Dispatch<React.SetStateAction<PageState>>;
