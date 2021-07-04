@@ -3,6 +3,9 @@ import styleUtils from 'styles/utils.module.css';
 import styles from 'styles/hero.module.css';
 import { BRAND_NAME, SITE_DESCRIPTION } from '@lib/constants';
 import { format } from 'date-fns';
+import  Discord from '@components/icons/meta/icon-discord';
+import Twitter from 'components/icons/meta/icon-twitter';
+import Github from 'components/icons/meta/icon-github';
 
 const Hero = () => {
   return (
@@ -34,7 +37,18 @@ const Hero = () => {
       <div className={cn(styleUtils.appear, styleUtils['appear-fourth'], styles.info)}>
         <p>Coming soon</p>
         <div className={styles['description-separator']} />
-        <p>{format(new Date(), 'MMM, dd, yyyy')}</p>
+          <div className="icons">
+          <a className="icon" href="https://github.com/CorradoRossi/metastash">
+            <Github />
+          </a>
+          <a className="icon" href="https://twitter.com/metastash">
+            <Twitter />
+          </a>
+          <a className="icon" href="https://discord.gg/U2sKKjqZ2n">
+            <Discord />
+          </a>
+        </div>
+        {/*<p>{format(new Date(), 'MMM, dd, yyyy')}</p>*/}
         <div className={styles['description-separator']} />
         <p>
           <strong>A new NFT platform</strong>
