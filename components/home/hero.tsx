@@ -35,23 +35,23 @@ const Hero = () => {
         {SITE_DESCRIPTION}
       </h2>
       <div className={cn(styleUtils.appear, styleUtils['appear-fourth'], styles.info)}>
-        <p>Coming soon</p>
+        <p>A web3 experiment</p>
         <div className={styles['description-separator']} />
           <div className="icons">
-          <a className="icon" href="https://github.com/CorradoRossi/metastash">
-            <Github />
-          </a>
-          <a className="icon" href="https://twitter.com/metastash">
-            <Twitter />
-          </a>
-          <a className="icon" href="https://discord.gg/U2sKKjqZ2n">
-            <Discord />
-          </a>
-        </div>
+            <a className="icon" href="https://github.com/CorradoRossi/metastash">
+              <Github />
+            </a>
+            <a className="icon" href="https://twitter.com/metastash">
+              <Twitter />
+            </a>
+            <a className="icon" href="https://discord.gg/U2sKKjqZ2n">
+              <Discord />
+            </a>
+          </div>
         {/*<p>{format(new Date(), 'MMM, dd, yyyy')}</p>*/}
         <div className={styles['description-separator']} />
         <p>
-          <strong>A new NFT platform</strong>
+          <strong>home of $STASH token</strong>
         </p>
       </div>
     </div>
