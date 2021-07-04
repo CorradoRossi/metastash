@@ -35,7 +35,7 @@ const Hero = () => {
         {SITE_DESCRIPTION}
       </h2>
       <div className={cn(styleUtils.appear, styleUtils['appear-fourth'], styles.info)}>
-        <p>A web3 experiment</p>
+        <p>A <strong>web3</strong> experiment</p>
         <div className={styles['description-separator']} />
           <div className="icons">
             <a className="icon" href="https://twitter.com/metastash">

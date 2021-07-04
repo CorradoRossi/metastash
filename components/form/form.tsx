@@ -121,7 +121,7 @@ const Form = ({ sharePage }: FormProps) => {
             onChange={e => setEmail(e.target.value)}
             onFocus={() => setFocused(true)}
             onBlur={() => setFocused(false)}
-            placeholder="Enter email to join beta waitlist"
+            placeholder="Might as well just join the Discord &#8593;"
             aria-label="Your email address"
             required
           />
