@@ -1,5 +1,7 @@
 # Metastash
 
-### Future home of the Metastash token $STASH
+### Another crypto/NFT experiment underway
 
-Live at metastash.xyz
+#### Let's try this
+
+live at metastash.xyz
