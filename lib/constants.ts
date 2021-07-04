@@ -58,7 +58,7 @@ export const NAVIGATION = [
     route: '/collection'
   },
   {
-    name: 'Market',
+    name: 'Links',
     route: '/market'
   }
 ];

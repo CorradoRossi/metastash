@@ -38,11 +38,11 @@ const Hero = () => {
         <p>A web3 experiment</p>
         <div className={styles['description-separator']} />
           <div className="icons">
-            <a className="icon" href="https://github.com/CorradoRossi/metastash">
-              <Github />
-            </a>
             <a className="icon" href="https://twitter.com/metastash">
               <Twitter />
+            </a>
+            <a className="icon" href="https://github.com/CorradoRossi/metastash">
+              <Github />
             </a>
             <a className="icon" href="https://discord.gg/U2sKKjqZ2n">
               <Discord />
@@ -50,9 +50,7 @@ const Hero = () => {
           </div>
         {/*<p>{format(new Date(), 'MMM, dd, yyyy')}</p>*/}
         <div className={styles['description-separator']} />
-        <p>
-          <strong>home of $STASH token</strong>
-        </p>
+        <p>home of <strong>$STASH</strong> token</p>
       </div>
     </div>
   );
