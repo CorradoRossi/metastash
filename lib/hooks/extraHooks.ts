@@ -44,7 +44,7 @@ export function useInactiveListener(suppress: boolean = false) {
       };
       const handleAccountsChanged = (accounts: string[]) => {
         console.log("Handling 'accountsChanged' event with payload", accounts);
-        if (accounts.length > 0) {
+        if (accounts?.length > 0) {
           activate(injected);
         }
       };

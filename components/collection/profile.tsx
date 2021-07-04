@@ -15,7 +15,7 @@ const CollectionItem = ({ ethAccount, acctBalance, assetArray }: any) => {
   const [balance, setBalance] = useState(acctBalance);
 
   useEffect(() => {
-    if (assetArray?.assets.length > 0) {
+    if (assetArray?.assets?.length > 0) {
       setDataArray(assetArray);
       setAccount(ethAccount);
       setBalance(acctBalance);
@@ -98,7 +98,7 @@ const CollectionItem = ({ ethAccount, acctBalance, assetArray }: any) => {
           </p>
           <p style={{ fontWeight: 600 }}>
             <span>NFTs in wallet: </span>
-            {dataArray?.assets.length}
+            {dataArray?.assets?.length}
           </p>
         </div>
       )}

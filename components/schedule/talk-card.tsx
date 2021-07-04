@@ -55,9 +55,9 @@ const TalkCard = ({ talk: { title, collectible, start, end }, showTime }: Format
                 ))}
               </div>
               <h5 className={styles.name}>
-                {collectible.length === 1
+                {collectible?.length === 1
                   ? collectible[0].name
-                  : `${collectible.length} collectibles`}
+                  : `${collectible?.length} collectibles`}
               </h5>
             </div>
           </div>
