@@ -7,7 +7,7 @@
   "homepage": "https://metastash.xyz",
   "license": "Apache-2.0",
   "engines": {
-    "node": "^14.x"
+    "node": "14.x"
   },
   "scripts": {
     "dev": "next",
