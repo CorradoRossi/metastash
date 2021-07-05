@@ -1,5 +1,5 @@
 import { TicketProfileProps } from '@lib/types';
-import GithubIcon from '@components/icons/icon-github';
+import GithubIcon from '@components/icons/icon-github-og';
 import cn from 'classnames';
 import IconAvatar from '../icons/icon-avatar';
 import styles from 'styles/ticket-profile.module.css';

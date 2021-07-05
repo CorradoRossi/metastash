@@ -6,9 +6,9 @@ import useETHBalance from '@lib/hooks/useEthBalance';
 import HomeContainer from './home/home-container';
 import Layout from './layout/layout';
 import Hero from './home/hero';
-import Form from './form/form';
-import Profile from './collection/profile';
-import { fetchData } from '@lib/opensea-fetch';
+import Form from './home/form';
+import Profile from './home/profile';
+import { fetchData } from '@lib/web3/opensea-fetch';
 
 const HomeContent = ({ defaultUserData, defaultPageState = 'registration' }: HomeProps) => {
   const { account }: any = useWeb3React();

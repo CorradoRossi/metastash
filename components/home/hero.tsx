@@ -3,9 +3,9 @@ import styleUtils from 'styles/utils.module.css';
 import styles from 'styles/hero.module.css';
 import { BRAND_NAME, SITE_DESCRIPTION } from '@lib/constants';
 import { format } from 'date-fns';
-import  Discord from '@components/icons/meta/icon-discord';
-import Twitter from 'components/icons/meta/icon-twitter';
-import Github from 'components/icons/meta/icon-github';
+import  Discord from '@components/icons/icon-discord';
+import Twitter from '@components/icons/icon-twitter';
+import Github from '@components/icons/icon-github';
 
 const Hero = () => {
   return (

@@ -11,7 +11,7 @@ import TicketVisual from './ticket-visual';
 import TicketActions from './ticket-actions';
 import TicketCopy from './ticket-copy';
 import { SITE_NAME } from '@lib/constants';
-import Form from '../form/form';
+import Form from '../home/form';
 import { format } from 'date-fns';
 import { TicketProps } from '@lib/types';
 
