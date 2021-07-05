@@ -7,7 +7,7 @@ import HomeContainer from './home/home-container';
 import Layout from './layout/layout';
 import Hero from './home/hero';
 import Form from './home/form';
-import Profile from './collection/profile';
+import Profile from './home/profile';
 import { fetchData } from '@lib/web3/opensea-fetch';
 
 const HomeContent = ({ defaultUserData, defaultPageState = 'registration' }: HomeProps) => {
