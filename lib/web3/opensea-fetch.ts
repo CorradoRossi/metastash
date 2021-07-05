@@ -1,4 +1,4 @@
-import { OPENSEA_BASE_URL, OPENSEA_ASSETS } from './constants';
+import { OPENSEA_BASE_URL, OPENSEA_ASSETS } from '../constants';
 
 export async function fetchData(account: string) {
   const url = `${

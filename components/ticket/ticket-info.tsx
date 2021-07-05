@@ -1,6 +1,6 @@
 import styles from 'styles/ticket-info.module.css';
 import styleUtils from 'styles/utils.module.css';
-import Logo from '../utils/logo';
+import Logo from '@components/icons/logo';
 import { SITE_URL } from '@lib/constants';
 import { format } from 'date-fns';
 import VercelLogo from '@components/icons/icon-platform';

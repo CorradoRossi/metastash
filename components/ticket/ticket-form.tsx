@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react';
 import { scrollTo } from '@lib/smooth-scroll';
 import cn from 'classnames';
-import GithubIcon from '@components/icons/icon-github';
+import GithubIcon from '@components/icons/icon-github-og';
 import CheckIcon from '@components/icons/icon-check';
 import { REPO, SITE_ORIGIN } from '@lib/constants';
 import isMobileOrTablet from '@lib/is-mobile-or-tablet';

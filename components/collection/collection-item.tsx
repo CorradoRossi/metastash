@@ -2,7 +2,7 @@ import cn from 'classnames';
 import Link from 'next/link';
 import Image from 'next/image';
 import styles from 'styles/collection-section.module.css';
-import GithubIcon from '@components/icons/icon-github';
+import GithubIcon from '@components/icons/icon-github-og';
 import TwitterIcon from '@components/icons/icon-twitterr';
 import { CollectionSectionProps } from '@lib/types';
 
