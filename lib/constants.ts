@@ -56,14 +56,14 @@ export const NAVIGATION = [
   {
     name: 'Collection',
     route: '/collection'
-  },
-  {
-    name: 'Links',
-    route: '/market'
   }
 ];
 
 //export const NAVIGATION = [
+//  {
+//    name: 'Links',
+//    route: '/market'
+//  },
 //  {
 //    name: 'Profile',
 //    route: '/platform/one'
