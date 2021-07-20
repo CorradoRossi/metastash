@@ -8,7 +8,7 @@ const Home = () => {
   return (
     <Page meta={META} fullViewport>
       <SkipNavContent />
-      <HomeContent />
+      <HomeContent defaultUserData={{}} />
     </Page>
   );
 };
