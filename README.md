@@ -6,4 +6,4 @@ Metastash.xyz is in early alpha and is a **WIP**! Most of the action takes place
 
 The roadmap for Metastash includes transitioning to a DAO structure with **$STASH** operating as both a governance token and a tradeable ERC-20 coin. Proposals for capitalizing **$STASH** token at first include the creation of the Metastash vault, a collection of high value NFT's and digital collectibles.
 
-Metastash is currently live (albeit in a very early form) and can be viewed at [metastash.xyz](https://metastash.xyz).]
+Metastash is currently live (albeit in a very early form) and can be viewed at [metastash.xyz](https://metastash.xyz).

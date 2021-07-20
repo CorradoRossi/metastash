@@ -19,7 +19,7 @@ const CollectionGrid = () => {
     async function fetchData() {
       const url = `${
         OPENSEA_BASE_URL + OPENSEA_ASSETS
-      }?owner=${account}&order_direction=desc&offset=0&limit=100`;
+      }?owner=${account}&order_direction=desc&offset=0&limit=50`;
       const options = { method: 'GET' };
       setIsLoading(true);
       const fetcher = await window.fetch(url, options);
