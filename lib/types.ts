@@ -175,9 +175,9 @@ export type UserData = {
 
 export type HomeDataContextType = {
   acctData?: object | any;
-  userData: UserData;
-  setUserData: React.Dispatch<React.SetStateAction<UserData>>;
-  setPageState: React.Dispatch<React.SetStateAction<PageState>>;
+  userData?: UserData;
+  setUserData?: React.Dispatch<React.SetStateAction<UserData>>;
+  setPageState?: React.Dispatch<React.SetStateAction<PageState>>;
 };
 
 export type FormatDateProps = {
