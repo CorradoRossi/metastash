@@ -15,11 +15,11 @@ const HomeContent = ({ defaultUserData, defaultPageState = 'registration' }: Hom
   const { data }: any = useETHBalance(account);
 
   const [isLoading, setIsLoading] = useState(true);
-  const [userData, setUserData] = useState<UserData>(defaultUserData);
-  const [pageState, setPageState] = useState<PageState>(defaultPageState);
   const [ethAccount, setEthAccount] = useState('');
   const [acctBalance, setAcctBalance] = useState(0);
   const [acctData, setAcctData] = useState({ assets: [] });
+  const [userData, setUserData] = useState<UserData>(defaultUserData);
+  const [pageState, setPageState] = useState<PageState>(defaultPageState);
 
   useEffect(() => {
     setEthAccount(account);
@@ -37,14 +37,7 @@ const HomeContent = ({ defaultUserData, defaultPageState = 'registration' }: Hom
   return isLoading ? (
     <div></div>
   ) : (
-    <HomeDataContext.Provider
-      value={{
-        acctData,
-        userData,
-        setUserData,
-        setPageState
-      }}
-    >
+    <HomeDataContext.Provider value={{ acctData, userData, setUserData, setPageState }}>
       <Layout>
         <HomeContainer>
           {ethAccount ? (

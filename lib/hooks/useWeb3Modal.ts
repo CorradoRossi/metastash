@@ -9,8 +9,6 @@ const useWeb3Modal = (config = {}) => {
   const [autoLoaded, setAutoLoaded] = useState(false);
   const { autoLoad = true, infuraId = INFURA_ID, NETWORK = NETWORK_NAME }: any = config;
 
-  // Web3Modal also supports many other wallets.
-  // You can see other options at https://github.com/Web3Modal/web3modal
   const web3Modal = new Web3Modal({
     network: NETWORK,
     cacheProvider: true,
@@ -25,6 +23,10 @@ const useWeb3Modal = (config = {}) => {
   });
 
   const loadWeb3Modal = useCallback(async () => {
+    if (web3Modal.cachedProvider) {
+      const cached = await web3Modal.connect();
+      return setProvider(new Web3Provider(cached));
+    }
     const newProvider = await web3Modal.connect();
     setProvider(new Web3Provider(newProvider));
   }, [web3Modal]);
@@ -33,6 +35,7 @@ const useWeb3Modal = (config = {}) => {
     async function () {
       await web3Modal.clearCachedProvider();
       window.location.reload();
+      window.ethereum.on('disconnect', (error: any) => null);
     },
     [web3Modal]
   );
