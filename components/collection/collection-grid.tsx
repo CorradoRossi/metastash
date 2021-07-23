@@ -2,24 +2,22 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import styles from 'styles/collection-grid.module.css';
-import { useWeb3React } from '@web3-react/core';
-import { apiGetAccountUniqueTokens } from '@lib/web3/opensea-api';
+import { useAppState } from '../../state/state';
 
 type DataObject = {
   assets: [];
 };
 
 const CollectionGrid = () => {
+  const { assets }: any = useAppState();
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [data, setData] = useState<DataObject>({ assets: [] });
-  const { account } = useWeb3React();
 
   useEffect(() => {
     async function fetchData() {
       setIsLoading(true);
-      await apiGetAccountUniqueTokens(account, 0)
-        .then((res: any) => setData({ assets: res }))
-        .then(() => setIsLoading(false));
+      await setData({ assets: assets });
+      await setIsLoading(false);
     }
     fetchData();
   }, []);

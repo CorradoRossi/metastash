@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useCallback, useState, useEffect } from 'react';
 import { HomeDataContext } from '@lib/hooks/use-home-data';
 import { PageState, HomeProps, UserData } from '@lib/types';
 import { useWeb3React } from '@web3-react/core';
@@ -11,9 +11,22 @@ import Profile from './profile/profile';
 import { fetchData } from '@lib/web3/opensea-fetch';
 import { fetchUser } from '@lib/web3/opensea-fetch-user';
 import { DEFAULT_USER } from '@lib/constants';
+import { useAppState } from '../state/state';
+import { fetchUniqueTokens } from '@lib/web3/fetch-unique';
 
 const HomeContent = ({ defaultUserData, defaultPageState = 'registration' }: HomeProps) => {
-  const { account }: any = useWeb3React();
+  const { library: libraryState, user, assets }: any = useAppState();
+  const { setUser, setLibrary, setAssets } = useAppState(
+    useCallback(
+      ({ setUser, setLibrary, setAssets }) => ({
+        setUser,
+        setLibrary,
+        setAssets
+      }),
+      []
+    )
+  );
+  const { library, account }: any = useWeb3React();
   const { data }: any = useETHBalance(account);
 
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -22,7 +35,7 @@ const HomeContent = ({ defaultUserData, defaultPageState = 'registration' }: Hom
   const [acctData, setAcctData] = useState({ assets: [] });
   const [userData, setUserData] = useState<UserData>(defaultUserData);
   const [pageState, setPageState] = useState<PageState>(defaultPageState);
-  const [user, setUser] = useState(DEFAULT_USER);
+  const [localUser, setLocalUser] = useState<UserData>(DEFAULT_USER);
 
   useEffect(() => {
     async function doFetchData() {
@@ -30,8 +43,17 @@ const HomeContent = ({ defaultUserData, defaultPageState = 'registration' }: Hom
       setEthAccount(account);
       setAcctBalance(data);
       if (account) {
-        fetchData(account).then(res => setAcctData(res));
-        fetchUser(account).then((res: any) => setUser(res));
+        fetchData(account).then(res => {
+          setAcctData(res);
+          //setAssets(res);
+        });
+        fetchUniqueTokens(user, assets, setAssets, account).then(res => {
+          return res;
+        });
+        fetchUser(account).then((res: any) => setLocalUser(res));
+        setUser(account);
+        setUserData(user);
+        setLibrary(library);
         setPageState('loggedin');
         setIsLoading(false);
       }
@@ -45,13 +67,24 @@ const HomeContent = ({ defaultUserData, defaultPageState = 'registration' }: Hom
       setEthAccount(account);
       setAcctBalance(data);
       if (account) {
-        fetchData(account).then(res => setAcctData(res));
-        fetchUser(account).then((res: any) => setUser(res));
+        fetchData(account).then(res => {
+          setAcctData(res);
+          //setAssets(res);
+        });
+        fetchUniqueTokens(user, assets, setAssets, account).then(res => {
+          return res;
+        });
+        fetchUser(account).then((res: any) => setLocalUser(res));
+        setUser(account);
+        setUserData(user);
+        setLibrary(library);
         setPageState('loggedin');
         setIsLoading(false);
       }
     }
     doFetchData();
+    //console.log(assets, 'assetsssss');
+    console.log(libraryState, 'libraryStateee');
   }, [account, data]);
 
   return (
@@ -65,7 +98,7 @@ const HomeContent = ({ defaultUserData, defaultPageState = 'registration' }: Hom
                 acctBalance={acctBalance}
                 acctData={acctData}
                 pageState={pageState}
-                user={user}
+                user={localUser}
               />
             </>
           ) : (
