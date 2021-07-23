@@ -1,7 +1,7 @@
 import { concat, isEmpty, without } from 'lodash';
 import { apiGetAccountUniqueTokens } from './opensea-api';
 import { UNIQUE_TOKENS_LIMIT_PER_PAGE, UNIQUE_TOKENS_LIMIT_TOTAL } from '@lib/constants';
-import { dedupeAssetsWithFamilies, getFamilies } from '../parsers/uniqueTokens';
+import { dedupeAssetsWithFamilies, getFamilies } from '../utils/uniqueTokens';
 let uniqueTokensHandle = null;
 
 import { getUniqueTokens, saveUniqueTokens } from '../utils/localStorage';

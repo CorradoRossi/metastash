@@ -1,6 +1,6 @@
 import ms from 'ms';
 import { NextApiRequest, NextApiResponse } from 'next';
-import { getAllPlatforms } from '@lib/cms-api';
+import { getAllPlatforms } from '@lib/cms/cms-api';
 import { EXPIRES_SECONDS } from '@lib/constants';
 
 export default async function getPlatforms(_: NextApiRequest, res: NextApiResponse) {

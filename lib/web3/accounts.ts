@@ -1,5 +1,5 @@
 import { get, isNil, map, toUpper } from 'lodash';
-import { dedupeUniqueTokens } from '../parsers/uniqueTokens';
+import { dedupeUniqueTokens } from '../utils/uniqueTokens';
 import {
   add,
   convertAmountAndPriceToNativeDisplay,

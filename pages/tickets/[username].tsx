@@ -2,7 +2,7 @@ import { GetStaticProps, GetStaticPaths } from 'next';
 import Error from 'next/error';
 import Head from 'next/head';
 import { SkipNavContent } from '@reach/skip-nav';
-import redis from '@lib/redis';
+import redis from '@lib/cms/redis';
 
 import Page from '@components/layout/page';
 import HomeContent from '@components/index';

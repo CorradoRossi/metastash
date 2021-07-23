@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { parseAccountUniqueTokens } from '../parsers/uniqueTokens';
+import { parseAccountUniqueTokens } from '../utils/uniqueTokens';
 import {
   OPENSEA_BASE_URL,
   OPENSEA_ASSETS,

@@ -5,7 +5,7 @@ import JobsGrid from '@components/sponsors/jobs-grid';
 import Layout from '@components/layout/layout';
 import Header from '@components/layout/header';
 
-import { getAllJobs } from '@lib/cms-api';
+import { getAllJobs } from '@lib/cms/cms-api';
 import { JobsProps } from '@lib/types';
 import { META } from '@lib/constants';
 

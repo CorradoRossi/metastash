@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import redis from '@lib/redis';
+import redis from '@lib/cms/redis';
 
 export default async function saveGithubToken(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'POST') {

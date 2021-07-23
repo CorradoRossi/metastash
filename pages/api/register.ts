@@ -5,7 +5,7 @@ import validator from 'validator';
 import { SAMPLE_TICKET_NUMBER, COOKIE } from '@lib/constants';
 import cookie from 'cookie';
 import ms from 'ms';
-import redis, { emailToId } from '@lib/redis';
+import redis, { emailToId } from '@lib/cms/redis';
 
 export default async function register(
   req: NextApiRequest,

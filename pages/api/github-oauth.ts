@@ -1,8 +1,8 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { nanoid } from 'nanoid';
 import * as qs from 'querystring';
-import redis from '@lib/redis';
-import { renderSuccess, renderError } from '@lib/render-github-popup';
+import redis from '@lib/cms/redis';
+import { renderSuccess, renderError } from '@lib/utils/render-github-popup';
 
 /**
  * This API route must be triggered as a callback of your GitHub OAuth app.

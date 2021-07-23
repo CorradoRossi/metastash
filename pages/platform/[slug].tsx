@@ -5,7 +5,7 @@ import Layout from '@components/layout/layout';
 import PlatformContainer from '@components/schedule/platform-container';
 
 import { META } from '@lib/constants';
-import { getAllPlatforms } from '@lib/cms-api';
+import { getAllPlatforms } from '@lib/cms/cms-api';
 import { Platform, PlatformPageProps } from '@lib/types';
 
 const PlatformPage = ({ platform, allPlatforms }: PlatformPageProps) => {

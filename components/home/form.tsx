@@ -2,12 +2,12 @@ import { useState } from 'react';
 import cn from 'classnames';
 import useHomeData from '@lib/hooks/use-home-data';
 import { useRouter } from 'next/router';
-import FormError from '@lib/form-error';
+import FormError from '@lib/cms/form-error';
 import LoadingDots from '../loading/loading-dots';
 import styleUtils from 'styles/utils.module.css';
 import styles from 'styles/form.module.css';
 import useEmailQueryParam from '@lib/hooks/use-email-query-param';
-import { register } from '@lib/user-api';
+import { register } from '@lib/cms/user-api';
 import { FormState, FormProps } from '@lib/types';
 
 const Form = ({ sharePage }: FormProps) => {
