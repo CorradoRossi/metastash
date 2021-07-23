@@ -71,7 +71,7 @@ const useAppState = create<StateContext>((set, get) => ({
     }
   },
   setAssets: async newAssets => {
-    const { assets } = get();
+    //const { assets } = get();
     let combinedAssets: any = await newAssets;
     set({ assets: parseAccountUniqueTokens({ data: { assets: combinedAssets } }) });
   },
