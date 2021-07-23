@@ -21,6 +21,9 @@ export const RSSI_WALLET = '0x90c19feA1eF7BEBA9274217431F148094795B074';
 export const CODE_OF_CONDUCT = 'https://metastash.xyz';
 export const REPO = 'https://github.com/CorradoRossi/Metastash';
 
+export const UNIQUE_TOKENS_LIMIT_PER_PAGE = 50;
+export const UNIQUE_TOKENS_LIMIT_TOTAL = 2000;
+
 export const META = {
   title: TITLE,
   description: META_DESCRIPTION

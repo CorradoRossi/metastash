@@ -1,4 +1,4 @@
-import { DEFAULT_USER, OPENSEA_BASE_URL, OPENSEA_ASSETS } from '../constants';
+import { DEFAULT_USER, OPENSEA_BASE_URL, OPENSEA_ASSETS } from '@lib/constants';
 
 export async function fetchUser(account: string) {
   let user = DEFAULT_USER;

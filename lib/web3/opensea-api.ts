@@ -1,9 +1,11 @@
 import axios from 'axios';
 import { parseAccountUniqueTokens } from '../parsers/uniqueTokens';
-import { OPENSEA_BASE_URL, OPENSEA_ASSETS } from '@lib/constants';
-
-export const UNIQUE_TOKENS_LIMIT_PER_PAGE = 50;
-export const UNIQUE_TOKENS_LIMIT_TOTAL = 2000;
+import {
+  OPENSEA_BASE_URL,
+  OPENSEA_ASSETS,
+  UNIQUE_TOKENS_LIMIT_PER_PAGE,
+  UNIQUE_TOKENS_LIMIT_TOTAL
+} from '@lib/constants';
 
 const api = axios.create({
   headers: {
