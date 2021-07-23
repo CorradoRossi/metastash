@@ -45,10 +45,10 @@ const HomeContent = ({ defaultUserData, defaultPageState = 'registration' }: Hom
       if (account) {
         fetchData(account).then(res => {
           setAcctData(res);
-          setAssets(res);
+          //setAssets(res);
         });
         fetchUniqueTokens(user, assets, setAssets, account).then(res => {
-          console.log(res, 'this is the unique tokens one');
+          return res;
         });
         fetchUser(account).then((res: any) => setLocalUser(res));
         setUser(account);
@@ -69,10 +69,10 @@ const HomeContent = ({ defaultUserData, defaultPageState = 'registration' }: Hom
       if (account) {
         fetchData(account).then(res => {
           setAcctData(res);
-          setAssets(res);
+          //setAssets(res);
         });
         fetchUniqueTokens(user, assets, setAssets, account).then(res => {
-          console.log(res, 'this is the unique tokens one');
+          return res;
         });
         fetchUser(account).then((res: any) => setLocalUser(res));
         setUser(account);
@@ -83,7 +83,7 @@ const HomeContent = ({ defaultUserData, defaultPageState = 'registration' }: Hom
       }
     }
     doFetchData();
-    console.log(assets, 'assetsssss');
+    //console.log(assets, 'assetsssss');
     console.log(libraryState, 'libraryStateee');
   }, [account, data]);
 
