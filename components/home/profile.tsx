@@ -5,12 +5,19 @@ import Image from 'next/image';
 import styles from 'styles/collection-section.module.css';
 import GithubIcon from '@components/icons/icon-github-og';
 import TwitterIcon from '@components/icons/icon-twitterr';
-import { DEFAULT_INDEX } from '@lib/constants';
 import { formatAddressShort, copyToClipBoard } from '@lib/utils/utils';
 
-const CollectionItem = ({ ethAccount, acctBalance, assetArray }: any) => {
+const CollectionItem = ({
+  ethAccount,
+  acctBalance,
+  assetArray
+}: {
+  ethAccount: string;
+  acctBalance: number;
+  assetArray: object | any;
+}) => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [dataArray, setDataArray] = useState<object | any>(DEFAULT_INDEX);
+  const [dataArray, setDataArray] = useState(assetArray);
   const [account, setAccount] = useState(ethAccount);
   const [balance, setBalance] = useState(acctBalance);
   const [combinedBids, setCombinedBids] = useState(0);
@@ -19,13 +26,10 @@ const CollectionItem = ({ ethAccount, acctBalance, assetArray }: any) => {
   useEffect(() => {
     let localCombinedBids = 0;
     let localCombinedLastSaleprice = 0;
-    if (assetArray?.assets?.length > 0) {
+    if (assetArray?.assets?.length) {
       setDataArray(assetArray);
       setAccount(ethAccount);
       setBalance(acctBalance);
-      setIsLoading(false);
-    }
-    if (assetArray?.assets?.length > 0) {
       assetArray.assets.forEach((item: any) => {
         if (item.topBid) {
           item.topBid = true;
@@ -41,14 +45,13 @@ const CollectionItem = ({ ethAccount, acctBalance, assetArray }: any) => {
       console.log(localCombinedBids);
       console.log(localCombinedLastSaleprice);
     }
+    setIsLoading(false);
     console.log(dataArray, 'dataArray');
   }, [ethAccount, acctBalance, assetArray]);
 
-  return isLoading ? (
-    <div></div>
-  ) : (
+  return !isLoading && dataArray.assets.length ? (
     <>
-      <div key={dataArray?.assets[0].name} className={styles.container}>
+      <div className={styles.container}>
         <div style={{ minWidth: '300px' }}>
           <Image
             alt={dataArray?.assets[0].name}
@@ -132,6 +135,8 @@ const CollectionItem = ({ ethAccount, acctBalance, assetArray }: any) => {
         </div>
       )}
     </>
+  ) : (
+    <div></div>
   );
 };
 
