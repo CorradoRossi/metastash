@@ -10,12 +10,14 @@ const Profile = ({
   ethAccount,
   acctBalance,
   assetArray,
-  pageState
+  pageState,
+  user
 }: {
   ethAccount: string;
   acctBalance: number;
   assetArray: object | any;
   pageState: string;
+  user: object | any;
 }) => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [account, setAccount] = useState(ethAccount);
@@ -43,17 +45,17 @@ const Profile = ({
       setCombinedLastSaleprice(localCombinedLastSaleprice);
     }
     setIsLoading(false);
-    console.log(assetArray, 'assetArray');
   }, [ethAccount, acctBalance, assetArray, isLoading]);
 
-  return !isLoading && pageState === 'loggedin' && assetArray?.assets?.length ? (
+  console.log(user, 'user');
+  return !isLoading && pageState === 'loggedin' && user ? (
     <>
       <div className={styles.container}>
         <div style={{ minWidth: '300px' }}>
           <Image
-            alt={assetArray?.assets[0].name}
-            title={assetArray?.assets[0].name}
-            src={assetArray?.assets[0].owner?.profile_img_url}
+            alt={user?.name}
+            title={user?.name}
+            src={user?.avatar}
             className={styles.image}
             loading="lazy"
             height={320}
@@ -62,18 +64,18 @@ const Profile = ({
         </div>
         <div className={styles['collectible-details']}>
           <div>
-            <h1 className={styles.name}>{assetArray?.assets[0].owner.user.username}</h1>
+            <h1 className={styles.name}>{user?.username}</h1>
             <p className={styles.title} style={{ fontWeight: 600 }}>
-              {`${assetArray?.assets[0].owner.user.username} @ `}
-              <span className={styles.company}>{assetArray?.assets[0].owner.user.username}</span>
+              {`${user?.username} @ `}
+              <span className={styles.company}>{user?.username}</span>
             </p>
             <h2 className={styles['bio-header']}>Bio</h2>
-            <p className={styles.bio}>{assetArray?.assets[0].bio}</p>
+            <p className={styles.bio}>{user?.bio}</p>
             <h3 className={styles['socials-header']}>Social Media</h3>
-            {assetArray?.assets[0].twitter ? (
+            {user?.twitter ? (
               <a
                 aria-label="Twitter"
-                href={assetArray?.assets[0].twitter}
+                href={user?.twitter}
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -84,11 +86,11 @@ const Profile = ({
                 <TwitterIcon />
               </span>
             )}
-            {assetArray?.assets[0].github ? (
+            {user?.github ? (
               <a
                 aria-label="GitHub"
                 className={styles.githubIcon}
-                href={assetArray?.assets[0].github}
+                href={user?.github}
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -102,10 +104,10 @@ const Profile = ({
           </div>
         </div>
       </div>
-      {assetArray?.assets[0] && (
+      {user && (
         <div className={styles['talk-details']}>
-          <h3 className={styles['socials-header']}>{assetArray?.assets[0].talk?.title}</h3>
-          <p>{assetArray?.assets[0].talk?.description}</p>
+          <h3 className={styles['socials-header']}>{user?.talk?.title}</h3>
+          <p>{user?.talk?.description}</p>
           <p
             onClick={() => copyToClipBoard(account)}
             style={{ fontWeight: 600, cursor: 'pointer' }}

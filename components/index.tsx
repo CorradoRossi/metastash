@@ -9,8 +9,8 @@ import Hero from './home/hero';
 import Form from './home/form';
 import Profile from './home/profile';
 import { fetchData } from '@lib/web3/opensea-fetch';
+import { fetchUser } from '@lib/web3/get-user';
 import { apiGetAccountUniqueTokens } from '@lib/web3/opensea-api';
-import { parseAccountAssets } from '@lib/web3/accounts';
 
 const HomeContent = ({ defaultUserData, defaultPageState = 'registration' }: HomeProps) => {
   const { account }: any = useWeb3React();
@@ -20,43 +20,40 @@ const HomeContent = ({ defaultUserData, defaultPageState = 'registration' }: Hom
   const [ethAccount, setEthAccount] = useState('');
   const [acctBalance, setAcctBalance] = useState(0);
   const [acctData, setAcctData] = useState({ assets: [] });
+  const [assetArray, setAssetArray] = useState({ assets: [] });
   const [userData, setUserData] = useState<UserData>(defaultUserData);
   const [pageState, setPageState] = useState<PageState>(defaultPageState);
+  const [user, setUser] = useState({});
 
   useEffect(() => {
-    async function fetchData() {
+    async function doFetchData() {
       setIsLoading(true);
       setEthAccount(account);
       setAcctBalance(data);
       if (account) {
+        fetchData(account).then(res => setAssetArray(res));
+        fetchUser(account).then((res: any) => setUser(res));
         await apiGetAccountUniqueTokens(account, 0)
           .then((res: any) => {
             setAcctData({ assets: res });
-          })
-          .then((res: any) => {
-            let parsed = parseAccountAssets(res, res);
-            console.log(parsed, 'parsed');
           })
           .then(() => setIsLoading(false));
       }
     }
-    console.log(acctData, 'acctData');
-    fetchData();
+    doFetchData();
   }, []);
 
   useEffect(() => {
-    async function fetchData() {
+    async function doFetchData() {
       setIsLoading(true);
       setEthAccount(account);
       setAcctBalance(data);
       if (account) {
+        fetchData(account).then(res => setAssetArray(res));
+        fetchUser(account).then((res: any) => setUser(res));
         await apiGetAccountUniqueTokens(account, 0)
           .then((res: any) => {
             setAcctData({ assets: res });
-          })
-          .then((res: any) => {
-            let parsed = parseAccountAssets(res, res);
-            console.log(parsed, 'parsed');
           })
           .then(() => {
             setPageState('loggedin');
@@ -64,10 +61,10 @@ const HomeContent = ({ defaultUserData, defaultPageState = 'registration' }: Hom
           .then(() => setIsLoading(false));
       }
     }
-    console.log(acctData, 'acctData');
-    fetchData();
+    doFetchData();
   }, [account, data]);
 
+  console.log(user, 'user index');
   return (
     <HomeDataContext.Provider value={{ acctData, userData, setUserData, setPageState }}>
       <Layout>
@@ -77,8 +74,9 @@ const HomeContent = ({ defaultUserData, defaultPageState = 'registration' }: Hom
               <Profile
                 ethAccount={ethAccount}
                 acctBalance={acctBalance}
-                assetArray={acctData}
+                assetArray={assetArray}
                 pageState={pageState}
+                user={user}
               />
             </>
           ) : (
