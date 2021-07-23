@@ -4,7 +4,7 @@ import { isMobile } from 'react-device-detect';
 import { injected } from '@lib/utils/connectors';
 
 const useEagerConnect = () => {
-  const { activate, active } = useWeb3React(); // specifically using useWeb3ReactCore because of what this hook does
+  const { activate, active } = useWeb3React();
   const [tried, setTried] = useState(false);
 
   useEffect(() => {
@@ -23,14 +23,13 @@ const useEagerConnect = () => {
         }
       }
     });
-  }, [activate]); // intentionally only running on mount (make sure it's only mounted once :))
+  }, [activate]);
 
-  // if the connection worked, wait until we get confirmation of that to flip the flag
   useEffect(() => {
-    if (active) {
+    if (!tried && active) {
       setTried(true);
     }
-  }, [active]);
+  }, [tried, active]);
 
   return tried;
 };
