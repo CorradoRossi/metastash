@@ -10,11 +10,13 @@ import { formatAddressShort, copyToClipBoard } from '@lib/utils/utils';
 const Profile = ({
   ethAccount,
   acctBalance,
-  assetArray
+  assetArray,
+  pageState
 }: {
   ethAccount: string;
   acctBalance: number;
   assetArray: object | any;
+  pageState: string;
 }) => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [account, setAccount] = useState(ethAccount);
@@ -44,7 +46,7 @@ const Profile = ({
     setIsLoading(false);
   }, [ethAccount, acctBalance, assetArray, isLoading]);
 
-  return !isLoading && assetArray?.assets?.length ? (
+  return !isLoading && pageState === 'loggedin' && assetArray?.assets?.length ? (
     <>
       <div className={styles.container}>
         <div style={{ minWidth: '300px' }}>
