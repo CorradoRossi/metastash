@@ -10,13 +10,13 @@ import { DEFAULT_PROFILE_PIC } from '@lib/constants';
 const Profile = ({
   ethAccount,
   acctBalance,
-  assetArray,
+  acctData,
   pageState,
   user
 }: {
   ethAccount: string;
   acctBalance: number;
-  assetArray: object | any;
+  acctData: object | any;
   pageState: string;
   user: object | any;
 }) => {
@@ -29,10 +29,10 @@ const Profile = ({
   useEffect(() => {
     let localCombinedBids = 0;
     let localCombinedLastSaleprice = 0;
-    if (assetArray) {
+    if (acctData) {
       setAccount(ethAccount);
       setBalance(acctBalance);
-      assetArray?.assets?.forEach((item: any) => {
+      acctData?.assets?.forEach((item: any) => {
         if (item.topBid) {
           item.topBid = true;
           localCombinedBids += item.bid;
@@ -46,9 +46,8 @@ const Profile = ({
       setCombinedLastSaleprice(localCombinedLastSaleprice);
     }
     setIsLoading(false);
-  }, [ethAccount, acctBalance, assetArray, isLoading]);
+  }, [ethAccount, acctBalance, acctData, isLoading]);
 
-  console.log(user, 'user');
   return !isLoading && pageState === 'loggedin' && user ? (
     <>
       <div className={styles.container}>
@@ -122,7 +121,7 @@ const Profile = ({
           </p>
           <p style={{ fontWeight: 600 }}>
             <span>NFTs in wallet: </span>
-            {assetArray?.assets?.length}
+            {acctData?.assets?.length}
           </p>
           <p style={{ fontWeight: 600 }}>
             <span>Combined bids: </span>

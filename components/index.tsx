@@ -10,7 +10,6 @@ import Form from './home/form';
 import Profile from './home/profile';
 import { fetchData } from '@lib/web3/opensea-fetch';
 import { fetchUser } from '@lib/web3/get-user';
-import { apiGetAccountUniqueTokens } from '@lib/web3/opensea-api';
 import { DEFAULT_USER } from '@lib/constants';
 
 const HomeContent = ({ defaultUserData, defaultPageState = 'registration' }: HomeProps) => {
@@ -21,7 +20,6 @@ const HomeContent = ({ defaultUserData, defaultPageState = 'registration' }: Hom
   const [ethAccount, setEthAccount] = useState('');
   const [acctBalance, setAcctBalance] = useState(0);
   const [acctData, setAcctData] = useState({ assets: [] });
-  const [assetArray, setAssetArray] = useState({ assets: [] });
   const [userData, setUserData] = useState<UserData>(defaultUserData);
   const [pageState, setPageState] = useState<PageState>(defaultPageState);
   const [user, setUser] = useState(DEFAULT_USER);
@@ -32,13 +30,10 @@ const HomeContent = ({ defaultUserData, defaultPageState = 'registration' }: Hom
       setEthAccount(account);
       setAcctBalance(data);
       if (account) {
-        fetchData(account).then(res => setAssetArray(res));
+        fetchData(account).then(res => setAcctData(res));
         fetchUser(account).then((res: any) => setUser(res));
-        await apiGetAccountUniqueTokens(account, 0)
-          .then((res: any) => {
-            setAcctData({ assets: res });
-          })
-          .then(() => setIsLoading(false));
+        setPageState('loggedin');
+        setIsLoading(false);
       }
     }
     doFetchData();
@@ -50,22 +45,15 @@ const HomeContent = ({ defaultUserData, defaultPageState = 'registration' }: Hom
       setEthAccount(account);
       setAcctBalance(data);
       if (account) {
-        fetchData(account).then(res => setAssetArray(res));
+        fetchData(account).then(res => setAcctData(res));
         fetchUser(account).then((res: any) => setUser(res));
-        await apiGetAccountUniqueTokens(account, 0)
-          .then((res: any) => {
-            setAcctData({ assets: res });
-          })
-          .then(() => {
-            setPageState('loggedin');
-          })
-          .then(() => setIsLoading(false));
+        setPageState('loggedin');
+        setIsLoading(false);
       }
     }
     doFetchData();
   }, [account, data]);
 
-  console.log(user, 'user index');
   return (
     <HomeDataContext.Provider value={{ acctData, userData, setUserData, setPageState }}>
       <Layout>
@@ -75,7 +63,7 @@ const HomeContent = ({ defaultUserData, defaultPageState = 'registration' }: Hom
               <Profile
                 ethAccount={ethAccount}
                 acctBalance={acctBalance}
-                assetArray={assetArray}
+                acctData={acctData}
                 pageState={pageState}
                 user={user}
               />

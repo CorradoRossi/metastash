@@ -102,13 +102,15 @@ export const DEFAULT_INDEX = {
 };
 
 export const DEFAULT_USER = {
-  id: '',
-  address: '',
-  name: '',
-  username: '',
-  discord: '',
-  avatar: '',
-  avatar_url: ''
+  id: undefined,
+  address: undefined,
+  name: undefined,
+  username: undefined,
+  discord: undefined,
+  avatar: undefined,
+  avatar_url: undefined,
+  twitter: undefined,
+  github: undefined
 };
 
 export const CONTRACTS = {
