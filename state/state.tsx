@@ -4,11 +4,8 @@ import { Contract, BigNumber, utils, Event } from 'ethers';
 import { TokenProps, StateContext } from '@lib/types';
 import { DEFAULT_USER } from '@lib/constants';
 import { fetchData } from '@lib/web3/opensea-fetch';
+import { apiGetAccountUniqueTokens } from '@lib/web3/opensea-api';
 import { parseAccountUniqueTokens } from '@lib/utils/uniqueTokens';
-
-export type Asset = {
-  info?: any;
-};
 
 const useAppState = create<StateContext>((set, get) => ({
   assets: [],
@@ -61,7 +58,8 @@ const useAppState = create<StateContext>((set, get) => ({
       const { user, library, getUserTokens } = get();
       const balance = utils.formatEther(await library.getBalance(address || user?.address || ''));
       //const ownedTokens = await getUserTokens(address || user?.address);
-      const ownedTokens = await fetchData(address || user?.address || '');
+      //const ownedTokens = await fetchData(address || user?.address || '');
+      const ownedTokens = await apiGetAccountUniqueTokens(address || user?.address || '', 0);
       set({
         isAuthenticated: true,
         user: { address: address || user?.address || '', balance, ownedTokens, ...user }

@@ -58,7 +58,6 @@ const Form = ({ sharePage }: FormProps) => {
               if (!res.ok) {
                 throw new FormError(res);
               }
-
               const data = await res.json();
               const params = {
                 id: data.id,

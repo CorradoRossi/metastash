@@ -16,9 +16,9 @@ const Profile = ({
   user
 }: {
   ethAccount: string;
-  acctBalance: number;
-  acctData: object | any;
+  acctBalance: string;
   pageState: string;
+  acctData: object | any;
   user: object | any;
 }) => {
   const { assets }: any = useAppState();

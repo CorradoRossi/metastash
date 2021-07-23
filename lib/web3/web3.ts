@@ -1,12 +1,12 @@
 import { formatUnits } from '@ethersproject/units';
 import { BigNumberish } from '@ethersproject/bignumber';
 
-const shortenHex = (hex: any, length: any = 4) => {
+export const shortenHex = (hex: any, length: any = 4) => {
   return `${hex.substring(0, length + 2)}...${hex.substring(hex.length - length)}`;
 };
 
 // type: Account | Transaction
-const formatEtherscanLink = (type: any, data: string) => {
+export const formatEtherscanLink = (type: any, data: string) => {
   if (!data) return '';
   switch (type) {
     case 'Account': {
@@ -21,14 +21,12 @@ const formatEtherscanLink = (type: any, data: string) => {
   }
 };
 
-const getETHBalance = (library: any, address: string) => {
+export const getETHBalance = (library: any, address: string) => {
   return library.getBalance(address).then((balance: any) => parseBalance(balance));
 };
 
-const parseBalance = (
+export const parseBalance = (
   balance: BigNumberish,
   decimals: number = 18,
   decimalsToDisplay: number = 3
 ) => Number(formatUnits(balance, decimals)).toFixed(decimalsToDisplay);
-
-export { shortenHex, formatEtherscanLink, getETHBalance, parseBalance };

@@ -4,6 +4,10 @@ export type Image = {
   url: string;
 };
 
+export type DataObject = {
+  assets: [];
+};
+
 export type Collectible = {
   name: string;
   bio: string;
