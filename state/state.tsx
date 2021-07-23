@@ -4,6 +4,7 @@ import { Contract, BigNumber, utils, Event } from 'ethers';
 import { TokenProps, StateContext } from '@lib/types';
 import { DEFAULT_USER } from '@lib/constants';
 import { fetchData } from '@lib/web3/opensea-fetch';
+import { parseAccountUniqueTokens } from '@lib/utils/uniqueTokens';
 
 export type Asset = {
   info?: any;
@@ -71,8 +72,8 @@ const useAppState = create<StateContext>((set, get) => ({
   },
   setAssets: async newAssets => {
     const { assets } = get();
-    let combinedAssets: any = assets.concat(newAssets);
-    set({ assets: combinedAssets });
+    let combinedAssets: any = await newAssets;
+    set({ assets: parseAccountUniqueTokens({ data: { assets: combinedAssets } }) });
   },
   setTokensOnSale: (tokensOnSale: TokenProps[]) => set({ tokensOnSale: tokensOnSale }),
   setEthPrice: (ethPrice: string) => set({ ethPrice: ethPrice }),
