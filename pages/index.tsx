@@ -8,7 +8,10 @@ const Home = () => {
   return (
     <Page meta={META} fullViewport>
       <SkipNavContent />
-      <HomeContent defaultUserData={{}} />
+      <HomeContent
+        defaultUserData={{ id: '', name: '', username: '' }}
+        defaultPageState={'registration'}
+      />
     </Page>
   );
 };

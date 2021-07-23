@@ -5,34 +5,53 @@ import Image from 'next/image';
 import styles from 'styles/collection-section.module.css';
 import GithubIcon from '@components/icons/icon-github-og';
 import TwitterIcon from '@components/icons/icon-twitterr';
-import { DEFAULT_INDEX } from '@lib/constants';
 import { formatAddressShort, copyToClipBoard } from '@lib/utils/utils';
 
-const CollectionItem = ({ ethAccount, acctBalance, assetArray }: any) => {
+const Profile = ({
+  ethAccount,
+  acctBalance,
+  assetArray
+}: {
+  ethAccount: string;
+  acctBalance: number;
+  assetArray: object | any;
+}) => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [dataArray, setDataArray] = useState<object | any>(DEFAULT_INDEX);
   const [account, setAccount] = useState(ethAccount);
   const [balance, setBalance] = useState(acctBalance);
+  const [combinedBids, setCombinedBids] = useState(0);
+  const [combinedLastSaleprice, setCombinedLastSaleprice] = useState(0);
 
   useEffect(() => {
-    if (assetArray?.assets?.length > 0) {
-      setDataArray(assetArray);
+    let localCombinedBids = 0;
+    let localCombinedLastSaleprice = 0;
+    if (assetArray) {
       setAccount(ethAccount);
       setBalance(acctBalance);
-      setIsLoading(false);
+      assetArray?.assets?.forEach((item: any) => {
+        if (item.topBid) {
+          item.topBid = true;
+          localCombinedBids += item.bid;
+        }
+        if (item.last_sale) {
+          item.last_sale = true;
+          localCombinedLastSaleprice += item.last_sale_price;
+        }
+      });
+      setCombinedBids(localCombinedBids);
+      setCombinedLastSaleprice(localCombinedLastSaleprice);
     }
-  }, [ethAccount, acctBalance, assetArray]);
+    setIsLoading(false);
+  }, [ethAccount, acctBalance, assetArray, isLoading]);
 
-  return isLoading ? (
-    <div></div>
-  ) : (
+  return !isLoading && assetArray?.assets?.length ? (
     <>
-      <div key={dataArray?.assets[0].name} className={styles.container}>
+      <div className={styles.container}>
         <div style={{ minWidth: '300px' }}>
           <Image
-            alt={dataArray?.assets[0].name}
-            title={dataArray?.assets[0].name}
-            src={dataArray?.assets[0].owner.profile_img_url}
+            alt={assetArray?.assets[0].name}
+            title={assetArray?.assets[0].name}
+            src={assetArray?.assets[0].owner.profile_img_url}
             className={styles.image}
             loading="lazy"
             height={320}
@@ -41,18 +60,18 @@ const CollectionItem = ({ ethAccount, acctBalance, assetArray }: any) => {
         </div>
         <div className={styles['collectible-details']}>
           <div>
-            <h1 className={styles.name}>{dataArray?.assets[0].owner.user.username}</h1>
+            <h1 className={styles.name}>{assetArray?.assets[0].owner.user.username}</h1>
             <p className={styles.title} style={{ fontWeight: 600 }}>
-              {`${dataArray?.assets[0].owner.user.username} @ `}
-              <span className={styles.company}>{dataArray?.assets[0].owner.user.username}</span>
+              {`${assetArray?.assets[0].owner.user.username} @ `}
+              <span className={styles.company}>{assetArray?.assets[0].owner.user.username}</span>
             </p>
             <h2 className={styles['bio-header']}>Bio</h2>
-            <p className={styles.bio}>{dataArray?.assets[0].bio}</p>
+            <p className={styles.bio}>{assetArray?.assets[0].bio}</p>
             <h3 className={styles['socials-header']}>Social Media</h3>
-            {dataArray?.assets[0].twitter ? (
+            {assetArray?.assets[0].twitter ? (
               <a
                 aria-label="Twitter"
-                href={dataArray?.assets[0].twitter}
+                href={assetArray?.assets[0].twitter}
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -63,11 +82,11 @@ const CollectionItem = ({ ethAccount, acctBalance, assetArray }: any) => {
                 <TwitterIcon />
               </span>
             )}
-            {dataArray?.assets[0].github ? (
+            {assetArray?.assets[0].github ? (
               <a
                 aria-label="GitHub"
                 className={styles.githubIcon}
-                href={dataArray?.assets[0].github}
+                href={assetArray?.assets[0].github}
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -81,10 +100,10 @@ const CollectionItem = ({ ethAccount, acctBalance, assetArray }: any) => {
           </div>
         </div>
       </div>
-      {dataArray?.assets[0] && (
+      {assetArray?.assets[0] && (
         <div className={styles['talk-details']}>
-          <h3 className={styles['socials-header']}>{dataArray?.assets[0].talk?.title}</h3>
-          <p>{dataArray?.assets[0].talk?.description}</p>
+          <h3 className={styles['socials-header']}>{assetArray?.assets[0].talk?.title}</h3>
+          <p>{assetArray?.assets[0].talk?.description}</p>
           <p
             onClick={() => copyToClipBoard(account)}
             style={{ fontWeight: 600, cursor: 'pointer' }}
@@ -98,12 +117,22 @@ const CollectionItem = ({ ethAccount, acctBalance, assetArray }: any) => {
           </p>
           <p style={{ fontWeight: 600 }}>
             <span>NFTs in wallet: </span>
-            {dataArray?.assets?.length}
+            {assetArray?.assets?.length}
+          </p>
+          <p style={{ fontWeight: 600 }}>
+            <span>Combined bids: </span>
+            {combinedBids}
+          </p>
+          <p style={{ fontWeight: 600 }}>
+            <span>Combined last sale price: </span>
+            {combinedLastSaleprice}
           </p>
         </div>
       )}
     </>
+  ) : (
+    <div></div>
   );
 };
 
-export default CollectionItem;
+export default Profile;
