@@ -1,5 +1,5 @@
 import { Job, Sponsor, Platform, Collectible } from '@lib/types';
-import * as datoCmsApi from './dato/dato';
+import * as datoCmsApi from './dato';
 
 let cmsApi: {
   getAllCollectibles: () => Promise<Collectible[]>;

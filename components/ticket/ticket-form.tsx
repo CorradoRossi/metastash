@@ -1,15 +1,15 @@
 import { useState, useRef } from 'react';
-import { scrollTo } from '@lib/smooth-scroll';
+import { scrollTo } from '@lib/utils/smooth-scroll';
 import cn from 'classnames';
 import GithubIcon from '@components/icons/icon-github-og';
 import CheckIcon from '@components/icons/icon-check';
 import { REPO, SITE_ORIGIN } from '@lib/constants';
-import isMobileOrTablet from '@lib/is-mobile-or-tablet';
+import isMobileOrTablet from '@lib/utils/is-mobile-or-tablet';
 import useHomeData from '@lib/hooks/use-home-data';
-import LoadingDots from '../utils/loading-dots';
+import LoadingDots from '../loading/loading-dots';
 import formStyles from 'styles/form.module.css';
 import ticketFormStyles from 'styles/ticket-form.module.css';
-import { saveGithubToken } from '@lib/user-api';
+import { saveGithubToken } from '@lib/cms/user-api';
 import { FormState, GitHubOAuthData, TicketFormProps } from '@lib/types';
 
 const githubEnabled = Boolean(process.env.NEXT_PUBLIC_GITHUB_OAUTH_CLIENT_ID);

@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { COOKIE } from '@lib/constants';
-import redis from '@lib/redis';
+import redis from '@lib/cms/redis';
 
 export default async function getAssets(req: NextApiRequest, res: NextApiResponse) {
   const id = req.cookies[COOKIE];

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { Platform, ScheduleSidebarProps } from '@lib/types';
 import styles from 'styles/schedule-sidebar.module.css';
-import Select from '../utils/select';
+import Select from '../loading/select';
 import TalkCard from './talk-card';
 import { format } from 'date-fns';
 

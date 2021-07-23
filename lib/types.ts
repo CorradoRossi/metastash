@@ -316,3 +316,25 @@ export type IconGithubProps = {
   color: string;
   size: number;
 };
+
+export type NetworkTypes = {
+  mainnet: 'georli' | 'kovan' | 'mainnet' | 'rinkeby' | 'ropsten';
+};
+
+export interface Asset {
+  address: string;
+  decimals: number;
+  name: string;
+  symbol: string;
+}
+
+export interface RainbowToken extends Asset {
+  color?: string;
+  highLiquidity?: boolean;
+  totalLiquidity?: number;
+  favorite?: boolean;
+  isRainbowCurated?: boolean;
+  isVerified?: boolean;
+  shadowColor?: string;
+  uniqueId: string;
+}

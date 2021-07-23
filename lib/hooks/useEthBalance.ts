@@ -1,5 +1,5 @@
 import { useWeb3React } from '@web3-react/core';
-import { parseBalance } from '../utils/web3';
+import { parseBalance } from '../web3/web3';
 import useKeepSWRDataLiveAsBlocksArrive from './useKeepSwrData';
 import useSWR from 'swr';
 

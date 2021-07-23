@@ -5,7 +5,7 @@ import Schedule from '@components/schedule/schedule';
 import Layout from '@components/layout/layout';
 import Header from '@components/layout/header';
 
-import { getAllPlatforms } from '@lib/cms-api';
+import { getAllPlatforms } from '@lib/cms/cms-api';
 import { ScheduleProps } from '@lib/types';
 import { META } from '@lib/constants';
 

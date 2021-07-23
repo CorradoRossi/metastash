@@ -4,7 +4,7 @@ import Page from '@components/layout/page';
 import SponsorSection from '@components/sponsors/sponsor-section';
 import Layout from '@components/layout/layout';
 
-import { getAllSponsors } from '@lib/cms-api';
+import { getAllSponsors } from '@lib/cms/cms-api';
 import { Sponsor, SponsorPageProps } from '@lib/types';
 import { META } from '@lib/constants';
 

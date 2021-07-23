@@ -5,7 +5,7 @@ import Layout from '@components/layout/layout';
 import CollectionItem from '@components/collection/collection-item';
 
 import { META } from '@lib/constants';
-import { getAllCollectibles } from '@lib/cms-api';
+import { getAllCollectibles } from '@lib/cms/cms-api';
 import { Collectible, CollectionPageProps } from '@lib/types';
 
 const CollectibleWrapper = ({ collectible }: CollectionPageProps) => {

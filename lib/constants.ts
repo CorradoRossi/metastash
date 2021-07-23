@@ -21,6 +21,9 @@ export const RSSI_WALLET = '0x90c19feA1eF7BEBA9274217431F148094795B074';
 export const CODE_OF_CONDUCT = 'https://metastash.xyz';
 export const REPO = 'https://github.com/CorradoRossi/Metastash';
 
+export const UNIQUE_TOKENS_LIMIT_PER_PAGE = 50;
+export const UNIQUE_TOKENS_LIMIT_TOTAL = 2000;
+
 export const META = {
   title: TITLE,
   description: META_DESCRIPTION
@@ -86,19 +89,18 @@ export const NAVIGATION = [
 //  }
 //];
 
-export const DEFAULT_INDEX = {
-  assets: [
-    {
-      name: 'Victor Apesalot',
-      image: { url: 'https://www.datocms-assets.com/49202/1623328125-boredape.png' },
-      title: 'CEO',
-      company: 'Hundred Monkey Club llc',
-      bio: "Just a small town ape, living in a lonely ape world. Let's share a banana!",
-      twitter: 'https://twitter.com/metastash',
-      github: 'https://github.com/CorradoRossi/',
-      talk: { title: 'Motivational Speaker', description: 'Ape in a place doing a thing' }
-    }
-  ]
+export const DEFAULT_USER = {
+  id: undefined,
+  address: undefined,
+  name: undefined,
+  username: undefined,
+  discord: undefined,
+  avatar: undefined,
+  avatar_url: undefined,
+  bio: undefined,
+  twitter: undefined,
+  github: undefined,
+  title: undefined
 };
 
 export const CONTRACTS = {
@@ -128,3 +130,7 @@ export const ACTIVITY_TYPES = {
   SEND: 'send',
   RECEIVE: 'receive'
 };
+
+// NFTs Contracts
+export const ENS_NFT_CONTRACT_ADDRESS = '0x57f1887a8bf19b14fc0df6fd9b2acc9af147ea85';
+export const UNIV3_NFT_CONTRACT_ADDRESS = '0xc36442b4a4522e871399cd717abdd847ab11fe88';

@@ -1,7 +1,7 @@
 {
   "name": "Metastash",
   "description": "Home of the STASH token",
-  "previewImage": "https://www.datocms-assets.com/49202/1622811228-tri-circle-purple.png",
+  "previewImage": "https://www.datocms-assets.com/49202/1623327815-icon-384x384.png",
   "datocmsProjectId": "37685",
   "deploymentType": "vercel",
   "buildCommand": "npm run build",
