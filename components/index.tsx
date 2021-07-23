@@ -34,13 +34,14 @@ const HomeContent = ({ defaultUserData, defaultPageState = 'registration' }: Hom
     if (account) {
       fetchData(account).then(res => setAcctData(res));
     }
+    console.log(account, 'account');
   }, [account, data]);
 
   return (
     <HomeDataContext.Provider value={{ acctData, userData, setUserData, setPageState }}>
       <Layout>
         <HomeContainer>
-          {ethAccount?.length > 0 ? (
+          {account ? (
             <>
               <Profile ethAccount={ethAccount} acctBalance={acctBalance} assetArray={acctData} />
             </>
