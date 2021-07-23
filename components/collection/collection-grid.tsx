@@ -4,7 +4,6 @@ import Image from 'next/image';
 import styles from 'styles/collection-grid.module.css';
 import { useWeb3React } from '@web3-react/core';
 import { apiGetAccountUniqueTokens } from '@lib/web3/opensea-api';
-//import { RSSI_WALLET } from '@lib/constants';
 
 type DataObject = {
   assets: [];
@@ -25,15 +24,9 @@ const CollectionGrid = () => {
     fetchData();
   }, []);
 
-  return isLoading ? (
-    <></>
-  ) : (
+  return !isLoading ? (
     <div className={styles.grid}>
-      {data?.assets?.length < 1 ? (
-        <>
-          <h2 className={styles.name}>There are no NFT's in your collection!</h2>
-        </>
-      ) : (
+      {data?.assets?.length ? (
         data?.assets?.map((asset: any) => (
           <Link key={asset?.permalink} href={`/collection/${asset?.id}`}>
             <a role="button" tabIndex={0} className={styles.card}>
@@ -63,8 +56,14 @@ const CollectionGrid = () => {
             </a>
           </Link>
         ))
+      ) : (
+        <>
+          <h2 className={styles.name}>There are no NFT's in your collection!</h2>
+        </>
       )}
     </div>
+  ) : (
+    <></>
   );
 };
 

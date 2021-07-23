@@ -53,7 +53,7 @@ const Profile = ({
           <Image
             alt={assetArray?.assets[0].name}
             title={assetArray?.assets[0].name}
-            src={assetArray?.assets[0].owner.profile_img_url}
+            src={assetArray?.assets[0].owner?.profile_img_url}
             className={styles.image}
             loading="lazy"
             height={320}

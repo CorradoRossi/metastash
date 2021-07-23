@@ -6,6 +6,10 @@ import {
 } from './opensea-api';
 import { dedupeAssetsWithFamilies, getFamilies } from '../parsers/uniqueTokens';
 import { getUniqueTokens, saveUniqueTokens } from '../utils/localStorage';
+let UNIQUE_TOKENS_GET_UNIQUE_TOKENS_REQUEST = 'UNIQUE_TOKENS_GET_UNIQUE_TOKENS_REQUEST';
+let UNIQUE_TOKENS_CLEAR_STATE_SHOWCASE = 'UNIQUE_TOKENS_CLEAR_STATE_SHOWCASE';
+let UNIQUE_TOKENS_GET_UNIQUE_TOKENS_SUCCESS = 'UNIQUE_TOKENS_GET_UNIQUE_TOKENS_SUCCESS';
+let UNIQUE_TOKENS_GET_UNIQUE_TOKENS_FAILURE = 'UNIQUE_TOKENS_GET_UNIQUE_TOKENS_FAILURE';
 
 export const fetchUniqueTokens = (showcaseAddress: any) => async (dispatch: any, getState: any) => {
   dispatch({
