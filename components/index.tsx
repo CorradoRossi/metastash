@@ -14,16 +14,18 @@ import { DEFAULT_USER } from '@lib/constants';
 import { useAppState } from '../state/state';
 
 const HomeContent = ({ defaultUserData, defaultPageState = 'registration' }: HomeProps) => {
-  const { user } = useAppState();
-  const { setUser } = useAppState(
+  const { library: libraryState, user, assets }: any = useAppState();
+  const { setUser, setLibrary, setAssets } = useAppState(
     useCallback(
-      ({ setUser }) => ({
-        setUser
+      ({ setUser, setLibrary, setAssets }) => ({
+        setUser,
+        setLibrary,
+        setAssets
       }),
       []
     )
   );
-  const { account }: any = useWeb3React();
+  const { library, account }: any = useWeb3React();
   const { data }: any = useETHBalance(account);
 
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -33,6 +35,7 @@ const HomeContent = ({ defaultUserData, defaultPageState = 'registration' }: Hom
   const [userData, setUserData] = useState<UserData>(defaultUserData);
   const [pageState, setPageState] = useState<PageState>(defaultPageState);
   const [localUser, setLocalUser] = useState<UserData>(DEFAULT_USER);
+  console.log(useAppState(), 'useAppStateee');
 
   useEffect(() => {
     async function doFetchData() {
@@ -40,9 +43,14 @@ const HomeContent = ({ defaultUserData, defaultPageState = 'registration' }: Hom
       setEthAccount(account);
       setAcctBalance(data);
       if (account) {
-        fetchData(account).then(res => setAcctData(res));
+        fetchData(account).then(res => {
+          setAcctData(res);
+          setAssets(res);
+        });
         fetchUser(account).then((res: any) => setLocalUser(res));
         setUser(account);
+        setUserData(user);
+        setLibrary(library);
         setPageState('loggedin');
         setIsLoading(false);
       }
@@ -56,14 +64,21 @@ const HomeContent = ({ defaultUserData, defaultPageState = 'registration' }: Hom
       setEthAccount(account);
       setAcctBalance(data);
       if (account) {
-        fetchData(account).then(res => setAcctData(res));
+        fetchData(account).then(res => {
+          setAcctData(res);
+          setAssets(res);
+        });
         fetchUser(account).then((res: any) => setLocalUser(res));
         setUser(account);
+        setUserData(user);
+        setLibrary(library);
         setPageState('loggedin');
         setIsLoading(false);
       }
     }
     doFetchData();
+    console.log(assets, 'assetsssss');
+    console.log(libraryState, 'libraryStateee');
   }, [account, data]);
 
   return (

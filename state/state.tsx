@@ -3,6 +3,11 @@ import create from 'zustand';
 import { Contract, BigNumber, utils, Event } from 'ethers';
 import { TokenProps, StateContext } from '@lib/types';
 import { DEFAULT_USER } from '@lib/constants';
+import { fetchData } from '@lib/web3/opensea-fetch';
+
+export type Asset = {
+  info?: any;
+};
 
 const useAppState = create<StateContext>((set, get) => ({
   assets: [],
@@ -20,7 +25,6 @@ const useAppState = create<StateContext>((set, get) => ({
   setContract: async (library: any, chainId: number) => {
     try {
       if (!library) throw new Error('No Web3 Found');
-
       const networkid = (id: number) => {
         switch (id) {
           case 1337:
@@ -31,17 +35,13 @@ const useAppState = create<StateContext>((set, get) => ({
       };
       const deployedNetwork =
         NFTT.networks[String(networkid(chainId)) as keyof typeof NFTT.networks];
-
       if (!deployedNetwork) {
         throw new Error('The network you selected is no supported yet.');
       }
-
       const { address } = deployedNetwork;
       const contract = new Contract(address, NFTT.abi, library.getSigner());
-
       const name = await contract.name();
       const symbol = await contract.symbol();
-
       set({
         library,
         contract,
@@ -58,21 +58,20 @@ const useAppState = create<StateContext>((set, get) => ({
   setUser: async (address?: string) => {
     try {
       const { user, library, getUserTokens } = get();
-
       const balance = utils.formatEther(await library.getBalance(address || user?.address || ''));
-      const ownedTokens = await getUserTokens(address || user?.address);
-
+      //const ownedTokens = await getUserTokens(address || user?.address);
+      const ownedTokens = await fetchData(address || user?.address || '');
       set({
         isAuthenticated: true,
-        user: { address: address || user?.address || '', balance, ownedTokens }
+        user: { address: address || user?.address || '', balance, ownedTokens, ...user }
       });
-    } catch (e) {
-      console.log(e);
+    } catch (err) {
+      console.log(err);
     }
   },
   setAssets: async newAssets => {
     const { assets } = get();
-    let combinedAssets = assets.concat(newAssets);
+    let combinedAssets: any = assets.concat(newAssets);
     set({ assets: combinedAssets });
   },
   setTokensOnSale: (tokensOnSale: TokenProps[]) => set({ tokensOnSale: tokensOnSale }),
@@ -111,7 +110,6 @@ const useAppState = create<StateContext>((set, get) => ({
           }
         })
       );
-
       return Array.from(ownedTokens).map(([_, token]) => token);
     } catch (e) {
       console.log(e);
