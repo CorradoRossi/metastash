@@ -1,3 +1,5 @@
+import { BigNumber, Contract } from 'ethers';
+
 export type Image = {
   url: string;
 };
@@ -169,8 +171,18 @@ export type PageState = 'registration' | 'ticket' | 'loggedin';
 export type UserData = {
   id?: string;
   ticketNumber?: number;
-  username?: string;
+  address?: string;
   name?: string;
+  username?: string;
+  discord?: string;
+  avatar?: string;
+  avatar_url?: string;
+  bio?: string;
+  twitter?: string;
+  github?: string;
+  title?: string;
+  balance?: string;
+  ownedTokens?: TokenProps[];
 };
 
 export type HomeDataContextType = {
@@ -338,3 +350,40 @@ export interface RainbowToken extends Asset {
   shadowColor?: string;
   uniqueId: string;
 }
+
+export interface StateContext {
+  isAuthenticated: boolean;
+  contract?: Contract;
+  contractDetails?: ContractPropsDetails;
+  user?: UserData;
+  tokensOnSale?: TokenProps[];
+  ethPrice?: string;
+  activatingConnector?: any;
+  transaction?: any;
+  library?: any;
+  setLibrary(library: any): void;
+  setAuthenticated(authenticated: boolean): void;
+  setTokensOnSale(tokensOnSale: TokenProps[]): void;
+  setEthPrice(ethPrice: string): void;
+  setActivatingConnector(activatingConnector: any): void;
+  setTransaction(transaction: any): void;
+  buyToken(id: string, price: BigNumber): void;
+  setStateUser(address?: string): void;
+  updateTokensOnSale(): Promise<boolean>;
+  setTokenSale(id: string, price: BigNumber, onSale: boolean): Promise<boolean>;
+  transferToken(id: string, to: string): void;
+  getUserTokens(address?: string): Promise<TokenProps[]>;
+}
+
+export type TokenProps = {
+  id: string;
+  uri: string;
+  price: BigNumber;
+  name: string;
+};
+
+export type ContractPropsDetails = {
+  name?: string;
+  symbol?: string;
+  address?: string;
+};
