@@ -83,8 +83,6 @@ const HomeContent = ({ defaultUserData, defaultPageState = 'registration' }: Hom
       }
     }
     doFetchData();
-    //console.log(assets, 'assetsssss');
-    console.log(libraryState, 'libraryStateee');
   }, [account, data]);
 
   return (
