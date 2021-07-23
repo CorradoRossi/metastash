@@ -7,7 +7,7 @@ import HomeContainer from './home/home-container';
 import Layout from './layout/layout';
 import Hero from './home/hero';
 import Form from './home/form';
-import Profile from './home/profile';
+import Profile from './profile/profile';
 import { fetchData } from '@lib/web3/opensea-fetch';
 import { fetchUser } from '@lib/web3/opensea-fetch-user';
 import { DEFAULT_USER } from '@lib/constants';
