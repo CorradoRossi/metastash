@@ -13,13 +13,33 @@ const CollectionItem = ({ ethAccount, acctBalance, assetArray }: any) => {
   const [dataArray, setDataArray] = useState<object | any>(DEFAULT_INDEX);
   const [account, setAccount] = useState(ethAccount);
   const [balance, setBalance] = useState(acctBalance);
+  const [combinedBids, setCombinedBids] = useState(0);
+  const [combinedLastSaleprice, setCombinedLastSaleprice] = useState(0);
 
   useEffect(() => {
+    let localCombinedBids = 0;
+    let localCombinedLastSaleprice = 0;
     if (assetArray?.assets?.length > 0) {
       setDataArray(assetArray);
       setAccount(ethAccount);
       setBalance(acctBalance);
       setIsLoading(false);
+    }
+    if (assetArray?.assets?.length > 0) {
+      assetArray.assets.forEach((item: any) => {
+        if (item.topBid) {
+          item.topBid = true;
+          localCombinedBids += item.bid;
+        }
+        if (item.last_sale) {
+          item.last_sale = true;
+          localCombinedLastSaleprice += item.last_sale_price;
+        }
+      });
+      setCombinedBids(localCombinedBids);
+      setCombinedLastSaleprice(localCombinedLastSaleprice);
+      console.log(localCombinedBids);
+      console.log(localCombinedLastSaleprice);
     }
   }, [ethAccount, acctBalance, assetArray]);
 
@@ -99,6 +119,14 @@ const CollectionItem = ({ ethAccount, acctBalance, assetArray }: any) => {
           <p style={{ fontWeight: 600 }}>
             <span>NFTs in wallet: </span>
             {dataArray?.assets?.length}
+          </p>
+          <p style={{ fontWeight: 600 }}>
+            <span>Combined bids: </span>
+            {combinedBids}
+          </p>
+          <p style={{ fontWeight: 600 }}>
+            <span>Combined last sale price: </span>
+            {combinedLastSaleprice}
           </p>
         </div>
       )}

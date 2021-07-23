@@ -29,6 +29,7 @@ const CollectionGrid = () => {
       setIsLoading(false);
     }
     fetchData();
+    console.log(data);
   }, []);
 
   return isLoading ? (
