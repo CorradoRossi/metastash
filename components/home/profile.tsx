@@ -5,6 +5,7 @@ import styles from 'styles/collection-section.module.css';
 import GithubIcon from '@components/icons/icon-github-og';
 import TwitterIcon from '@components/icons/icon-twitterr';
 import { formatAddressShort, copyToClipBoard } from '@lib/utils/utils';
+import { DEFAULT_PROFILE_PIC } from '@lib/constants';
 
 const Profile = ({
   ethAccount,
@@ -55,7 +56,7 @@ const Profile = ({
           <Image
             alt={user?.name}
             title={user?.name}
-            src={user?.avatar}
+            src={user?.avatar !== '' ? user?.avatar_url : DEFAULT_PROFILE_PIC}
             className={styles.image}
             loading="lazy"
             height={320}

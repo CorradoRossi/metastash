@@ -1,14 +1,7 @@
-import { OPENSEA_BASE_URL, OPENSEA_ASSETS } from '../constants';
+import { DEFAULT_USER, OPENSEA_BASE_URL, OPENSEA_ASSETS } from '../constants';
 
 export async function fetchUser(account: string) {
-  let user = {
-    address: '',
-    name: '',
-    username: '',
-    discord: '',
-    avatar: '',
-    avatar_url: ''
-  };
+  let user = DEFAULT_USER;
   const updatedUser = (found: any) => {
     user.address = found?.owner?.address;
     user.name = found?.owner?.user?.username;

@@ -11,6 +11,7 @@ import Profile from './home/profile';
 import { fetchData } from '@lib/web3/opensea-fetch';
 import { fetchUser } from '@lib/web3/get-user';
 import { apiGetAccountUniqueTokens } from '@lib/web3/opensea-api';
+import { DEFAULT_USER } from '@lib/constants';
 
 const HomeContent = ({ defaultUserData, defaultPageState = 'registration' }: HomeProps) => {
   const { account }: any = useWeb3React();
@@ -23,7 +24,7 @@ const HomeContent = ({ defaultUserData, defaultPageState = 'registration' }: Hom
   const [assetArray, setAssetArray] = useState({ assets: [] });
   const [userData, setUserData] = useState<UserData>(defaultUserData);
   const [pageState, setPageState] = useState<PageState>(defaultPageState);
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState(DEFAULT_USER);
 
   useEffect(() => {
     async function doFetchData() {

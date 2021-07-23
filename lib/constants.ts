@@ -101,6 +101,16 @@ export const DEFAULT_INDEX = {
   ]
 };
 
+export const DEFAULT_USER = {
+  id: '',
+  address: '',
+  name: '',
+  username: '',
+  discord: '',
+  avatar: '',
+  avatar_url: ''
+};
+
 export const CONTRACTS = {
   ZORA: '0xabefbc9fd2f806065b4f3c237d4b59d9a97bcac7',
   RARIBLE_V2: '0x60f80121c31a0d46b5279700f9df786054aa5ee5',
