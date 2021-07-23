@@ -128,3 +128,7 @@ export const ACTIVITY_TYPES = {
   SEND: 'send',
   RECEIVE: 'receive'
 };
+
+// NFTs Contracts
+export const ENS_NFT_CONTRACT_ADDRESS = '0x57f1887a8bf19b14fc0df6fd9b2acc9af147ea85';
+export const UNIV3_NFT_CONTRACT_ADDRESS = '0xc36442b4a4522e871399cd717abdd847ab11fe88';

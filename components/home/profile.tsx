@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import cn from 'classnames';
-import Link from 'next/link';
 import Image from 'next/image';
 import styles from 'styles/collection-section.module.css';
 import GithubIcon from '@components/icons/icon-github-og';

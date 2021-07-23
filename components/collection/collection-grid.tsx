@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import styles from 'styles/collection-grid.module.css';
 import { useWeb3React } from '@web3-react/core';
-import { OPENSEA_BASE_URL, OPENSEA_ASSETS } from '@lib/constants';
+import { apiGetAccountUniqueTokens } from '@lib/web3/opensea-api';
 //import { RSSI_WALLET } from '@lib/constants';
 
 type DataObject = {
@@ -17,19 +17,12 @@ const CollectionGrid = () => {
 
   useEffect(() => {
     async function fetchData() {
-      const url = `${
-        OPENSEA_BASE_URL + OPENSEA_ASSETS
-      }?owner=${account}&order_direction=desc&offset=0&limit=50`;
-      const options = { method: 'GET' };
       setIsLoading(true);
-      const fetcher = await window.fetch(url, options);
-      const response = await fetcher.json();
-      setData(response);
-      console.log(response);
-      setIsLoading(false);
+      await apiGetAccountUniqueTokens(account, 0)
+        .then((res: any) => setData({ assets: res }))
+        .then(() => setIsLoading(false));
     }
     fetchData();
-    console.log(data);
   }, []);
 
   return isLoading ? (

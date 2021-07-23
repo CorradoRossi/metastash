@@ -316,3 +316,7 @@ export type IconGithubProps = {
   color: string;
   size: number;
 };
+
+export type NetworkTypes = {
+  mainnet: 'georli' | 'kovan' | 'mainnet' | 'rinkeby' | 'ropsten';
+};
