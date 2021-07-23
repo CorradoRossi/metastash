@@ -41,6 +41,7 @@ const CollectionItem = ({ ethAccount, acctBalance, assetArray }: any) => {
       console.log(localCombinedBids);
       console.log(localCombinedLastSaleprice);
     }
+    console.log(dataArray, 'dataArray');
   }, [ethAccount, acctBalance, assetArray]);
 
   return isLoading ? (

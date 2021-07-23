@@ -32,7 +32,7 @@ const HomeContent = ({ defaultUserData, defaultPageState = 'registration' }: Hom
   useEffect(() => {
     setEthAccount(account);
     setAcctBalance(data);
-  }, [account, data]);
+  }, [account, data, ethAccount]);
 
   return isLoading ? (
     <div></div>
