@@ -33,17 +33,17 @@ const HomeContent = ({ defaultUserData, defaultPageState = 'registration' }: Hom
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [ethAccount, setEthAccount] = useState<string>('');
   const [acctBalance, setAcctBalance] = useState<string>('0.0');
-  const [acctData, setAcctData] = useState({ assets: [] });
+  const [acctData, setAcctData] = useState<object>({ assets: [] });
   const [userData, setUserData] = useState<UserData>(defaultUserData);
   const [pageState, setPageState] = useState<PageState>(defaultPageState);
   const [localUser, setLocalUser] = useState<UserData>(DEFAULT_USER);
 
   async function doFetchData() {
     setIsLoading(true);
-    setEthAccount(account);
-    setAcctBalance(data);
-    setEthPrice(data);
     if (account) {
+      setEthAccount(account);
+      setAcctBalance(data);
+      setEthPrice(data);
       fetchData(account).then(res => {
         setAcctData(res);
         //setAssets(res);

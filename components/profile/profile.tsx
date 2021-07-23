@@ -23,9 +23,9 @@ const Profile = ({
 }) => {
   const { assets }: any = useAppState();
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [account, setAccount] = useState(ethAccount);
-  const [balance, setBalance] = useState(acctBalance);
-  const [combinedBids, setCombinedBids] = useState(0);
+  const [account, setAccount] = useState<string>(ethAccount);
+  const [balance, setBalance] = useState<string>(acctBalance);
+  const [combinedBids, setCombinedBids] = useState<number>(0);
   const [combinedLastSaleprice, setCombinedLastSaleprice] = useState(0);
 
   useEffect(() => {
@@ -36,11 +36,9 @@ const Profile = ({
       setBalance(acctBalance);
       acctData?.assets?.forEach((item: any) => {
         if (item.topBid) {
-          item.topBid = true;
-          localCombinedBids += item.bid;
+          localCombinedBids += item.topBid;
         }
         if (item.last_sale) {
-          item.last_sale = true;
           localCombinedLastSaleprice += item.last_sale_price;
         }
       });

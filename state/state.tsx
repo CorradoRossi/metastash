@@ -54,22 +54,22 @@ const useAppState = create<StateContext>((set, get) => ({
     }
   },
   setUser: async (address?: string) => {
+    const { user, library } = get();
     try {
-      const { user, library, getUserTokens } = get();
-      const balance = utils.formatEther(await library.getBalance(address || user?.address || ''));
-      //const ownedTokens = await getUserTokens(address || user?.address);
-      //const ownedTokens = await fetchData(address || user?.address || '');
-      const ownedTokens = await apiGetAccountUniqueTokens(address || user?.address || '', 0);
+      let balance;
+      if (library) {
+        balance = utils.formatEther(await library.getBalance(address || user?.address));
+      }
+      const ownedTokens = await apiGetAccountUniqueTokens(address || user?.address, 0);
       set({
         isAuthenticated: true,
-        user: { address: address || user?.address || '', balance, ownedTokens, ...user }
+        user: { address: address || user?.address, balance, ownedTokens, ...user }
       });
     } catch (err) {
       console.log(err);
     }
   },
   setAssets: async newAssets => {
-    //const { assets } = get();
     let combinedAssets: any = await newAssets;
     set({ assets: parseAccountUniqueTokens({ data: { assets: combinedAssets } }) });
   },
