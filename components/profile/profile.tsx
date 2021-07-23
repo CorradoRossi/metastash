@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import cn from 'classnames';
 import Image from 'next/image';
-import styles from 'styles/collection-section.module.css';
+import styles from 'styles/profile-section.module.css';
 import GithubIcon from '@components/icons/icon-github-og';
 import TwitterIcon from '@components/icons/icon-twitterr';
 import { formatAddressShort, copyToClipBoard } from '@lib/utils/utils';
@@ -52,89 +52,91 @@ const Profile = ({
 
   return !isLoading && pageState === 'loggedin' && user ? (
     <>
-      <div className={styles.container}>
-        <div style={{ minWidth: '300px' }}>
-          <Image
-            alt={user?.name}
-            title={user?.name}
-            src={user?.avatar_url ? user?.avatar_url : DEFAULT_PROFILE_PIC}
-            className={styles.image}
-            loading="lazy"
-            height={320}
-            width={320}
-          />
-        </div>
-        <div className={styles['collectible-details']}>
-          <div>
-            <h1 className={styles.name}>{user?.username}</h1>
-            <p className={styles.title} style={{ fontWeight: 600 }}>
-              {`${user?.username} @ `}
-              <span className={styles.company}>{user?.username}</span>
-            </p>
-            <h2 className={styles['bio-header']}>Bio</h2>
-            <p className={styles.bio}>{user?.bio}</p>
-            <h3 className={styles['socials-header']}>Social Media</h3>
-            {user?.twitter ? (
-              <a
-                aria-label="Twitter"
-                href={user?.twitter}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <TwitterIcon />
-              </a>
-            ) : (
-              <span className={styles.disabled}>
-                <TwitterIcon />
-              </span>
-            )}
-            {user?.github ? (
-              <a
-                aria-label="GitHub"
-                className={styles.githubIcon}
-                href={user?.github}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <GithubIcon color="#D8D8D8" size={24} />
-              </a>
-            ) : (
-              <span className={cn(styles.githubIcon, styles.disabled)}>
-                <GithubIcon color="#D8D8D8" size={24} />
-              </span>
-            )}
+      <div className={styles.profilecontainer}>
+        <div style={{ display: 'flex', justifyContent: 'flex-start', width: '100%' }}>
+          <div style={{ minWidth: '300px' }}>
+            <Image
+              alt={user?.name}
+              title={user?.name}
+              src={user?.avatar_url ? user?.avatar_url : DEFAULT_PROFILE_PIC}
+              className={styles.image}
+              loading="lazy"
+              height={320}
+              width={320}
+            />
+          </div>
+          <div className={styles['collectible-details']}>
+            <div>
+              <h1 className={styles.name}>{user?.username}</h1>
+              <p className={styles.title} style={{ fontWeight: 600 }}>
+                {`${user?.username} @ `}
+                <span className={styles.company}>{user?.username}</span>
+              </p>
+              <h2 className={styles['bio-header']}>Bio</h2>
+              <p className={styles.bio}>{user?.bio}</p>
+              <h3 className={styles['socials-header']}>Social Media</h3>
+              {user?.twitter ? (
+                <a
+                  aria-label="Twitter"
+                  href={user?.twitter}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <TwitterIcon />
+                </a>
+              ) : (
+                <span className={styles.disabled}>
+                  <TwitterIcon />
+                </span>
+              )}
+              {user?.github ? (
+                <a
+                  aria-label="GitHub"
+                  className={styles.githubIcon}
+                  href={user?.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <GithubIcon color="#D8D8D8" size={24} />
+                </a>
+              ) : (
+                <span className={cn(styles.githubIcon, styles.disabled)}>
+                  <GithubIcon color="#D8D8D8" size={24} />
+                </span>
+              )}
+            </div>
           </div>
         </div>
+        {user && (
+          <div className={styles['talk-details']}>
+            <h3 className={styles['socials-header']}>{user?.talk?.title}</h3>
+            <p>{user?.talk?.description}</p>
+            <p
+              onClick={() => copyToClipBoard(account)}
+              style={{ fontWeight: 600, cursor: 'pointer' }}
+            >
+              <span>Address: </span>
+              {formatAddressShort(account)}
+            </p>
+            <p style={{ fontWeight: 600 }}>
+              <span>Balance: </span>
+              {balance}
+            </p>
+            <p style={{ fontWeight: 600 }}>
+              <span>NFTs in wallet: </span>
+              {assets?.length}
+            </p>
+            <p style={{ fontWeight: 600 }}>
+              <span>Combined bids: </span>
+              {combinedBids}
+            </p>
+            <p style={{ fontWeight: 600 }}>
+              <span>Combined last sale price: </span>
+              {combinedLastSaleprice}
+            </p>
+          </div>
+        )}
       </div>
-      {user && (
-        <div className={styles['talk-details']}>
-          <h3 className={styles['socials-header']}>{user?.talk?.title}</h3>
-          <p>{user?.talk?.description}</p>
-          <p
-            onClick={() => copyToClipBoard(account)}
-            style={{ fontWeight: 600, cursor: 'pointer' }}
-          >
-            <span>Address: </span>
-            {formatAddressShort(account)}
-          </p>
-          <p style={{ fontWeight: 600 }}>
-            <span>Balance: </span>
-            {balance}
-          </p>
-          <p style={{ fontWeight: 600 }}>
-            <span>NFTs in wallet: </span>
-            {assets?.length}
-          </p>
-          <p style={{ fontWeight: 600 }}>
-            <span>Combined bids: </span>
-            {combinedBids}
-          </p>
-          <p style={{ fontWeight: 600 }}>
-            <span>Combined last sale price: </span>
-            {combinedLastSaleprice}
-          </p>
-        </div>
-      )}
     </>
   ) : (
     <div></div>
