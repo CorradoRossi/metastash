@@ -9,7 +9,7 @@ import Hero from './home/hero';
 import Form from './home/form';
 import Profile from './home/profile';
 import { fetchData } from '@lib/web3/opensea-fetch';
-import { fetchUser } from '@lib/web3/get-user';
+import { fetchUser } from '@lib/web3/opensea-fetch-user';
 import { DEFAULT_USER } from '@lib/constants';
 
 const HomeContent = ({ defaultUserData, defaultPageState = 'registration' }: HomeProps) => {

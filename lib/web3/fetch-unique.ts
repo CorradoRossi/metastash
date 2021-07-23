@@ -5,6 +5,8 @@ import {
   UNIQUE_TOKENS_LIMIT_TOTAL
 } from './opensea-api';
 import { dedupeAssetsWithFamilies, getFamilies } from '../parsers/uniqueTokens';
+let uniqueTokensHandle = null;
+
 import { getUniqueTokens, saveUniqueTokens } from '../utils/localStorage';
 let UNIQUE_TOKENS_GET_UNIQUE_TOKENS_REQUEST = 'UNIQUE_TOKENS_GET_UNIQUE_TOKENS_REQUEST';
 let UNIQUE_TOKENS_CLEAR_STATE_SHOWCASE = 'UNIQUE_TOKENS_CLEAR_STATE_SHOWCASE';
@@ -66,7 +68,6 @@ export const fetchUniqueTokens = (showcaseAddress: any) => async (dispatch: any,
         const incomingFamilies = without(newFamilies, ...existingFamilies);
         if (incomingFamilies.length) {
           const dedupedAssets = dedupeAssetsWithFamilies(assets, incomingFamilies);
-          dispatch(dataUpdateAssets(dedupedAssets));
         }
         if (!showcaseAddress) {
           saveUniqueTokens(uniqueTokens, accountAddress);
@@ -79,7 +80,7 @@ export const fetchUniqueTokens = (showcaseAddress: any) => async (dispatch: any,
         showcase: !!showcaseAddress,
         type: UNIQUE_TOKENS_GET_UNIQUE_TOKENS_FAILURE
       });
-      captureException(error);
+      console.log(error);
     }
   };
 
