@@ -25,7 +25,7 @@ const Page = ({ meta, children, fullViewport = false }: PageProps) => {
         <link rel="apple-touch-icon" sizes="180x180" href="/icons/icon-192x192.png" />
         <link rel="icon" type="image/png" sizes="32x32" href="/icons/icon-192x192.png" />
         <link rel="icon" type="image/png" sizes="16x16" href="/icons/icon-192x192.png" />
-        <link rel="shortcut icon" type="image/png" sizes="16x16" href="/icons/icon-192x192.png" />
+        <link rel="shortcut icon" type="image/png" sizes="16x16" href="/icons/favicon.ico" />
         <link rel="manifest" href="/site.webmanifest" />
         <link
           rel="preload"

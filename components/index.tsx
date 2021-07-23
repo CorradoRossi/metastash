@@ -14,7 +14,6 @@ const HomeContent = ({ defaultUserData, defaultPageState = 'registration' }: Hom
   const { account }: any = useWeb3React();
   const { data }: any = useETHBalance(account);
 
-  const [isLoading, setIsLoading] = useState(true);
   const [ethAccount, setEthAccount] = useState('');
   const [acctBalance, setAcctBalance] = useState(0);
   const [acctData, setAcctData] = useState({ assets: [] });
@@ -24,23 +23,24 @@ const HomeContent = ({ defaultUserData, defaultPageState = 'registration' }: Hom
   useEffect(() => {
     setEthAccount(account);
     setAcctBalance(data);
-    setIsLoading(true);
-    fetchData(account).then(res => setAcctData(res));
-    setIsLoading(false);
+    if (account) {
+      fetchData(account).then(res => setAcctData(res));
+    }
   }, []);
 
   useEffect(() => {
     setEthAccount(account);
     setAcctBalance(data);
-  }, [account, data, ethAccount]);
+    if (account) {
+      fetchData(account).then(res => setAcctData(res));
+    }
+  }, [account, data]);
 
-  return isLoading ? (
-    <div></div>
-  ) : (
+  return (
     <HomeDataContext.Provider value={{ acctData, userData, setUserData, setPageState }}>
       <Layout>
         <HomeContainer>
-          {ethAccount ? (
+          {ethAccount?.length > 0 ? (
             <>
               <Profile ethAccount={ethAccount} acctBalance={acctBalance} assetArray={acctData} />
             </>
