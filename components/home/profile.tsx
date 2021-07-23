@@ -55,7 +55,7 @@ const Profile = ({
           <Image
             alt={user?.name}
             title={user?.name}
-            src={user?.avatar !== '' ? user?.avatar_url : DEFAULT_PROFILE_PIC}
+            src={user?.avatar_url ? user?.avatar_url : DEFAULT_PROFILE_PIC}
             className={styles.image}
             loading="lazy"
             height={320}
