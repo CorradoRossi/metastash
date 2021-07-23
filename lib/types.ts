@@ -164,7 +164,7 @@ export type MonitizeEvent = {
   transactionHash: string;
 };
 
-export type PageState = 'registration' | 'ticket';
+export type PageState = 'registration' | 'ticket' | 'loggedin';
 
 export type UserData = {
   id?: string;

@@ -29,10 +29,11 @@ const HomeContent = ({ defaultUserData, defaultPageState = 'registration' }: Hom
   }, []);
 
   useEffect(() => {
-    setEthAccount(account);
-    setAcctBalance(data);
     if (account) {
       fetchData(account).then(res => setAcctData(res));
+      setEthAccount(account);
+      setAcctBalance(data);
+      setPageState('loggedin');
     }
     console.log(account, 'account');
   }, [account, data]);
@@ -43,7 +44,12 @@ const HomeContent = ({ defaultUserData, defaultPageState = 'registration' }: Hom
         <HomeContainer>
           {account ? (
             <>
-              <Profile ethAccount={ethAccount} acctBalance={acctBalance} assetArray={acctData} />
+              <Profile
+                ethAccount={ethAccount}
+                acctBalance={acctBalance}
+                assetArray={acctData}
+                pageState={pageState}
+              />
             </>
           ) : (
             <>
