@@ -12,6 +12,7 @@ import { fetchData } from '@lib/web3/opensea-fetch';
 import { fetchUser } from '@lib/web3/opensea-fetch-user';
 import { DEFAULT_USER } from '@lib/constants';
 import { useAppState } from '../state/state';
+import { fetchUniqueTokens } from '@lib/web3/fetch-unique';
 
 const HomeContent = ({ defaultUserData, defaultPageState = 'registration' }: HomeProps) => {
   const { library: libraryState, user, assets }: any = useAppState();
@@ -35,7 +36,6 @@ const HomeContent = ({ defaultUserData, defaultPageState = 'registration' }: Hom
   const [userData, setUserData] = useState<UserData>(defaultUserData);
   const [pageState, setPageState] = useState<PageState>(defaultPageState);
   const [localUser, setLocalUser] = useState<UserData>(DEFAULT_USER);
-  console.log(useAppState(), 'useAppStateee');
 
   useEffect(() => {
     async function doFetchData() {
@@ -46,6 +46,9 @@ const HomeContent = ({ defaultUserData, defaultPageState = 'registration' }: Hom
         fetchData(account).then(res => {
           setAcctData(res);
           setAssets(res);
+        });
+        fetchUniqueTokens(user, assets, setAssets, account).then(res => {
+          console.log(res, 'this is the unique tokens one');
         });
         fetchUser(account).then((res: any) => setLocalUser(res));
         setUser(account);
@@ -67,6 +70,9 @@ const HomeContent = ({ defaultUserData, defaultPageState = 'registration' }: Hom
         fetchData(account).then(res => {
           setAcctData(res);
           setAssets(res);
+        });
+        fetchUniqueTokens(user, assets, setAssets, account).then(res => {
+          console.log(res, 'this is the unique tokens one');
         });
         fetchUser(account).then((res: any) => setLocalUser(res));
         setUser(account);
