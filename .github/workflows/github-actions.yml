@@ -1,0 +1,2 @@
+- name: Capture Vercel Preview URL
+  uses: aaimio/vercel-preview-url-action@v0.0.3
