@@ -44,6 +44,7 @@ const Profile = ({
       setCombinedLastSaleprice(localCombinedLastSaleprice);
     }
     setIsLoading(false);
+    console.log(assetArray, 'assetArray');
   }, [ethAccount, acctBalance, assetArray, isLoading]);
 
   return !isLoading && pageState === 'loggedin' && assetArray?.assets?.length ? (
