@@ -352,6 +352,7 @@ export interface RainbowToken extends Asset {
 }
 
 export interface StateContext {
+  assets: any;
   isAuthenticated: boolean;
   contract?: Contract;
   contractDetails?: ContractPropsDetails;
@@ -361,14 +362,16 @@ export interface StateContext {
   activatingConnector?: any;
   transaction?: any;
   library?: any;
+  setAssets(newAssets: any): void;
   setLibrary(library: any): void;
+  setContract(library: any, chainId: any): void;
   setAuthenticated(authenticated: boolean): void;
   setTokensOnSale(tokensOnSale: TokenProps[]): void;
   setEthPrice(ethPrice: string): void;
   setActivatingConnector(activatingConnector: any): void;
   setTransaction(transaction: any): void;
   buyToken(id: string, price: BigNumber): void;
-  setStateUser(address?: string): void;
+  setUser(address?: string): void;
   updateTokensOnSale(): Promise<boolean>;
   setTokenSale(id: string, price: BigNumber, onSale: boolean): Promise<boolean>;
   transferToken(id: string, to: string): void;

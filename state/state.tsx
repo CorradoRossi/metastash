@@ -5,6 +5,7 @@ import { TokenProps, StateContext } from '@lib/types';
 import { DEFAULT_USER } from '@lib/constants';
 
 const useAppState = create<StateContext>((set, get) => ({
+  assets: [],
   isAuthenticated: false,
   contract: undefined,
   user: DEFAULT_USER,
@@ -54,13 +55,9 @@ const useAppState = create<StateContext>((set, get) => ({
       console.log(e);
     }
   },
-  setStateUser: async (address?: string) => {
+  setUser: async (address?: string) => {
     try {
-      const { contract, user, library, getUserTokens } = get();
-
-      if (!library) throw new Error('No Web3 Found');
-      if (!contract) throw new Error('No contract found');
-      if (!user && !address) throw new Error('No user found');
+      const { user, library, getUserTokens } = get();
 
       const balance = utils.formatEther(await library.getBalance(address || user?.address || ''));
       const ownedTokens = await getUserTokens(address || user?.address);
@@ -72,6 +69,11 @@ const useAppState = create<StateContext>((set, get) => ({
     } catch (e) {
       console.log(e);
     }
+  },
+  setAssets: async newAssets => {
+    const { assets } = get();
+    let combinedAssets = assets.concat(newAssets);
+    set({ assets: combinedAssets });
   },
   setTokensOnSale: (tokensOnSale: TokenProps[]) => set({ tokensOnSale: tokensOnSale }),
   setEthPrice: (ethPrice: string) => set({ ethPrice: ethPrice }),

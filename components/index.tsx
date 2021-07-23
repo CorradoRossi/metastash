@@ -15,10 +15,10 @@ import { useAppState } from '../state/state';
 
 const HomeContent = ({ defaultUserData, defaultPageState = 'registration' }: HomeProps) => {
   const { user } = useAppState();
-  const { setStateUser } = useAppState(
+  const { setUser } = useAppState(
     useCallback(
-      ({ setStateUser }) => ({
-        setStateUser
+      ({ setUser }) => ({
+        setUser
       }),
       []
     )
@@ -32,7 +32,7 @@ const HomeContent = ({ defaultUserData, defaultPageState = 'registration' }: Hom
   const [acctData, setAcctData] = useState({ assets: [] });
   const [userData, setUserData] = useState<UserData>(defaultUserData);
   const [pageState, setPageState] = useState<PageState>(defaultPageState);
-  const [localUser, setUser] = useState<UserData>(DEFAULT_USER);
+  const [localUser, setLocalUser] = useState<UserData>(DEFAULT_USER);
 
   useEffect(() => {
     async function doFetchData() {
@@ -41,8 +41,8 @@ const HomeContent = ({ defaultUserData, defaultPageState = 'registration' }: Hom
       setAcctBalance(data);
       if (account) {
         fetchData(account).then(res => setAcctData(res));
-        fetchUser(account).then((res: any) => setUser(res));
-        setStateUser(account);
+        fetchUser(account).then((res: any) => setLocalUser(res));
+        setUser(account);
         setPageState('loggedin');
         setIsLoading(false);
       }
@@ -57,15 +57,13 @@ const HomeContent = ({ defaultUserData, defaultPageState = 'registration' }: Hom
       setAcctBalance(data);
       if (account) {
         fetchData(account).then(res => setAcctData(res));
-        fetchUser(account).then((res: any) => setUser(res));
-        setStateUser(account);
+        fetchUser(account).then((res: any) => setLocalUser(res));
+        setUser(account);
         setPageState('loggedin');
         setIsLoading(false);
       }
     }
     doFetchData();
-    console.log(user, 'user');
-    console.log(localUser, 'localUser');
   }, [account, data]);
 
   return (
