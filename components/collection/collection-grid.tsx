@@ -3,7 +3,6 @@ import Link from 'next/link';
 import Image from 'next/image';
 import styles from 'styles/collection-grid.module.css';
 import { useAppState } from '../../state/state';
-import { parseAccountUniqueTokens } from '@lib/utils/uniqueTokens';
 
 type DataObject = {
   assets: [];

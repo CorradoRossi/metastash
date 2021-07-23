@@ -6,6 +6,7 @@ import GithubIcon from '@components/icons/icon-github-og';
 import TwitterIcon from '@components/icons/icon-twitterr';
 import { formatAddressShort, copyToClipBoard } from '@lib/utils/utils';
 import { DEFAULT_PROFILE_PIC } from '@lib/constants';
+import { useAppState } from '../../state/state';
 
 const Profile = ({
   ethAccount,
@@ -20,6 +21,7 @@ const Profile = ({
   pageState: string;
   user: object | any;
 }) => {
+  const { assets }: any = useAppState();
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [account, setAccount] = useState(ethAccount);
   const [balance, setBalance] = useState(acctBalance);
@@ -121,7 +123,7 @@ const Profile = ({
           </p>
           <p style={{ fontWeight: 600 }}>
             <span>NFTs in wallet: </span>
-            {acctData?.assets?.length}
+            {assets?.length}
           </p>
           <p style={{ fontWeight: 600 }}>
             <span>Combined bids: </span>
