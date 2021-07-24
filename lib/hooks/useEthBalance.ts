@@ -9,7 +9,7 @@ const getETHBalance = (library: any) => {
   };
 };
 
-const useETHBalance = (address: any, suspense = false) => {
+export const useETHBalance = (address: any, suspense = false) => {
   const { library, chainId } = useWeb3React();
   const shouldFetch = typeof address === 'string' && !!library;
   const result = useSWR(
@@ -21,5 +21,3 @@ const useETHBalance = (address: any, suspense = false) => {
   useKeepSWRDataLiveAsBlocksArrive(result.mutate);
   return result;
 };
-
-export default useETHBalance;

@@ -19,7 +19,8 @@ export const parseAccountUniqueTokens = (data: any) => {
         'permalink',
         'traits',
         'owner',
-        'top_bid'
+        'top_bid',
+        'creator'
       ]),
       asset_contract: pick(asset_contract, [
         'address',

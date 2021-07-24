@@ -26,10 +26,9 @@ async function fetchCmsAPI(query: string, { variables }: { variables?: Record<st
 }
 
 export async function getAllCollectibles(): Promise<Collectible[]> {
-  const { assets } = useAppState();
+  const assets = useAppState.getState().assets;
   let data = { allCollectibles: [] };
   data.allCollectibles = assets;
-  console.log(data, 'data');
   return data.allCollectibles;
 }
 

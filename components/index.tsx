@@ -2,7 +2,7 @@ import { useCallback, useState, useEffect } from 'react';
 import { HomeDataContext } from '@lib/hooks/use-home-data';
 import { PageState, HomeProps, UserData } from '@lib/types';
 import { useWeb3React } from '@web3-react/core';
-import useETHBalance from '@lib/hooks/useEthBalance';
+import { useETHBalance } from '@lib/hooks/useEthBalance';
 import HomeContainer from './home/home-container';
 import Layout from './layout/layout';
 import Hero from './home/hero';
