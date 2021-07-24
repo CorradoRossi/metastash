@@ -38,7 +38,8 @@ module.exports = {
       'www.datocms-assets.com',
       'api.opensea.io',
       'lh3.googleusercontent.com',
-      'storage.googleapis.com'
+      'storage.googleapis.com',
+      'localhost'
     ],
     imageSizes: [24, 64, 300]
   },

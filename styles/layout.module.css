@@ -7,6 +7,33 @@
   flex-direction: column;
 }
 
+.bgimg {
+  background: url('/background.png') no-repeat center;
+  background-size: cover;
+  background-blend-mode: lighten;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0.22;
+  filter: blur(18px);
+  -webkit-filter: blur(18px);
+  height: 100%;
+  width: 100%;
+}
+
+.bgheader {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+  filter: blur(5px);
+  -webkit-filter: blur(5px);
+  background: linear-gradient(rgba(18, 15, 22, 1) 0%, rgba(18, 15, 22, 0.7) 90%, rgba(18, 15, 22, 0) 100%);
+  background-blend-mode: multiply;
+  height: var(--header-height);
+  z-index: 2;
+}
+
 .page {
   display: flex;
   flex-direction: column;
@@ -30,9 +57,9 @@
   align-items: center;
   justify-content: space-between;
   /*background: var(--gradient-eight);*/
-  background: #120f16;
+  /*border-bottom: 1px solid var(--accents-7);*/
+  background: rgba(18, 15, 22, 0);
   background-blend-mode: multiply;
-  border-bottom: 1px solid var(--accents-7);
   height: var(--header-height);
   z-index: 2;
 }

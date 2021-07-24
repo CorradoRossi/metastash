@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import Link from 'next/link';
 import cn from 'classnames';
 import { useRouter } from 'next/router';
@@ -8,7 +7,7 @@ import styles from 'styles/layout.module.css';
 import Logo from '@components/icons/logo';
 import MobileMenu from './mobile-menu';
 import Footer from './footer';
-import { LayoutProps, FormState } from '@lib/types';
+import { LayoutProps } from '@lib/types';
 import Wallets from '../../lib/web3/wallets';
 import useWeb3Modal from '@lib/hooks/useWeb3Modal';
 
@@ -19,6 +18,8 @@ const Layout = ({ children, className, hideNav, layoutStyles }: LayoutProps) => 
 
   return (
     <>
+      <div className={styles.bgimg}></div>
+      <div className={styles.bgheader}></div>
       <div className={styles.background}>
         {!hideNav && (
           <header className={cn(styles.header)}>
