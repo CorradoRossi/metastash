@@ -9,16 +9,20 @@ export type DataObject = {
 };
 
 export type Collectible = {
-  name: string;
-  bio: string;
-  title: string;
-  slug: string;
-  twitter: string;
-  github: string;
-  company: string;
-  talk: Talk;
-  image: Image;
-  imageSquare: Image;
+  name?: string;
+  bio?: string;
+  title?: string;
+  slug?: string;
+  twitter?: string;
+  github?: string;
+  company?: string;
+  talk?: Talk;
+  image?: Image;
+  imageSquare?: Image;
+  image_preview_url?: any;
+  description?: any;
+  permalink?: any;
+  external_link?: any;
 };
 
 export type Collectibles = {

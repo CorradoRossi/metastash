@@ -1,5 +1,6 @@
 import { Job, Sponsor, Platform, Collectible } from '@lib/types';
 import { API_URL, API_TOKEN } from '@lib/constants';
+import { useAppState } from '../../state/state';
 
 async function fetchCmsAPI(query: string, { variables }: { variables?: Record<string, any> } = {}) {
   const res = await fetch(API_URL, {
@@ -25,30 +26,10 @@ async function fetchCmsAPI(query: string, { variables }: { variables?: Record<st
 }
 
 export async function getAllCollectibles(): Promise<Collectible[]> {
-  const data = await fetchCmsAPI(`
-    {
-      allCollectibles(first: 100) {
-        name
-        bio
-        title
-        slug
-        twitter
-        github
-        company
-        talk {
-          title
-          description
-        }
-        image {
-          url(imgixParams: {fm: jpg, fit: crop, w: 300, h: 400})
-        }
-        imageSquare: image {
-          url(imgixParams: {fm: jpg, fit: crop, w: 192, h: 192})
-        }
-      }
-    }
-  `);
-
+  const { assets } = useAppState();
+  let data = { allCollectibles: [] };
+  data.allCollectibles = assets;
+  console.log(data, 'data');
   return data.allCollectibles;
 }
 

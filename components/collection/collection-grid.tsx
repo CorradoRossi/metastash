@@ -23,7 +23,7 @@ const CollectionGrid = () => {
     <div className={styles.grid}>
       {data?.assets?.length ? (
         data?.assets?.map((asset: any) => (
-          <Link key={asset?.permalink} href={`/collection/${asset?.name.toString()}`}>
+          <Link key={asset?.permalink} href={`/collection/${asset?.name}`}>
             <a role="button" tabIndex={0} className={styles.card}>
               <div className={styles.imageWrapper}>
                 <Image
