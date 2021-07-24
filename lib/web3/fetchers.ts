@@ -3,7 +3,6 @@ import { useAppState } from '../../state/state';
 export const fetcherETHUSD = async (url: string) => {
   try {
     const { setEthPrice } = useAppState.getState();
-
     const {
       result: { ethusd }
     } = await (await fetch(url)).json();
@@ -25,7 +24,6 @@ export const fetchOwner = async (id: string) => {
   try {
     const { contract } = useAppState.getState();
     if (!contract) throw new Error('Contract not found');
-
     return await contract?.ownerOf(id);
   } catch (e) {
     return { error: e.message };

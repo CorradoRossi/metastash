@@ -34,13 +34,11 @@ export const fetchUniqueTokens = async (
       page += 1;
 
       if (shouldUpdateInBatches) {
-        console.log(uniqueTokens, 'uniqueTokens');
         setAssets(uniqueTokens);
       }
 
       if (shouldStopFetching) {
         if (!shouldUpdateInBatches) {
-          console.log(uniqueTokens, 'uniqueTokens');
           setAssets(uniqueTokens);
         }
         const existingFamilies = getFamilies(uniqueTokens);
@@ -50,7 +48,7 @@ export const fetchUniqueTokens = async (
           const dedupedAssets = dedupeAssetsWithFamilies(assets, incomingFamilies);
         }
         if (!showcaseAddress) {
-          console.log(uniqueTokens, accountAddress);
+          console.log(uniqueTokens, accountAddress, 'whats going on here?');
         }
       } else {
         uniqueTokensHandle = setTimeout(fetchPage, 200);

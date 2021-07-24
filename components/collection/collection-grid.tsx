@@ -3,10 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import styles from 'styles/collection-grid.module.css';
 import { useAppState } from '../../state/state';
-
-type DataObject = {
-  assets: [];
-};
+import { DataObject } from '@lib/types';
 
 const CollectionGrid = () => {
   const { assets }: any = useAppState();
@@ -26,7 +23,7 @@ const CollectionGrid = () => {
     <div className={styles.grid}>
       {data?.assets?.length ? (
         data?.assets?.map((asset: any) => (
-          <Link key={asset?.permalink} href={`/collection/${asset?.id}`}>
+          <Link key={asset?.permalink} href={`/collection/${asset?.name.toString()}`}>
             <a role="button" tabIndex={0} className={styles.card}>
               <div className={styles.imageWrapper}>
                 <Image

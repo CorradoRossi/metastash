@@ -4,11 +4,8 @@ import { Contract, BigNumber, utils, Event } from 'ethers';
 import { TokenProps, StateContext } from '@lib/types';
 import { DEFAULT_USER } from '@lib/constants';
 import { fetchData } from '@lib/web3/opensea-fetch';
+import { apiGetAccountUniqueTokens } from '@lib/web3/opensea-api';
 import { parseAccountUniqueTokens } from '@lib/utils/uniqueTokens';
-
-export type Asset = {
-  info?: any;
-};
 
 const useAppState = create<StateContext>((set, get) => ({
   assets: [],
@@ -57,21 +54,22 @@ const useAppState = create<StateContext>((set, get) => ({
     }
   },
   setUser: async (address?: string) => {
+    const { user, library } = get();
     try {
-      const { user, library, getUserTokens } = get();
-      const balance = utils.formatEther(await library.getBalance(address || user?.address || ''));
-      //const ownedTokens = await getUserTokens(address || user?.address);
-      const ownedTokens = await fetchData(address || user?.address || '');
+      let balance;
+      if (library) {
+        balance = utils.formatEther(await library.getBalance(address || user?.address));
+      }
+      const ownedTokens = await apiGetAccountUniqueTokens(address || user?.address, 0);
       set({
         isAuthenticated: true,
-        user: { address: address || user?.address || '', balance, ownedTokens, ...user }
+        user: { address: address || user?.address, balance, ownedTokens, ...user }
       });
     } catch (err) {
       console.log(err);
     }
   },
   setAssets: async newAssets => {
-    //const { assets } = get();
     let combinedAssets: any = await newAssets;
     set({ assets: parseAccountUniqueTokens({ data: { assets: combinedAssets } }) });
   },

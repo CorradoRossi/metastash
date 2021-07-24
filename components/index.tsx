@@ -16,12 +16,13 @@ import { fetchUniqueTokens } from '@lib/web3/fetch-unique';
 
 const HomeContent = ({ defaultUserData, defaultPageState = 'registration' }: HomeProps) => {
   const { library: libraryState, user, assets }: any = useAppState();
-  const { setUser, setLibrary, setAssets } = useAppState(
+  const { setUser, setLibrary, setAssets, setEthPrice } = useAppState(
     useCallback(
-      ({ setUser, setLibrary, setAssets }) => ({
+      ({ setUser, setLibrary, setAssets, setEthPrice }) => ({
         setUser,
         setLibrary,
-        setAssets
+        setAssets,
+        setEthPrice
       }),
       []
     )
@@ -30,61 +31,41 @@ const HomeContent = ({ defaultUserData, defaultPageState = 'registration' }: Hom
   const { data }: any = useETHBalance(account);
 
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [ethAccount, setEthAccount] = useState('');
-  const [acctBalance, setAcctBalance] = useState(0);
-  const [acctData, setAcctData] = useState({ assets: [] });
+  const [ethAccount, setEthAccount] = useState<string>('');
+  const [acctBalance, setAcctBalance] = useState<string>('0.0');
+  const [acctData, setAcctData] = useState<object>({ assets: [] });
   const [userData, setUserData] = useState<UserData>(defaultUserData);
   const [pageState, setPageState] = useState<PageState>(defaultPageState);
   const [localUser, setLocalUser] = useState<UserData>(DEFAULT_USER);
 
-  useEffect(() => {
-    async function doFetchData() {
-      setIsLoading(true);
+  async function doFetchData() {
+    setIsLoading(true);
+    if (account) {
       setEthAccount(account);
       setAcctBalance(data);
-      if (account) {
-        fetchData(account).then(res => {
-          setAcctData(res);
-          //setAssets(res);
-        });
-        fetchUniqueTokens(user, assets, setAssets, account).then(res => {
-          return res;
-        });
-        fetchUser(account).then((res: any) => setLocalUser(res));
-        setUser(account);
-        setUserData(user);
-        setLibrary(library);
-        setPageState('loggedin');
-        setIsLoading(false);
-      }
+      setEthPrice(data);
+      fetchData(account).then(res => {
+        setAcctData(res);
+        //setAssets(res);
+      });
+      fetchUniqueTokens(user, assets, setAssets, account).then(res => {
+        return res;
+      });
+      fetchUser(account).then((res: any) => setLocalUser(res));
+      setUser(account);
+      setUserData(user);
+      setLibrary(library);
+      setPageState('loggedin');
+      setIsLoading(false);
     }
+  }
+
+  useEffect(() => {
     doFetchData();
   }, []);
 
   useEffect(() => {
-    async function doFetchData() {
-      setIsLoading(true);
-      setEthAccount(account);
-      setAcctBalance(data);
-      if (account) {
-        fetchData(account).then(res => {
-          setAcctData(res);
-          //setAssets(res);
-        });
-        fetchUniqueTokens(user, assets, setAssets, account).then(res => {
-          return res;
-        });
-        fetchUser(account).then((res: any) => setLocalUser(res));
-        setUser(account);
-        setUserData(user);
-        setLibrary(library);
-        setPageState('loggedin');
-        setIsLoading(false);
-      }
-    }
     doFetchData();
-    //console.log(assets, 'assetsssss');
-    console.log(libraryState, 'libraryStateee');
   }, [account, data]);
 
   return (

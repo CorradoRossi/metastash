@@ -6,10 +6,12 @@ import GithubIcon from '@components/icons/icon-github-og';
 import TwitterIcon from '@components/icons/icon-twitterr';
 import { CollectionSectionProps } from '@lib/types';
 
-const CollectionItem = ({ collectible }: CollectionSectionProps) => {
+const CollectionItem = (slug: any, { collectible }: CollectionSectionProps) => {
+  console.log(collectible, 'collectible');
+  console.log(slug, 'slug');
   return (
     <>
-      <Link href="/collection">
+      <Link href={`/collection/${collectible.name}`}>
         <a className={styles.backlink}>
           <svg
             viewBox="0 0 24 24"
