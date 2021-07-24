@@ -7,6 +7,7 @@ import TwitterIcon from '@components/icons/icon-twitterr';
 import { formatAddressShort, copyToClipBoard } from '@lib/utils/utils';
 import { DEFAULT_PROFILE_PIC } from '@lib/constants';
 import { useAppState } from '../../state/state';
+import { fetchAcct } from '@lib/web3/opensea-fetch-acct';
 
 const Profile = ({
   ethAccount,
@@ -33,6 +34,7 @@ const Profile = ({
     let localCombinedLastSaleprice = 0;
     if (acctData) {
       setAccount(ethAccount);
+      //fetchAcct(ethAccount);
       setBalance(acctBalance);
       acctData?.assets?.forEach((item: any) => {
         if (item.topBid) {
