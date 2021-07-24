@@ -20,6 +20,7 @@ if (process.env.DATOCMS_FULL_API_TOKEN) {
 }
 
 export async function getAllCollectibles(): Promise<Collectible[]> {
+  console.log(cmsApi.getAllCollectibles(), 'cmsApi');
   return cmsApi.getAllCollectibles();
 }
 

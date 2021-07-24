@@ -6,12 +6,11 @@ import GithubIcon from '@components/icons/icon-github-og';
 import TwitterIcon from '@components/icons/icon-twitterr';
 import { CollectionSectionProps } from '@lib/types';
 
-const CollectionItem = (slug: any, { collectible }: CollectionSectionProps) => {
-  console.log(collectible, 'collectible');
-  console.log(slug, 'slug');
+const CollectionItem = ({ collectible }: CollectionSectionProps) => {
+  console.log(collectible, 'collectible?');
   return (
     <>
-      <Link href={`/collection/${collectible.name}`}>
+      <Link href={`/collection`}>
         <a className={styles.backlink}>
           <svg
             viewBox="0 0 24 24"
@@ -29,32 +28,36 @@ const CollectionItem = (slug: any, { collectible }: CollectionSectionProps) => {
           Back to collection
         </a>
       </Link>
-      <div key={collectible.name} className={styles.container}>
-        <div style={{ minWidth: '300px' }}>
+      <div key={collectible?.name} className={styles.container}>
+        <a
+          style={{ minWidth: '300px', display: 'block' }}
+          href={collectible?.permalink}
+          target="_blank"
+        >
           <Image
-            alt={collectible.name}
-            title={collectible.name}
-            src={collectible.image.url}
+            alt={collectible?.name}
+            title={collectible?.name}
+            src={collectible?.image_preview_url}
             className={styles.image}
             loading="lazy"
             height={400}
-            width={300}
+            width={400}
           />
-        </div>
+        </a>
         <div className={styles['collectible-details']}>
           <div>
-            <h1 className={styles.name}>{collectible.name}</h1>
+            <h1 className={styles.name}>{collectible?.name}</h1>
             <p className={styles.title}>
-              {`${collectible.title} @ `}
-              <span className={styles.company}>{collectible.company}</span>
+              {`${collectible?.title} @ `}
+              <span className={styles.company}>{collectible?.company}</span>
             </p>
-            <h2 className={styles['bio-header']}>Bio</h2>
-            <p className={styles.bio}>{collectible.bio}</p>
+            <h2 className={styles['bio-header']}>Description</h2>
+            <p className={styles.bio}>{collectible?.description}</p>
             <h3 className={styles['socials-header']}>Social Media</h3>
-            {collectible.twitter ? (
+            {collectible?.external_link ? (
               <a
                 aria-label="Twitter"
-                href={collectible.twitter}
+                href={collectible?.external_link}
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -65,11 +68,11 @@ const CollectionItem = (slug: any, { collectible }: CollectionSectionProps) => {
                 <TwitterIcon />
               </span>
             )}
-            {collectible.github ? (
+            {collectible?.github ? (
               <a
                 aria-label="GitHub"
                 className={styles.githubIcon}
-                href={collectible.github}
+                href={collectible?.github}
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -83,10 +86,10 @@ const CollectionItem = (slug: any, { collectible }: CollectionSectionProps) => {
           </div>
         </div>
       </div>
-      {collectible.talk && (
+      {collectible?.talk && (
         <div className={styles['talk-details']}>
-          <h3 className={styles['socials-header']}>{collectible.talk.title}</h3>
-          <p>{collectible.talk.description}</p>
+          <h3 className={styles['socials-header']}>{collectible?.talk.title}</h3>
+          <p>{collectible?.talk.description}</p>
         </div>
       )}
     </>
