@@ -18,6 +18,8 @@ const Layout = ({ children, className, hideNav, layoutStyles }: LayoutProps) => 
 
   return (
     <>
+      <div className={styles.bgimg}></div>
+      <div className={styles.bgheader}></div>
       <div className={styles.background}>
         {!hideNav && (
           <header className={cn(styles.header)}>
