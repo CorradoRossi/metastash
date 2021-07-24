@@ -18,13 +18,10 @@ const CollectibleWrapper = (props: any) => {
   );
 };
 
-const getStaticProps: GetStaticProps<CollectionPageProps> = async ({ params }) => {
+const getStaticProps: GetStaticProps<CollectionPageProps> = async ({ params }: any) => {
   const slug = params?.collectible;
-  const assets = await apiGetAccountUniqueTokens(
-    '0x90c19feA1eF7BEBA9274217431F148094795B074' || '0xf1ff7B66afB70cA3b2B1f6594F59187bFC5897C9',
-    0
-  );
-  const currentAsset = assets.find((asset: any) => {
+  const assets = await apiGetAccountUniqueTokens('0xf1ff7B66afB70cA3b2B1f6594F59187bFC5897C9', 0);
+  const currentAsset = assets?.find((asset: any) => {
     if (asset.name === slug) {
       return asset;
     }
@@ -43,11 +40,8 @@ const getStaticProps: GetStaticProps<CollectionPageProps> = async ({ params }) =
 };
 
 const getStaticPaths: GetStaticPaths = async () => {
-  const assets = await apiGetAccountUniqueTokens(
-    '0x90c19feA1eF7BEBA9274217431F148094795B074' || '0xf1ff7B66afB70cA3b2B1f6594F59187bFC5897C9',
-    0
-  );
-  const collectibles = assets.map((asset: any) => {
+  const assets = await apiGetAccountUniqueTokens('0xf1ff7B66afB70cA3b2B1f6594F59187bFC5897C9', 0);
+  const collectibles = assets?.map((asset: any) => {
     return { params: { collectible: asset.name } };
   });
 
