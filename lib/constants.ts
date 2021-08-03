@@ -43,6 +43,7 @@ export const OPENSEA_ASSET = 'asset'; //asset_contract_address/token_id/
 export const OPENSEA_EVENTS = 'events';
 export const OPENSEA_CONTRACT = 'asset_contract';
 export const OPENSEA_COLLECTIONS = 'collections';
+export const OPENSEA_API_KEY = 'fd19e5cba6e243719640f90f9f1f1d1e';
 
 export const API_URL = 'https://graphql.datocms.com/';
 export const API_URL_DRAFT = 'https://graphql.datocms.com/preview';
@@ -50,6 +51,7 @@ export const API_REST_ENDPOINT = 'https://site-api.datocms.com/';
 export const API_TOKEN_READ = '6e37e962aaf5d60e9e1b3ce1dac08d';
 export const API_TOKEN_FULL = '9a86934493e273cb21af51fb40aa2f';
 export const API_TOKEN = process.env.DATOCMS_FULL_API_TOKEN;
+
 
 export const NAVIGATION = [
   {

@@ -1,8 +1,10 @@
+import { OPENSEA_API_KEY } from '@lib/constants';
 import axios from 'axios';
 
 const api = axios.create({
   headers: {
-    Accept: 'application/json'
+    Accept: 'application/json',
+    'X-API-KEY': OPENSEA_API_KEY,
   },
   timeout: 20000
 });
