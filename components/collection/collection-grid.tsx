@@ -41,7 +41,8 @@ const CollectionGrid = () => {
                     src={asset.image_preview_url}
                     title={asset?.name}
                     height={300}
-                    width={300} 
+                    width={300}
+                    style={{maxWidth: '100%', maxHeight: '100%'}} 
                   >       
                       Sorry, your browser doesn't support embedded videos.
                   </video>
