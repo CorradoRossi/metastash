@@ -1,9 +1,10 @@
 import axios from 'axios';
-import { OPENSEA_BASE_URL, UNIQUE_TOKENS_LIMIT_PER_PAGE } from '@lib/constants';
+import { OPENSEA_BASE_URL, UNIQUE_TOKENS_LIMIT_PER_PAGE, OPENSEA_API_KEY } from '@lib/constants';
 
 const api = axios.create({
   headers: {
-    Accept: 'application/json'
+    Accept: 'application/json',
+    'X-API-KEY': OPENSEA_API_KEY,
   },
   timeout: 20000
 });

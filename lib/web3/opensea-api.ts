@@ -4,12 +4,14 @@ import {
   OPENSEA_BASE_URL,
   OPENSEA_ASSETS,
   UNIQUE_TOKENS_LIMIT_PER_PAGE,
-  UNIQUE_TOKENS_LIMIT_TOTAL
+  UNIQUE_TOKENS_LIMIT_TOTAL,
+  OPENSEA_API_KEY
 } from '@lib/constants';
 
 const api = axios.create({
   headers: {
-    Accept: 'application/json'
+    Accept: 'application/json',
+    'X-API-KEY': OPENSEA_API_KEY,
   },
   timeout: 20000
 });

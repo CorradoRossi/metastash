@@ -24,22 +24,40 @@ const CollectionGrid = () => {
       {data?.assets?.length ? (
         data?.assets?.map((asset: any) => {
           const regex = '^[^_]+'; 
+          const isVid = 'https?.*?\.mp4';
           const match = asset.uniqueId.match(regex);
           const id = match ? match[0] : asset.uniqueId;
           return (
           <Link key={asset?.permalink} href={`/collection/${id}`}>
             <a role="button" tabIndex={0} className={styles.card}>
               <div className={styles.imageWrapper}>
-                <Image
-                  alt={asset?.name}
-                  src={asset?.image_preview_url}
-                  className={styles.image}
-                  loading="lazy"
-                  quality="50"
-                  title={asset?.name}
-                  width={300}
-                  height={300}
-                />
+                {asset?.image_preview_url?.match(isVid) != null ? (
+                  <video 
+                    loop={true}
+                    muted={true}
+                    controls={false} 
+                    autoPlay={true} 
+                    className={styles.image} 
+                    src={asset.image_preview_url}
+                    title={asset?.name}
+                    height={'100%'}
+                    width={'100%'}
+                    style={{maxWidth: '100%', maxHeight: '100%'}} 
+                  >       
+                      Sorry, your browser doesn't support embedded videos.
+                  </video>
+                ) : (
+                  <Image
+                    alt={asset?.name}
+                    src={asset?.image_preview_url}
+                    className={styles.image}
+                    loading="lazy"
+                    quality="50"
+                    title={asset?.name}
+                    width={300}
+                    height={300}
+                  />
+                )}
               </div>
               <div className={styles.cardBody}>
                 <div>
