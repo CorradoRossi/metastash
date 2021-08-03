@@ -62,7 +62,7 @@ export const NAVIGATION = [
   },
   {
     name: 'Links',
-    route: '/market'
+    route: '/links'
   },
   {
     name: 'Platform',
