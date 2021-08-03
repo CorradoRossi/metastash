@@ -48,15 +48,15 @@ const CollectionGrid = () => {
                       Sorry, your browser doesn't support embedded videos.
                   </video>
                 ) : asset?.image_preview_url?.match(isSvg) != null ? (
-                  <img
-                    src={asset?.image_preview_url}
-                    alt={asset?.name}
-                    title={asset?.name}
-                    className={styles.image}
-                    height={'100%'}
-                    width={'100%'}
-                    style={{maxWidth: '100%', maxHeight: '100%'}}
-                  />
+                  <div style={{display: 'flex', justifyContent: 'center', aspectRatio: '1'}}>
+                    <img
+                      src={asset?.image_preview_url}
+                      alt={asset?.name}
+                      title={asset?.name}
+                      className={styles.image}
+                      style={{maxWidth: '100%', maxHeight: '100%'}}
+                    />
+                  </div>
                 ) : (
                   <Image
                     alt={asset?.name}
