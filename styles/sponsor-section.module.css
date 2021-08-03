@@ -36,6 +36,7 @@
 }
 
 .backlink {
+  z-index: 2;
   color: var(--secondary-color);
   padding: 0 24px;
   display: flex;
