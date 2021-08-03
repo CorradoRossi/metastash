@@ -22,8 +22,12 @@ const CollectionGrid = () => {
   return !isLoading ? (
     <div className={styles.grid}>
       {data?.assets?.length ? (
-        data?.assets?.map((asset: any) => (
-          <Link key={asset?.permalink} href={`/collection/${asset?.name}`}>
+        data?.assets?.map((asset: any) => {
+          const regex = '^[^_]+'; 
+          const match = asset.uniqueId.match(regex);
+          const id = match ? match[0] : asset.uniqueId;
+          return (
+          <Link key={asset?.permalink} href={`/collection/${id}`}>
             <a role="button" tabIndex={0} className={styles.card}>
               <div className={styles.imageWrapper}>
                 <Image
@@ -50,7 +54,7 @@ const CollectionGrid = () => {
               </div>
             </a>
           </Link>
-        ))
+        )})
       ) : (
         <>
           <h2 className={styles.name}>There are no NFT's in your collection!</h2>

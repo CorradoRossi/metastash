@@ -7,7 +7,6 @@ import TwitterIcon from '@components/icons/icon-twitterr';
 import { CollectionSectionProps } from '@lib/types';
 
 const CollectionItem = ({ collectible }: CollectionSectionProps) => {
-  console.log(collectible, 'collectible?');
   return (
     <>
       <Link href={`/collection`}>

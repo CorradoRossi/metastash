@@ -65,7 +65,7 @@ export const NAVIGATION = [
     route: '/market'
   },
   {
-    name: 'Profile',
+    name: 'Platform',
     route: '/platform/one'
   },
   {
