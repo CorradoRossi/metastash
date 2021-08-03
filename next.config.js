@@ -31,8 +31,9 @@ const SentryWebpackPluginOptions = {
 // ensure that your source maps include changes from all other Webpack plugins
 module.exports = withSentryConfig(moduleExports, SentryWebpackPluginOptions);
 */
+const withImages = require("next-images");
 
-module.exports = {
+module.exports = withImages({
   images: {
     domains: [
       'www.datocms-assets.com',
@@ -57,4 +58,4 @@ module.exports = {
     NEXT_PUBLIC_SENTRY_DSN:
       'https://6296b94f1426454f82a492d2a56b82dd@o804754.ingest.sentry.io/5803099'
   }
-};
+});
