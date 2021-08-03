@@ -25,6 +25,7 @@ const CollectionGrid = () => {
         data?.assets?.map((asset: any) => {
           const regex = '^[^_]+'; 
           const isVid = 'https?.*?\.mp4';
+          const isSvg = 'https?.*?\.svg';
           const match = asset.uniqueId.match(regex);
           const id = match ? match[0] : asset.uniqueId;
           return (
@@ -46,6 +47,16 @@ const CollectionGrid = () => {
                   >       
                       Sorry, your browser doesn't support embedded videos.
                   </video>
+                ) : asset?.image_preview_url?.match(isSvg) != null ? (
+                  <img
+                    src={asset?.image_preview_url}
+                    alt={asset?.name}
+                    title={asset?.name}
+                    className={styles.image}
+                    height={'100%'}
+                    width={'100%'}
+                    style={{maxWidth: '100%', maxHeight: '100%'}}
+                  />
                 ) : (
                   <Image
                     alt={asset?.name}
