@@ -23,23 +23,26 @@ const CollectionGrid = () => {
     <div className={styles.grid}>
       {data?.assets?.length ? (
         data?.assets?.map((asset: any) => {
-          const regex = '^[^_]+';
-          const isVideo = '([^\\s]+(\\.(?i)(mov|mp4))$)'; 
-          const isVid2 = 'https?.*?\.mp4';
+          const regex = '^[^_]+'; 
+          const isVid = 'https?.*?\.mp4';
           const match = asset.uniqueId.match(regex);
           const id = match ? match[0] : asset.uniqueId;
           return (
           <Link key={asset?.permalink} href={`/collection/${id}`}>
             <a role="button" tabIndex={0} className={styles.card}>
               <div className={styles.imageWrapper}>
-                {asset?.image_preview_url?.match(isVid2) != null ? (
-                  <video controls width="300" height={300}>
-                    <source 
-                      type="video/mp4"
-                      src={asset.image_preview_url}
-                      className={styles.image}
-                      title={asset?.name}
-                    />       
+                {asset?.image_preview_url?.match(isVid) != null ? (
+                  <video 
+                    loop={true}
+                    muted={true}
+                    controls={false} 
+                    autoPlay={true} 
+                    className={styles.image} 
+                    src={asset.image_preview_url}
+                    title={asset?.name}
+                    height={300}
+                    width={300} 
+                  >       
                       Sorry, your browser doesn't support embedded videos.
                   </video>
                 ) : (
