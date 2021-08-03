@@ -15,8 +15,6 @@ const TalkCard = ({ talk: { title, collectible, start, end }, showTime }: Format
   const [isTalkLive, setIsTalkLive] = useState(false);
   const [startAndEndTime, setStartAndEndTime] = useState('');
 
-  console.log(title, collectible, start, end, showTime, 'Props');
-
   useEffect(() => {
     const now = Date.now();
     setIsTalkLive(isAfter(now, parseISO(start)) && isBefore(now, parseISO(end)));
