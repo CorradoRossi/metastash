@@ -59,6 +59,18 @@ export const NAVIGATION = [
   {
     name: 'Collection',
     route: '/collection'
+  },
+  {
+    name: 'Links',
+    route: '/links'
+  },
+  {
+    name: 'Platform',
+    route: '/platform/one'
+  },
+  {
+    name: 'Wallet',
+    route: '/wallet'
   }
 ];
 

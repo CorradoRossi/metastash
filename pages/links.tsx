@@ -13,7 +13,7 @@ const MarketPage = ({ sponsors }: MarketPageProps) => {
   return (
     <Page meta={META}>
       <Layout>
-        <Header hero="Market" description={META.description} />
+        <Header hero="Links" description={META.description} />
         <SponsorsGrid sponsors={sponsors} />
       </Layout>
     </Page>

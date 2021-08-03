@@ -65,6 +65,7 @@ const Form = ({ sharePage }: FormProps) => {
                 name: data.name,
                 username: data.username
               };
+              setFormState('default');
 
               if (sharePage) {
                 const queryString = Object.keys(params)

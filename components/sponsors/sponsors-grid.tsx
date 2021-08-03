@@ -6,7 +6,7 @@ import styles from 'styles/sponsors-grid.module.css';
 
 const SponsorCard = ({ sponsor }: { sponsor: Sponsor }) => {
   return (
-    <Link key={sponsor.name} href={`/expo/${sponsor.slug}`}>
+    <Link key={sponsor.name} href={`/links/${sponsor.slug}`}>
       <a
         role="button"
         tabIndex={0}
@@ -25,7 +25,7 @@ const SponsorCard = ({ sponsor }: { sponsor: Sponsor }) => {
             loading="lazy"
             title={sponsor.name}
             width={900}
-            height={500}
+            height={900}
           />
         </div>
         {sponsor.tier !== 'silver' && (

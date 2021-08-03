@@ -39,6 +39,7 @@ const HomeEntry = ({ onRegister }: { onRegister: () => void }) => {
         }
 
         onRegister();
+        setFormState('default');
       } catch (err) {
         console.error(err);
         setErrorMsg(DEFAULT_ERROR_MSG);

@@ -5,6 +5,7 @@
 }
 
 .backlink {
+  z-index: 2;
   color: var(--secondary-color);
   padding: var(--space-8x) var(--space-4x) var(--space-4x) var(--space-4x);
   display: flex;
