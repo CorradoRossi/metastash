@@ -9,6 +9,8 @@ import ResizeHandler from '@components/loading/resize-handler';
 import { Web3ReactProvider } from '@web3-react/core';
 import Web3Manager from '@lib/web3/web3manager';
 import { Web3Provider } from '@ethersproject/providers';
+import { ApolloProvider } from '@apollo/client';
+import { useApollo } from '../lib/apollo/client';
 
 const getLibrary = (provider: any): Web3Provider => {
   const library = new Web3Provider(provider, 'any');
@@ -17,22 +19,25 @@ const getLibrary = (provider: any): Web3Provider => {
 };
 
 const App = ({ Component, pageProps }: AppProps) => {
+  const apolloClient = useApollo(pageProps);
   useEffect(() => {
     document.body.classList?.remove('loading');
   }, []);
 
   return (
-    <SSRProvider>
-      <OverlayProvider>
-        <Web3ReactProvider getLibrary={getLibrary}>
-          <Web3Manager>
-            <Component {...pageProps} />
-          </Web3Manager>
-          <ResizeHandler />
-          <NProgress />
-        </Web3ReactProvider>
-      </OverlayProvider>
-    </SSRProvider>
+    <ApolloProvider client={apolloClient}>
+      <SSRProvider>
+        <OverlayProvider>
+          <Web3ReactProvider getLibrary={getLibrary}>
+            <Web3Manager>
+              <Component {...pageProps} />
+            </Web3Manager>
+            <ResizeHandler />
+            <NProgress />
+          </Web3ReactProvider>
+        </OverlayProvider>
+      </SSRProvider>
+    </ApolloProvider>
   );
 };
 

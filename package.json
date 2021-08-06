@@ -13,7 +13,9 @@
     "dev": "next",
     "start": "next start",
     "build": "next build",
-    "license": "addlicense -l apache -c 'Metastash' components/**/* lib/**/* pages/**/* styles/**/* *.ts *.js"
+    "license": "addlicense -l apache -c 'Metastash' components/**/* lib/**/* pages/**/* styles/**/* *.ts *.js",
+    "mesh:serve": "graphql-mesh serve --require ts-node/register/transpile-only",
+    "mesh:codegen": "graphql-mesh typescript --output ./mesh/generated.ts --require ts-node/register/transpile-only"
   },
   "dependencies": {
     "@fluuuid/nft-contracts": "https://github.com/silviopaganini/nft-contracts",
@@ -56,7 +58,18 @@
     "web3": "^1.3.6",
     "web3modal": "^1.9.3",
     "yarn": "^1.22.10",
-    "zustand": "^3.5.7"
+    "zustand": "^3.5.7",
+    "@apollo/client": "3.1.1",
+    "@graphql-mesh/cli": "^0.30.1",
+    "@graphql-mesh/graphql": "^0.17.10",
+    "@graphql-mesh/runtime": "^0.16.6",
+    "@graphql-mesh/transform-naming-convention": "^0.6.49",
+    "apollo-server-micro": "^2.25.0",
+    "cross-fetch": "^3.1.4",
+    "deepmerge": "^4.2.2",
+    "graphql": "^15.5.0",
+    "prop-types": "^15.6.2",
+    "react-hook-form": "^7.8.0"
   },
   "devDependencies": {
     "@types/classnames": "2.2.11",
@@ -82,6 +95,7 @@
     "postcss-hover-media-feature": "1.0.0",
     "postcss-preset-env": "6.7.0",
     "prettier": "2.2.1",
-    "typescript": "4.1.3"
+    "typescript": "4.1.3",
+    "ts-node": "^10.0.0"
   }
 }

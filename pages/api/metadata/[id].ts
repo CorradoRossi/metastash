@@ -1,0 +1,36 @@
+import gql from 'graphql-tag';
+import fetch from 'cross-fetch';
+
+import { initializeApollo } from '../../../lib/apollo/client';
+import ipfsReplacer from '../../../lib/utils/ipfsReplacer';
+
+export default async function handler(req: any, res: any) {
+  const { id } = req.query;
+  const apolloClient = initializeApollo();
+
+  const result = await apolloClient.query({
+    query: gql`
+      query TokenDetails($id: String!) {
+        token(id: $id) {
+          id
+          uri
+        }
+      }
+    `,
+    variables: { id }
+  });
+
+  if (result?.data?.token?.uri) {
+    const response = await fetch(ipfsReplacer(result?.data?.token?.uri.replace(' ', '')));
+    const text = await response.text();
+
+    try {
+      const json = JSON.parse(text);
+      return res.status(200).json(json);
+    } catch (error) {
+      return res.status(200).json({ error: error.message, image: text });
+    }
+  }
+
+  return res.status(404).json(result?.token);
+}
