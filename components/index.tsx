@@ -44,14 +44,23 @@ const HomeContent = ({ defaultUserData, defaultPageState = 'registration' }: Hom
       setEthAccount(account);
       setAcctBalance(data);
       setEthPrice(data);
-      fetchData(account).then(res => {
-        setAcctData(res);
-        //setAssets(res);
-      });
-      fetchUniqueTokens(user, assets, setAssets, account).then(res => {
-        return res;
-      });
-      fetchUser(account).then((res: any) => setLocalUser(res));
+      fetchData(account)
+        .then(res => setAcctData(res))
+        .catch(err => {
+          console.error(err ? err.message : 'Error fetching data');
+        });
+      fetchUser(account)
+        .then(res => setLocalUser(res))
+        .catch(err => {
+          console.error(err ? err.message : 'Error fetching user');
+        });
+      fetchUniqueTokens(user, assets, setAssets, account)
+        .then(res => {
+          return res;
+        })
+        .catch(err => {
+          console.error(err ? err.message : 'Error fetching unique tokens');
+        });
       setUser(account);
       setUserData(user);
       setLibrary(library);

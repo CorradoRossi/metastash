@@ -1,8 +1,8 @@
 import { useRouter } from 'next/router';
 
-import { Form } from '../../components/Form';
-import { Owner } from '../../components/Owner';
-import { Token } from '../../components/Token';
+import { Form } from '../../components/form/Form';
+import { Owner } from '../../components/owner/Owner';
+import { Token } from '../../components/token/Token';
 import { useNFTsOfOwner } from '../../lib/hooks/useNFTsOfOwner';
 
 const OwnerPage = () => {

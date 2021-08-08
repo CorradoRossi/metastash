@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
-import { useTokenImage } from '../lib/hooks/useTokenImage';
-import { Owner } from '../components/Owner';
+import { useTokenImage } from '../../lib/hooks/useTokenImage';
+import { Owner } from '../owner/Owner';
 
 export const Token = ({ id, uri, registry, identifier, owner }: any) => {
   const image = useTokenImage({ id, uri });

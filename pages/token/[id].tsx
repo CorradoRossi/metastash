@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 
 import { useTokenDetails } from '../../lib/hooks/useTokenDetails';
 import { useTokenImage } from '../../lib/hooks/useTokenImage';
-import { LinkedOwner } from '../../components/Owner';
+import { LinkedOwner } from '../../components/owner/Owner';
 
 const Token = () => {
   const router = useRouter();

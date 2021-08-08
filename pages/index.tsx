@@ -5,8 +5,8 @@ import HomeContent from '@components/index';
 import { DEFAULT_USER, META } from '@lib/constants';
 
 import { useLastTradedNFTs } from '../lib/hooks/useLastTradedNFTs';
-import { Token } from '../components/Token';
-import { Form } from '../components/Form';
+import { Token } from '../components/token/Token';
+import { Form } from '../components/form/Form';
 
 const Home = () => {
   const { loading, error, nfts } = useLastTradedNFTs();
