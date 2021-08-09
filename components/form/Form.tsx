@@ -34,17 +34,17 @@ export const Form = ({ initialAddress = '' }) => {
         className={styles['form default submit generate-with-github']}
         onSubmit={handleSubmit(onSubmit)}
       >
-        Search address:
+        Address:
         <div className={styles['form-row']}>
           <label
-            htmlFor="email-input-field"
+            htmlFor="address-input-field"
             className={cn(styles['input-label'], {
               [styles.focused]: focused
             })}
           >
             <input
               className={styles['input']}
-              id="email-input-field"
+              id="address-input-field"
               type="text"
               defaultValue={initialAddress}
               placeholder="0x88842069..."
