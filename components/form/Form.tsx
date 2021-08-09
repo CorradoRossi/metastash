@@ -66,7 +66,7 @@ export const Form = ({ initialAddress = '' }) => {
         form {
           width: 320px;
           position: relative;
-          margin: 1em 2em;
+          margin: 0 2em;
         }
       `}</style>
     </div>
