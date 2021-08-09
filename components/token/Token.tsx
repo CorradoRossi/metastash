@@ -1,5 +1,4 @@
 import Link from 'next/link';
-
 import styles from 'styles/collection-grid.module.css';
 import { useTokenImage } from '../../lib/hooks/useTokenImage';
 import { Owner } from '../owner/Owner';
@@ -8,7 +7,7 @@ export const Token = ({ id, uri, registry, identifier, owner }: any) => {
   const image = useTokenImage({ id, uri });
 
   return (
-    <div className="allwrapper">
+    <div className={'allwrapper'}>
       <Link href={`/token/${id}`}>
         <a
           style={{
@@ -19,7 +18,7 @@ export const Token = ({ id, uri, registry, identifier, owner }: any) => {
           className={styles.card}
         >
           <div className={styles['imageWrapper holder']}>
-            <div className="info">
+            <div className={'info'}>
               <div>
                 ${registry?.symbol}: #{identifier}
               </div>

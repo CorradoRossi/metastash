@@ -1,5 +1,4 @@
 import { useRouter } from 'next/router';
-
 import Page from '@components/layout/page';
 import Layout from '@components/layout/layout';
 import { META } from '@lib/constants';
@@ -21,15 +20,22 @@ const OwnerPage = () => {
     <Page meta={META}>
       <Layout>
         <main>
-          <Form initialAddress={address as string} />
-          <h3 style={{ marginLeft: '2em', marginTop: '1em' }}>
-            NFTs owned by <Owner address={address} />:
-          </h3>
-          <div className={styles.grid}>
-            {nfts.map((nft: any) => (
-              <Token key={nft.id} {...nft} />
-            ))}
-          </div>
+          {loading && <p>Loading...</p>}
+          {error ? (
+            <p>{error}</p>
+          ) : (
+            <div>
+              <Form initialAddress={address as string} />
+              <h3 style={{ marginLeft: '2em', marginTop: '1em' }}>
+                NFTs owned by <Owner address={address} />:
+              </h3>
+              <div className={styles.grid}>
+                {nfts.map((nft: any) => (
+                  <Token key={nft.id} {...nft} />
+                ))}
+              </div>
+            </div>
+          )}
         </main>
       </Layout>
     </Page>
