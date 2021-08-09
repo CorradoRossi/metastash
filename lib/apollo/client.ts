@@ -13,6 +13,33 @@ console.log('ENV VARS', process.browser, NEXT_PUBLIC_ROOT_URL);
 
 let apolloClient: any;
 
+const defaultOptions: any = {
+  query: {
+    errorPolicy: 'all',
+    fetchPolicy: 'no-cache'
+  },
+  watchQuery: {
+    errorPolicy: 'ignore',
+    fetchPolicy: 'no-cache'
+  }
+};
+
+export const uniswapClient = new ApolloClient({
+  cache: new InMemoryCache(),
+  defaultOptions,
+  link: new HttpLink({
+    uri: 'https://api.thegraph.com/subgraphs/name/ianlapham/uniswapv2'
+  })
+});
+
+export const blockClient = new ApolloClient({
+  cache: new InMemoryCache(),
+  defaultOptions,
+  link: new HttpLink({
+    uri: 'https://api.thegraph.com/subgraphs/name/blocklytics/ethereum-blocks'
+  })
+});
+
 function createApolloClient() {
   return new ApolloClient({
     ssrMode: typeof window === 'undefined',
