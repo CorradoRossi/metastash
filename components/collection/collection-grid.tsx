@@ -5,11 +5,8 @@ import styles from 'styles/collection-grid.module.css';
 import { useAppState } from '../../lib/state/state';
 import { DataObject } from '@lib/types';
 import { Form } from '../form/Form';
-import { Token } from '../token/Token';
-import { useLastTradedNFTs } from '@lib/hooks/useLastTradedNFTs';
 
 const CollectionGrid = () => {
-  const { loading, error, nfts } = useLastTradedNFTs();
   const { assets }: any = useAppState();
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [data, setData] = useState<DataObject>({ assets: [] });
@@ -27,9 +24,6 @@ const CollectionGrid = () => {
     <div>
       <Form />
       <div className={styles.grid}>
-        {/*{nfts.map((nft: any) => (
-        <Token key={nft.transferId} {...nft} />
-      ))}*/}
         {data?.assets?.length ? (
           data?.assets?.map((asset: any) => {
             const regex = '^[^_]+';
