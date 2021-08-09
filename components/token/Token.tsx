@@ -1,5 +1,6 @@
 import Link from 'next/link';
 
+import styles from 'styles/collection-grid.module.css';
 import { useTokenImage } from '../../lib/hooks/useTokenImage';
 import { Owner } from '../owner/Owner';
 
@@ -8,8 +9,8 @@ export const Token = ({ id, uri, registry, identifier, owner }: any) => {
 
   return (
     <Link href={`/token/${id}`}>
-      <a>
-        <div className="holder">
+      <a className={styles.card}>
+        <div className={styles['imageWrapper holder']}>
           <div className="info">
             <div>
               ${registry?.symbol}: #{identifier}
@@ -18,24 +19,39 @@ export const Token = ({ id, uri, registry, identifier, owner }: any) => {
               <Owner address={owner?.id} />
             </div>
           </div>
-
           {image && (
-            <div className="image">
-              <img src={image} />
+            <div style={{ display: 'flex', justifyContent: 'center', aspectRatio: '1', zIndex: 5 }}>
+              <img className={styles.image} src={image} />
             </div>
           )}
+          <div className={styles.cardBody}>
+            <div>
+              <div>
+                <div>
+                  ${registry?.symbol}: #{identifier}
+                </div>
+                <div className="owner">
+                  <Owner address={owner?.id} />
+                </div>
+              </div>
+              <div className={styles.nameWrapper}>
+                <h2 className={styles.name}>{owner?.name}</h2>
+              </div>
+              <p className={styles.title}>
+                {`@${owner?.creator?.user?.username}`}
+                <span className={styles.company}>{''}</span>
+              </p>
+            </div>
+          </div>
         </div>
-        <style jsx>{`
+        <style>
+          {`
           a {
             position: relative;
             display: inline-block;
-            height: 200px;
-            width: 200px;
-            margin: 10px;
             overflow: hidden;
             text-align: center;
           }
-
           .holder {
             position: absolute;
             height: 100%;
@@ -43,11 +59,9 @@ export const Token = ({ id, uri, registry, identifier, owner }: any) => {
             left: 0;
             top: 0;
           }
-
           a:hover {
             box-shadow: 0 0 80px rgba(192, 219, 255, 0.48), 0 0 32px rgba(65, 120, 255, 0.24);
           }
-
           .info {
             position: absolute;
             top: 0;
@@ -57,35 +71,14 @@ export const Token = ({ id, uri, registry, identifier, owner }: any) => {
             padding: 20px 5px;
             background-color: #151c42c0;
             font-size: 0.8em;
+            display: none;
           }
-
-          .owner {
-            margin-top: 10px;
-          }
-
           a:hover .info {
+            display: block;
             z-index: 10;
           }
-
-          .image {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 100%;
-            width: 100%;
-            z-index: 5;
-            background-color: #151c42;
-          }
-
-          img {
-            position: relative;
-            max-width: 100%;
-            max-height: 100%;
-          }
-        `}</style>
+        `}
+        </style>
       </a>
     </Link>
   );

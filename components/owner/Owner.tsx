@@ -3,11 +3,6 @@ import Link from 'next/link';
 export const Owner = ({ address, enclosingDigits = 4 }: any) => (
   <span>
     {address?.slice(0, enclosingDigits + 2)}...{address?.slice(-enclosingDigits)}
-    <style jsx>{`
-      span {
-        font-family: 'Roboto Mono';
-      }
-    `}</style>
   </span>
 );
 
