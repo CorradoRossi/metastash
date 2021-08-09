@@ -12,8 +12,8 @@ export function Hosted() {
       rel="noopener noreferrer"
       style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
     >
+      <div className={styles['secondary-text']}>Don't take it too seriously </div>
       <MetastashLogo color="white" />
-      <div className={styles['secondary-text']}>Don't take it too seriously</div>
     </a>
   );
 }
@@ -28,7 +28,6 @@ export default function Footer() {
         <div className={styles['footer-copyright']}>
           Copyright © {`${new Date().getFullYear()} `} {`${SITE_NAME}`}
         </div>
-        {<Hosted />}
         <div className={styles['footer-center-group']}>
           <p className={styles['footer-paragraph']}>
             <a
@@ -67,6 +66,7 @@ export default function Footer() {
             </>
           )}
         </div>
+        {<Hosted />}
       </div>
     </footer>
   );
