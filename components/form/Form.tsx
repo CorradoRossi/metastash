@@ -1,10 +1,14 @@
+import { useState } from 'react';
+import cn from 'classnames';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+import styles from 'styles/form.module.css';
 
 const EthereumAddressRegEx = /^0x[a-fA-F0-9]{40}$/;
 
 export const Form = ({ initialAddress = '' }) => {
+  const [focused, setFocused] = useState(false);
   const router = useRouter();
   const {
     register,
@@ -25,31 +29,46 @@ export const Form = ({ initialAddress = '' }) => {
   }, [isDirty, errors, address]);
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      Eyeball an Ethereum account 👀:
-      <input
-        type="text"
-        defaultValue={initialAddress}
-        placeholder="0xdeadbeef1337..."
-        {...register('address', { pattern: EthereumAddressRegEx, required: true })}
-      ></input>
+    <div className="form-wrapper">
+      <form
+        className={styles['form default submit generate-with-github']}
+        onSubmit={handleSubmit(onSubmit)}
+      >
+        Search address:
+        <div className={styles['form-row']}>
+          <label
+            htmlFor="email-input-field"
+            className={cn(styles['input-label'], {
+              [styles.focused]: focused
+            })}
+          >
+            <input
+              className={styles['input']}
+              id="email-input-field"
+              type="text"
+              defaultValue={initialAddress}
+              placeholder="0x88842069..."
+              {...register('address', { pattern: EthereumAddressRegEx, required: true })}
+              onFocus={() => setFocused(true)}
+              onBlur={() => setFocused(false)}
+            ></input>
+          </label>
+        </div>
+      </form>
       <style jsx>{`
+        .form-wrapper {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          justify-content: center;
+        }
+
         form {
           width: 320px;
           position: relative;
-          margin: 2em auto;
-        }
-
-        input {
-          width: 100%;
-          font-size: 12px;
-          padding: 5px;
-          font-family: 'Roboto Mono';
-          background-color: rgba(255, 255, 255, 0.08);
-          border: none;
-          color: white;
+          margin: 1em 2em;
         }
       `}</style>
-    </form>
+    </div>
   );
 };

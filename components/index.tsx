@@ -95,9 +95,9 @@ const HomeContent = ({ defaultUserData, defaultPageState = 'registration' }: Hom
                 pageState={pageState}
                 user={localUser}
               />
-              {nfts.map((nft: any) => (
+              {/*{nfts.map((nft: any) => (
                 <Token key={nft.transferId} {...nft} />
-              ))}
+              ))}*/}
             </>
           ) : (
             <>
