@@ -11,7 +11,7 @@ import Profile from './profile/profile';
 import { fetchData } from '@lib/web3/opensea-fetch';
 import { fetchUser } from '@lib/web3/opensea-fetch-user';
 import { DEFAULT_USER } from '@lib/constants';
-import { useAppState } from '../state/state';
+import { useAppState } from '../lib/state/state';
 import { fetchUniqueTokens } from '@lib/web3/fetch-unique';
 
 const HomeContent = ({ defaultUserData, defaultPageState = 'registration' }: HomeProps) => {
@@ -44,14 +44,23 @@ const HomeContent = ({ defaultUserData, defaultPageState = 'registration' }: Hom
       setEthAccount(account);
       setAcctBalance(data);
       setEthPrice(data);
-      fetchData(account).then(res => {
-        setAcctData(res);
-        //setAssets(res);
-      });
-      fetchUniqueTokens(user, assets, setAssets, account).then(res => {
-        return res;
-      });
-      fetchUser(account).then((res: any) => setLocalUser(res));
+      fetchData(account)
+        .then(res => setAcctData(res))
+        .catch(err => {
+          console.error(err ? err.message : 'Error fetching data');
+        });
+      fetchUser(account)
+        .then(res => setLocalUser(res))
+        .catch(err => {
+          console.error(err ? err.message : 'Error fetching user');
+        });
+      fetchUniqueTokens(user, assets, setAssets, account)
+        .then(res => {
+          return res;
+        })
+        .catch(err => {
+          console.error(err ? err.message : 'Error fetching unique tokens');
+        });
       setUser(account);
       setUserData(user);
       setLibrary(library);

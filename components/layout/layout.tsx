@@ -58,9 +58,9 @@ const Layout = ({ children, className, hideNav, layoutStyles }: LayoutProps) => 
             <SkipNavContent />
             <div className={cn(styles.full, className)}>{children}</div>
           </main>
-          {!activeRoute.startsWith('/platform') && <Footer />}
         </div>
       </div>
+      {<Footer />}
     </>
   );
 };

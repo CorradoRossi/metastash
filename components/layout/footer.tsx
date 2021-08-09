@@ -1,17 +1,18 @@
 import cn from 'classnames';
-import MetastashLogo from '@components/icons/icon-platform';
+import MetastashLogo from '@components/icons/icon-logo-3';
 import styles from 'styles/footer.module.css';
 import { COPYRIGHT_HOLDER, SITE_NAME, CODE_OF_CONDUCT, LEGAL_URL, REPO } from '@lib/constants';
 
 export function Hosted() {
   return (
     <a
-      href="https://vercel.com"
+      href="https://metastash.com/discord"
       className={cn(styles['footer-link'], styles['footer-logo'])}
       target="_blank"
       rel="noopener noreferrer"
+      style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
     >
-      <div className={styles['secondary-text']}>Created by </div>
+      <div className={styles['secondary-text']}>Don't take it too seriously </div>
       <MetastashLogo color="white" />
     </a>
   );
@@ -19,15 +20,13 @@ export function Hosted() {
 
 export default function Footer() {
   return (
-    <footer className={cn(styles.footer)}>
+    <footer className={cn(styles.footer)} style={{ marginTop: '1em' }}>
       <div className={styles['footer-legal']}>
         <div className={styles['footer-hostedby']}>
-          {/*<Hosted />*/}
           <div className={styles['footer-separator']} />
         </div>
         <div className={styles['footer-copyright']}>
-          Copyright © {`${new Date().getFullYear()} `} {COPYRIGHT_HOLDER || `${SITE_NAME}.`} All
-          rights reserved.
+          Copyright © {`${new Date().getFullYear()} `} {`${SITE_NAME}`}
         </div>
         <div className={styles['footer-center-group']}>
           <p className={styles['footer-paragraph']}>
@@ -67,6 +66,7 @@ export default function Footer() {
             </>
           )}
         </div>
+        {<Hosted />}
       </div>
     </footer>
   );
