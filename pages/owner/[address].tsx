@@ -22,9 +22,9 @@ const OwnerPage = () => {
       <Layout>
         <main>
           <Form initialAddress={address as string} />
-          <h1 style={{ marginLeft: '1em' }}>
+          <h3 style={{ marginLeft: '2em', marginTop: '1em' }}>
             NFTs owned by <Owner address={address} />:
-          </h1>
+          </h3>
           <div className={styles.grid}>
             {nfts.map((nft: any) => (
               <Token key={nft.id} {...nft} />

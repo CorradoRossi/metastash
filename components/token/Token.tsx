@@ -8,51 +8,54 @@ export const Token = ({ id, uri, registry, identifier, owner }: any) => {
   const image = useTokenImage({ id, uri });
 
   return (
-    <Link href={`/token/${id}`}>
-      <a
-        style={{
-          position: 'relative',
-          overflow: 'hidden',
-          textAlign: 'center'
-        }}
-        className={styles.card}
-      >
-        <div className={styles['imageWrapper holder']}>
-          <div className="info">
-            <div>
-              ${registry?.symbol}: #{identifier}
+    <div className="allwrapper">
+      <Link href={`/token/${id}`}>
+        <a
+          style={{
+            position: 'relative',
+            overflow: 'hidden',
+            textAlign: 'center'
+          }}
+          className={styles.card}
+        >
+          <div className={styles['imageWrapper holder']}>
+            <div className="info">
+              <div>
+                ${registry?.symbol}: #{identifier}
+              </div>
+              <div className="owner">
+                <Owner address={owner?.id} />
+              </div>
             </div>
-            <div className="owner">
-              <Owner address={owner?.id} />
-            </div>
-          </div>
-          {image && (
-            <div style={{ display: 'flex', justifyContent: 'center', aspectRatio: '1', zIndex: 5 }}>
-              <img className={styles.image} src={image} />
-            </div>
-          )}
-          <div className={styles.cardBody}>
-            <div>
+            {image && (
+              <div
+                style={{ display: 'flex', justifyContent: 'center', aspectRatio: '1', zIndex: 5 }}
+              >
+                <img className={styles.image} src={image} />
+              </div>
+            )}
+            <div className={styles.cardBody}>
               <div>
                 <div>
-                  ${registry?.symbol}: #{identifier}
+                  <div>
+                    ${registry?.symbol}: #{identifier}
+                  </div>
+                  <div className="owner">
+                    <Owner address={owner?.id} />
+                  </div>
                 </div>
-                <div className="owner">
-                  <Owner address={owner?.id} />
+                <div className={styles.nameWrapper}>
+                  <h2 className={styles.name}>{owner?.name}</h2>
                 </div>
+                <p className={styles.title}>
+                  {`@${owner?.creator?.user?.username}`}
+                  <span className={styles.company}>{''}</span>
+                </p>
               </div>
-              <div className={styles.nameWrapper}>
-                <h2 className={styles.name}>{owner?.name}</h2>
-              </div>
-              <p className={styles.title}>
-                {`@${owner?.creator?.user?.username}`}
-                <span className={styles.company}>{''}</span>
-              </p>
             </div>
           </div>
-        </div>
-        <style>
-          {`
+          <style>
+            {`
               .holder {
                 position: absolute;
                 height: 100%;
@@ -60,7 +63,7 @@ export const Token = ({ id, uri, registry, identifier, owner }: any) => {
                 left: 0;
                 top: 0;
               }
-              a:hover {
+              .allwrapper a:hover {
                 box-shadow: 0 0 80px rgba(192, 219, 255, 0.48), 0 0 32px rgba(65, 120, 255, 0.24);
               }
               .info {
@@ -79,8 +82,9 @@ export const Token = ({ id, uri, registry, identifier, owner }: any) => {
                 z-index: 10;
               }
             `}
-        </style>
-      </a>
-    </Link>
+          </style>
+        </a>
+      </Link>
+    </div>
   );
 };
