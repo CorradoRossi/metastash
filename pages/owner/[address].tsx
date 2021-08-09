@@ -22,7 +22,7 @@ const OwnerPage = () => {
       <Layout>
         <main>
           <Form initialAddress={address as string} />
-          <h1>
+          <h1 style={{ marginLeft: '1em' }}>
             NFTs owned by <Owner address={address} />:
           </h1>
           <div className={styles.grid}>

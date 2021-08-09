@@ -30,10 +30,7 @@ export const Form = ({ initialAddress = '' }) => {
 
   return (
     <div className="form-wrapper">
-      <form
-        className={styles['form default submit generate-with-github']}
-        onSubmit={handleSubmit(onSubmit)}
-      >
+      <form className={styles['form generate-with-github']} onSubmit={handleSubmit(onSubmit)}>
         Address:
         <div className={styles['form-row']}>
           <label
@@ -47,7 +44,7 @@ export const Form = ({ initialAddress = '' }) => {
               id="address-input-field"
               type="text"
               defaultValue={initialAddress}
-              placeholder="0x88842069..."
+              placeholder="0x00788842069..."
               {...register('address', { pattern: EthereumAddressRegEx, required: true })}
               onFocus={() => setFocused(true)}
               onBlur={() => setFocused(false)}
@@ -64,7 +61,7 @@ export const Form = ({ initialAddress = '' }) => {
         }
 
         form {
-          width: 320px;
+          width: 520px;
           position: relative;
           margin: 0 2em;
         }

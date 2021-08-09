@@ -9,7 +9,14 @@ export const Token = ({ id, uri, registry, identifier, owner }: any) => {
 
   return (
     <Link href={`/token/${id}`}>
-      <a className={styles.card}>
+      <a
+        style={{
+          position: 'relative',
+          overflow: 'hidden',
+          textAlign: 'center'
+        }}
+        className={styles.card}
+      >
         <div className={styles['imageWrapper holder']}>
           <div className="info">
             <div>
@@ -46,38 +53,32 @@ export const Token = ({ id, uri, registry, identifier, owner }: any) => {
         </div>
         <style>
           {`
-          a {
-            position: relative;
-            display: inline-block;
-            overflow: hidden;
-            text-align: center;
-          }
-          .holder {
-            position: absolute;
-            height: 100%;
-            width: 100%;
-            left: 0;
-            top: 0;
-          }
-          a:hover {
-            box-shadow: 0 0 80px rgba(192, 219, 255, 0.48), 0 0 32px rgba(65, 120, 255, 0.24);
-          }
-          .info {
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 100%;
-            width: 100%;
-            padding: 20px 5px;
-            background-color: #151c42c0;
-            font-size: 0.8em;
-            display: none;
-          }
-          a:hover .info {
-            display: block;
-            z-index: 10;
-          }
-        `}
+              .holder {
+                position: absolute;
+                height: 100%;
+                width: 100%;
+                left: 0;
+                top: 0;
+              }
+              a:hover {
+                box-shadow: 0 0 80px rgba(192, 219, 255, 0.48), 0 0 32px rgba(65, 120, 255, 0.24);
+              }
+              .info {
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 100%;
+                width: 100%;
+                padding: 20px 5px;
+                background-color: #151c42c0;
+                font-size: 0.8em;
+                display: none;
+              }
+              a:hover .info {
+                display: block;
+                z-index: 10;
+              }
+            `}
         </style>
       </a>
     </Link>
