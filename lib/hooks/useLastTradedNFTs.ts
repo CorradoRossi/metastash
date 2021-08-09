@@ -1,4 +1,4 @@
-import { gql, useQuery } from '@apollo/client'
+import { gql, useQuery } from '@apollo/client';
 
 export const useLastTradedNFTs = () => {
   const { loading, error, data } = useQuery(
@@ -22,14 +22,14 @@ export const useLastTradedNFTs = () => {
         }
       }
     `,
-    { pollInterval: 5000 },
-  )
+    { pollInterval: 5000 }
+  );
 
   const nfts =
-    data?.transfers?.map((transfer) => ({
+    data?.transfers?.map((transfer: any) => ({
       ...transfer.token,
-      transferId: transfer.id,
-    })) || []
+      transferId: transfer.id
+    })) || [];
 
-  return { loading, error, nfts }
-}
+  return { loading, error, nfts };
+};
