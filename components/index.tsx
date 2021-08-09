@@ -7,14 +7,18 @@ import HomeContainer from './home/home-container';
 import Layout from './layout/layout';
 import Hero from './home/hero';
 import Form from './home/form';
+import { Form as FormInput } from '../components/form/Form';
 import Profile from './profile/profile';
 import { fetchData } from '@lib/web3/opensea-fetch';
 import { fetchUser } from '@lib/web3/opensea-fetch-user';
 import { DEFAULT_USER } from '@lib/constants';
 import { useAppState } from '../state/state';
 import { fetchUniqueTokens } from '@lib/web3/fetch-unique';
+import { Token } from '../components/token/Token';
+import { useLastTradedNFTs } from '../lib/hooks/useLastTradedNFTs';
 
 const HomeContent = ({ defaultUserData, defaultPageState = 'registration' }: HomeProps) => {
+  const { loading, error, nfts } = useLastTradedNFTs();
   const { library: libraryState, user, assets }: any = useAppState();
   const { setUser, setLibrary, setAssets, setEthPrice } = useAppState(
     useCallback(
@@ -83,6 +87,7 @@ const HomeContent = ({ defaultUserData, defaultPageState = 'registration' }: Hom
         <HomeContainer>
           {account && pageState === 'loggedin' && !isLoading ? (
             <>
+              <FormInput />
               <Profile
                 ethAccount={ethAccount}
                 acctBalance={acctBalance}
@@ -90,6 +95,9 @@ const HomeContent = ({ defaultUserData, defaultPageState = 'registration' }: Hom
                 pageState={pageState}
                 user={localUser}
               />
+              {nfts.map((nft: any) => (
+                <Token key={nft.transferId} {...nft} />
+              ))}
             </>
           ) : (
             <>
