@@ -14,6 +14,7 @@ import { DEFAULT_USER } from '@lib/constants';
 import { useAppState } from '../lib/state/state';
 import { fetchUniqueTokens } from '@lib/web3/fetch-unique';
 import { fetchUniqueOrders } from '@lib/web3/fetch-unique-orders';
+import { fetchOrders } from '@lib/web3/fetch-unique2';
 
 const HomeContent = ({ defaultUserData, defaultPageState = 'registration' }: HomeProps) => {
   const { library: libraryState, user, assets, rawAssets }: any = useAppState();
@@ -41,6 +42,7 @@ const HomeContent = ({ defaultUserData, defaultPageState = 'registration' }: Hom
   const [localUser, setLocalUser] = useState<UserData>(DEFAULT_USER);
 
   async function doFetchData() {
+    let rssi = '0x90c19feA1eF7BEBA9274217431F148094795B074';
     setIsLoading(true);
     if (account) {
       setEthAccount(account);
@@ -63,7 +65,7 @@ const HomeContent = ({ defaultUserData, defaultPageState = 'registration' }: Hom
         .catch(err => {
           console.error(err ? err.message : 'Error fetching unique tokens');
         });
-      fetchUniqueOrders(user, rawAssets, setRawAssets, account)
+      fetchOrders({ user: { address: rssi } }, rawAssets, setRawAssets, rssi)
         .then(res => {
           return res;
         })

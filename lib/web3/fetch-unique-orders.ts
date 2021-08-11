@@ -7,12 +7,12 @@ let uniqueTokensHandle = null;
 
 export const fetchUniqueOrders = async (
   user: any,
-  assets: any,
-  setAssets: any,
+  rawAssets: any,
+  setRawAssets: any,
   showcaseAddress: any
 ) => {
   const accountAddress = showcaseAddress;
-  const shouldUpdateInBatches = isEmpty(assets);
+  const shouldUpdateInBatches = isEmpty(rawAssets);
 
   let showcase;
   let shouldStopFetching = false;
@@ -29,23 +29,22 @@ export const fetchUniqueOrders = async (
 
       uniqueTokens = concat(uniqueTokens, newPageResults);
       shouldStopFetching =
-        newPageResults.length < UNIQUE_TOKENS_LIMIT_PER_PAGE ||
-        uniqueTokens.length >= UNIQUE_TOKENS_LIMIT_TOTAL;
+        newPageResults.length < UNIQUE_TOKENS_LIMIT_PER_PAGE || uniqueTokens.length >= 500;
       page += 1;
 
       if (shouldUpdateInBatches) {
-        setAssets(uniqueTokens);
+        setRawAssets(uniqueTokens);
       }
 
       if (shouldStopFetching) {
         if (!shouldUpdateInBatches) {
-          setAssets(uniqueTokens);
+          setRawAssets(uniqueTokens);
         }
         const existingFamilies = getFamilies(uniqueTokens);
         const newFamilies = getFamilies(uniqueTokens);
         const incomingFamilies = without(newFamilies, ...existingFamilies);
         if (incomingFamilies.length) {
-          const dedupedAssets = dedupeAssetsWithFamilies(assets, incomingFamilies);
+          const dedupedAssets = dedupeAssetsWithFamilies(rawAssets, incomingFamilies);
         }
         if (!showcaseAddress) {
           console.log(uniqueTokens, accountAddress, 'whats going on here?');

@@ -29,21 +29,15 @@ const Profile = ({
   const [combinedLastSaleprice, setCombinedLastSaleprice] = useState(0);
 
   useEffect(() => {
-    let localCombinedBids = 0;
-    let localCombinedLastSaleprice = 0;
-    if (rawAssets) {
+    if (acctData) {
       setAccount(ethAccount);
       setBalance(acctBalance);
-      rawAssets?.forEach((item: any) => {
-        if (item.current_price) {
-          localCombinedBids += parseFloat(item?.current_price) / 1000000000000000000;
-        }
-        if (item.last_sale) {
-          localCombinedLastSaleprice += parseFloat(item?.last_sale_price) / 1000000000000000000;
-        }
-      });
-      setCombinedBids(localCombinedBids);
-      setCombinedLastSaleprice(localCombinedLastSaleprice);
+    }
+    if (rawAssets) {
+      setCombinedBids(rawAssets.reduce((acc: any, item: any) => acc + item.current_price, 0));
+      setCombinedLastSaleprice(
+        rawAssets.reduce((acc: any, item: any) => acc + item.last_sale_price, 0)
+      );
     }
     setIsLoading(false);
   }, [ethAccount, acctBalance, acctData, isLoading, rawAssets]);

@@ -71,12 +71,14 @@ const useAppState = create<StateContext>((set, get) => ({
     }
   },
   setAssets: async newAssets => {
+    console.log('newAssets', newAssets);
     let combinedAssets: any = await newAssets;
     set({ assets: parseAccountUniqueTokens({ data: { assets: combinedAssets } }) });
   },
   setRawAssets: async (newRawAssets: any) => {
+    console.log('newRawAssets', newRawAssets);
     let combinedAssets: any = await newRawAssets;
-    set({ rawAssets: { data: { assets: combinedAssets } } });
+    set({ rawAssets: combinedAssets });
   },
   setTokensOnSale: (tokensOnSale: TokenProps[]) => set({ tokensOnSale: tokensOnSale }),
   setEthPrice: (ethPrice: string) => set({ ethPrice: ethPrice }),

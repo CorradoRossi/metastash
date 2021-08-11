@@ -7,6 +7,7 @@ import TwitterIcon from '@components/icons/icon-twitterr';
 import { formatAddressShort, copyToClipBoard } from '@lib/utils/utils';
 import { DEFAULT_PROFILE_PIC } from '@lib/constants';
 import { useAppState } from '../../lib/state/state';
+import { fetchOrders } from '@lib/web3/opensea-fetch-orders';
 
 const Profile = ({
   ethAccount,
@@ -27,26 +28,41 @@ const Profile = ({
   const [balance, setBalance] = useState<string>(acctBalance);
   const [combinedBids, setCombinedBids] = useState<number>(0);
   const [combinedLastSaleprice, setCombinedLastSaleprice] = useState(0);
+  const [orders, setOrders] = useState({ count: 0, orders: [] });
 
   useEffect(() => {
     let localCombinedBids = 0;
     let localCombinedLastSaleprice = 0;
-    if (rawAssets) {
+    if (acctData) {
       setAccount(ethAccount);
+      //fetchAcct(ethAccount);
       setBalance(acctBalance);
-      rawAssets?.forEach((item: any) => {
-        if (item.current_price) {
-          localCombinedBids += parseFloat(item?.current_price) / 1000000000000000000;
+      acctData?.assets?.forEach((item: any) => {
+        if (item.topBid) {
+          localCombinedBids += item.topBid;
         }
         if (item.last_sale) {
-          localCombinedLastSaleprice += parseFloat(item?.last_sale_price) / 1000000000000000000;
+          localCombinedLastSaleprice += item.last_sale_price;
         }
       });
       setCombinedBids(localCombinedBids);
       setCombinedLastSaleprice(localCombinedLastSaleprice);
     }
     setIsLoading(false);
-  }, [ethAccount, acctBalance, acctData, isLoading, rawAssets]);
+  }, [ethAccount, acctBalance, acctData, isLoading]);
+
+  useEffect(() => {
+    let rssi = '0x90c19feA1eF7BEBA9274217431F148094795B074';
+    if (orders.count === 0 && account) {
+      let localOrders = () =>
+        fetchOrders(rssi).then((data: any) => {
+          data.orders;
+          setOrders(data);
+        });
+      localOrders();
+    }
+    console.log('rawAssets', rawAssets);
+  }, [account]);
 
   return !isLoading && pageState === 'loggedin' && user ? (
     <>
@@ -132,16 +148,19 @@ const Profile = ({
               <span>Combined last sale price: </span>
               {combinedLastSaleprice}
             </p>
-            <ul style={{ fontWeight: 600 }}>
+            <p style={{ fontWeight: 600 }}>
               <span>Orders: </span>
-              {rawAssets?.map((order: any, index: number) => {
-                return order ? (
-                  <li key={index}>{parseFloat(order?.current_price) / 1000000000000000000}</li>
-                ) : (
-                  '0'
-                );
-              })}
-            </ul>
+              <ul>
+                {rawAssets?.map((order: any) => {
+                  console.log('rawAssets', rawAssets);
+                  return order ? (
+                    <li>{parseFloat(order?.current_price) / 1000000000000000000}</li>
+                  ) : (
+                    '0'
+                  );
+                })}
+              </ul>
+            </p>
           </div>
         )}
       </div>
