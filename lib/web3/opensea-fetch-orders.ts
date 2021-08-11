@@ -8,6 +8,5 @@ export async function fetchOrders(account: string) {
     console.log(`Failed to fetch orders`);
     throw new Error('Failed to fetch orders');
   });
-  console.log('response', response);
   return response;
 }

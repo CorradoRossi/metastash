@@ -14,7 +14,6 @@ export const apiGetAccountUniqueOrders = async (address: any, page: any) => {
     const offset = page * UNIQUE_TOKENS_LIMIT_PER_PAGE;
     const url = `https://api.opensea.io/wyvern/v1/orders?owner=${address}&bundled=false&include_bundled=false&include_invalid=false&side=0&limit=${UNIQUE_TOKENS_LIMIT_PER_PAGE}&offset=${offset}&order_by=created_date&order_direction=desc`;
     const data = await api.get(url);
-    console.log('datadataOrders', data.data.orders);
     return data.data.orders;
   } catch (error) {
     console.log('Error getting unique tokens', error);
