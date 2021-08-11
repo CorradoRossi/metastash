@@ -7,6 +7,7 @@ import TwitterIcon from '@components/icons/icon-twitterr';
 import { formatAddressShort, copyToClipBoard } from '@lib/utils/utils';
 import { DEFAULT_PROFILE_PIC } from '@lib/constants';
 import { useAppState } from '../../lib/state/state';
+import { formatPriceEthNum } from '@lib/utils/formatPriceEth';
 
 const Profile = ({
   ethAccount,
@@ -25,15 +26,17 @@ const Profile = ({
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [account, setAccount] = useState<string>(ethAccount);
   const [balance, setBalance] = useState<string>(acctBalance);
-  const [combinedBids, setCombinedBids] = useState<number>(0);
+  const [combinedBids, setCombinedBids] = useState<any>(0);
+  const [combinedBidsEth, setCombinedBidsEth] = useState<any>(0);
   const [combinedLastSaleprice, setCombinedLastSaleprice] = useState(0);
 
   useEffect(() => {
-    let localCombinedBids = 0;
-    let localCombinedLastSaleprice = 0;
+    let localCombinedBids: any = 0;
+    let localCombinedLastSaleprice: any = 0;
     if (rawAssets) {
       setAccount(ethAccount);
       setBalance(acctBalance);
+      let ethPrice: any = rawAssets ? rawAssets[0]?.payment_token_contract?.usd_price : '';
       rawAssets?.forEach((item: any) => {
         if (item.current_price) {
           localCombinedBids += parseFloat(item?.current_price) / 1000000000000000000;
@@ -42,7 +45,8 @@ const Profile = ({
           localCombinedLastSaleprice += parseFloat(item?.last_sale_price) / 1000000000000000000;
         }
       });
-      setCombinedBids(localCombinedBids);
+      setCombinedBids(formatPriceEthNum(localCombinedBids, ethPrice));
+      setCombinedBidsEth(localCombinedBids);
       setCombinedLastSaleprice(localCombinedLastSaleprice);
     }
     setIsLoading(false);
@@ -125,14 +129,18 @@ const Profile = ({
               {assets?.length}
             </p>
             <p style={{ fontWeight: 600 }}>
-              <span>Combined bids: </span>
+              <span>Combined bids in ETH: </span>
+              {combinedBidsEth.toFixed(2)}
+            </p>
+            <p style={{ fontWeight: 600 }}>
+              <span>Combined bids in USD: </span>
               {combinedBids}
             </p>
             <p style={{ fontWeight: 600 }}>
               <span>Combined last sale price: </span>
               {combinedLastSaleprice}
             </p>
-            <ul style={{ fontWeight: 600 }}>
+            {/*<ul style={{ fontWeight: 600 }}>
               <span>Orders: </span>
               {rawAssets?.map((order: any, index: number) => {
                 return order ? (
@@ -141,7 +149,7 @@ const Profile = ({
                   '0'
                 );
               })}
-            </ul>
+            </ul>*/}
           </div>
         )}
       </div>

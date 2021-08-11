@@ -65,7 +65,7 @@ const HomeContent = ({ defaultUserData, defaultPageState = 'registration' }: Hom
         .catch(err => {
           console.error(err ? err.message : 'Error fetching unique tokens');
         });
-      fetchOrders({ user: { address: rssi } }, rawAssets, setRawAssets, rssi)
+      fetchOrders(user, rawAssets, setRawAssets, account)
         .then(res => {
           return res;
         })

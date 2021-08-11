@@ -9,6 +9,12 @@ export const formatPriceEth = (price: BigNumberish, ethPrice: string = '0') =>
     currency: 'USD'
   }).format(Number(utils.formatEther(price)) * Number(ethPrice));
 
+export const formatPriceEthNum = (price: number, ethPrice: string = '0') =>
+  new Intl.NumberFormat('us-GB', {
+    style: 'currency',
+    currency: 'USD'
+  }).format(Number(price * Number(ethPrice)));
+
 //
 
 export function toUnitAmount(baseAmount: any, tokenContract: any = null) {
