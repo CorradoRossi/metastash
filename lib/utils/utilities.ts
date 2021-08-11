@@ -6,13 +6,13 @@ type BigNumberish = number | string | BigNumber;
 
 export const abs = (value: BigNumberish): string => new BigNumber(value).abs().toFixed();
 
-export const isPositive = (value: BigNumberish): boolean => new BigNumber(value).isPositive();
+//export const isPositive = (value: BigNumberish): boolean => new BigNumber(value).isPositive();
 
 export const subtract = (numberOne: BigNumberish, numberTwo: BigNumberish): string =>
   new BigNumber(numberOne).minus(new BigNumber(numberTwo)).toFixed();
 
-export const convertAmountToRawAmount = (value: BigNumberish, decimals: number | string): string =>
-  new BigNumber(value).times(new BigNumber(10).pow(decimals)).toFixed();
+//export const convertAmountToRawAmount = (value: BigNumberish, decimals: number | string): string =>
+//  new BigNumber(value).times(new BigNumber(10).pow(decimals)).toFixed();
 
 export const isZero = (value: BigNumberish): boolean => new BigNumber(value).isZero();
 
@@ -56,36 +56,36 @@ export const floorDivide = (numberOne: BigNumberish, numberTwo: BigNumberish): s
  */
 export const countDecimalPlaces = (value: BigNumberish): number => new BigNumber(value).dp();
 
-/**
- * @desc update the amount to display precision
- * equivalent to ~0.01 of the native price
- * or use most significant decimal
- * if the updated precision amounts to zero
- * @param  {String}   amount
- * @param  {String}   nativePrice
- * @param  {Boolean}  use rounding up mode
- * @return {String}   updated amount
- */
-export const updatePrecisionToDisplay = (
-  amount: BigNumberish | null,
-  nativePrice?: BigNumberish | null,
-  roundUp: boolean = false
-): string => {
-  if (!amount) return '0';
-  if (!nativePrice) return new BigNumber(amount).toFixed();
-  const roundingMode = roundUp ? BigNumber.ROUND_UP : BigNumber.ROUND_DOWN;
-  const bnAmount = new BigNumber(amount);
-  const significantDigitsOfNativePriceInteger = new BigNumber(nativePrice)
-    .decimalPlaces(0, BigNumber.ROUND_DOWN)
-    .sd(true);
-  const truncatedPrecision = new BigNumber(significantDigitsOfNativePriceInteger)
-    .plus(2, 10)
-    .toNumber();
-  const truncatedAmount = bnAmount.decimalPlaces(truncatedPrecision, BigNumber.ROUND_DOWN);
-  return truncatedAmount.isZero()
-    ? new BigNumber(bnAmount.toPrecision(1, roundingMode)).toFixed()
-    : bnAmount.decimalPlaces(truncatedPrecision, roundingMode).toFixed();
-};
+///**
+// * @desc update the amount to display precision
+// * equivalent to ~0.01 of the native price
+// * or use most significant decimal
+// * if the updated precision amounts to zero
+// * @param  {String}   amount
+// * @param  {String}   nativePrice
+// * @param  {Boolean}  use rounding up mode
+// * @return {String}   updated amount
+// */
+//export const updatePrecisionToDisplay = (
+//  amount: BigNumberish | null,
+//  nativePrice?: BigNumberish | null,
+//  roundUp: boolean = false
+//): string => {
+//  if (!amount) return '0';
+//  if (!nativePrice) return new BigNumber(amount).toFixed();
+//  const roundingMode = roundUp ? BigNumber.ROUND_UP : BigNumber.ROUND_DOWN;
+//  const bnAmount = new BigNumber(amount);
+//  const significantDigitsOfNativePriceInteger = new BigNumber(nativePrice)
+//    .decimalPlaces(0, BigNumber.ROUND_DOWN)
+//    .sd(true);
+//  const truncatedPrecision = new BigNumber(significantDigitsOfNativePriceInteger)
+//    .plus(2, 10)
+//    .toNumber();
+//  const truncatedAmount = bnAmount.decimalPlaces(truncatedPrecision, BigNumber.ROUND_DOWN);
+//  return truncatedAmount.isZero()
+//    ? new BigNumber(bnAmount.toPrecision(1, roundingMode)).toFixed()
+//    : bnAmount.decimalPlaces(truncatedPrecision, roundingMode).toFixed();
+//};
 
 /**
  * @desc format inputOne value to signficant decimals given inputTwo
@@ -284,11 +284,11 @@ export const convertAmountToPercentageDisplayWithThreshold = (
   }
 };
 
-/**
- * @desc convert from bips amount to percentage format
- */
-export const convertBipsToPercentage = (value: BigNumberish, decimals: number = 2): string =>
-  new BigNumber(value || 0).shiftedBy(-2).toFixed(decimals);
+///**
+// * @desc convert from bips amount to percentage format
+// */
+//export const convertBipsToPercentage = (value: BigNumberish, decimals: number = 2): string =>
+//  new BigNumber(value || 0).shiftedBy(-2).toFixed(decimals);
 
 /**
  * @desc convert from amount value to display formatted string
