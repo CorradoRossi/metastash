@@ -21,46 +21,51 @@ const Token = () => {
   return (
     <Page meta={META}>
       <Layout>
-        <div className={styles.container}>
-          <main>
-            <h1>{token?.registry?.name}</h1>
-            <h2>
-              ${token?.registry?.symbol}: #{token?.identifier}
-            </h2>
-            <img src={image} />
-            <div>
-              Metadata URI:{' '}
-              <a target="_blank" href={token?.uri}>
-                {token?.uri}
-              </a>
-            </div>
-            <div>
-              Owner: <LinkedOwner address={token?.owner?.id} enclosingDigits={8} />
-            </div>
+        {loading && <p>Loading...</p>}
+        {error ? (
+          <p>{error}</p>
+        ) : (
+          <div className={styles.container}>
+            <main>
+              <h1>{token?.registry?.name}</h1>
+              <h2>
+                ${token?.registry?.symbol}: #{token?.identifier}
+              </h2>
+              <img src={image} />
+              <div>
+                Metadata URI:{' '}
+                <a target="_blank" href={token?.uri}>
+                  {token?.uri}
+                </a>
+              </div>
+              <div>
+                Owner: <LinkedOwner address={token?.owner?.id} enclosingDigits={8} />
+              </div>
 
-            <h2>Previous owners</h2>
-            <div
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'flex-start',
-                justifyContent: 'center'
-              }}
-            >
-              {token?.transfers?.map((transfer: any) => (
-                <div>
-                  <LinkedOwner address={transfer?.from?.id} enclosingDigits={8} />
-                </div>
-              ))}
-            </div>
-          </main>
+              <h2>Previous owners</h2>
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'flex-start',
+                  justifyContent: 'center'
+                }}
+              >
+                {token?.transfers?.map((transfer: any) => (
+                  <div>
+                    <LinkedOwner address={transfer?.from?.id} enclosingDigits={8} />
+                  </div>
+                ))}
+              </div>
+            </main>
 
-          <style jsx>{`
-            img {
-              width: 300px;
-            }
-          `}</style>
-        </div>
+            <style jsx>{`
+              img {
+                width: 300px;
+              }
+            `}</style>
+          </div>
+        )}
       </Layout>
     </Page>
   );

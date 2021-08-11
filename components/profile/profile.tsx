@@ -7,7 +7,7 @@ import TwitterIcon from '@components/icons/icon-twitterr';
 import { formatAddressShort, copyToClipBoard } from '@lib/utils/utils';
 import { DEFAULT_PROFILE_PIC } from '@lib/constants';
 import { useAppState } from '../../lib/state/state';
-import { fetchAcct } from '@lib/web3/opensea-fetch-acct';
+import { fetchOrders } from '@lib/web3/opensea-fetch-orders';
 
 const Profile = ({
   ethAccount,
@@ -22,12 +22,13 @@ const Profile = ({
   acctData: object | any;
   user: object | any;
 }) => {
-  const { assets }: any = useAppState();
+  const { assets, rawAssets }: any = useAppState();
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [account, setAccount] = useState<string>(ethAccount);
   const [balance, setBalance] = useState<string>(acctBalance);
   const [combinedBids, setCombinedBids] = useState<number>(0);
   const [combinedLastSaleprice, setCombinedLastSaleprice] = useState(0);
+  const [orders, setOrders] = useState({ count: 0, orders: [] });
 
   useEffect(() => {
     let localCombinedBids = 0;
@@ -49,6 +50,18 @@ const Profile = ({
     }
     setIsLoading(false);
   }, [ethAccount, acctBalance, acctData, isLoading]);
+
+  useEffect(() => {
+    let rssi = '0x90c19feA1eF7BEBA9274217431F148094795B074';
+    if (orders.count === 0 && account) {
+      let localOrders = () =>
+        fetchOrders(rssi).then((data: any) => {
+          data.orders;
+          setOrders(data);
+        });
+      localOrders();
+    }
+  }, [account]);
 
   return !isLoading && pageState === 'loggedin' && user ? (
     <>
@@ -133,6 +146,20 @@ const Profile = ({
             <p style={{ fontWeight: 600 }}>
               <span>Combined last sale price: </span>
               {combinedLastSaleprice}
+            </p>
+            <p style={{ fontWeight: 600 }}>
+              <span>Orders: </span>
+              <ul>
+                {rawAssets?.map((order: any) => {
+                  console.log('order', order);
+                  console.log('rawAssets', rawAssets);
+                  return order ? (
+                    <li>{parseFloat(order?.current_price) / 1000000000000000000}</li>
+                  ) : (
+                    '0'
+                  );
+                })}
+              </ul>
             </p>
           </div>
         )}

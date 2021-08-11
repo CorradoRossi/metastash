@@ -13,15 +13,17 @@ import { fetchUser } from '@lib/web3/opensea-fetch-user';
 import { DEFAULT_USER } from '@lib/constants';
 import { useAppState } from '../lib/state/state';
 import { fetchUniqueTokens } from '@lib/web3/fetch-unique';
+import { fetchUniqueOrders } from '@lib/web3/fetch-unique-orders';
 
 const HomeContent = ({ defaultUserData, defaultPageState = 'registration' }: HomeProps) => {
-  const { library: libraryState, user, assets }: any = useAppState();
-  const { setUser, setLibrary, setAssets, setEthPrice } = useAppState(
+  const { library: libraryState, user, assets, rawAssets }: any = useAppState();
+  const { setUser, setLibrary, setAssets, setRawAssets, setEthPrice } = useAppState(
     useCallback(
-      ({ setUser, setLibrary, setAssets, setEthPrice }) => ({
+      ({ setUser, setLibrary, setAssets, setRawAssets, setEthPrice }) => ({
         setUser,
         setLibrary,
         setAssets,
+        setRawAssets,
         setEthPrice
       }),
       []
@@ -60,6 +62,13 @@ const HomeContent = ({ defaultUserData, defaultPageState = 'registration' }: Hom
         })
         .catch(err => {
           console.error(err ? err.message : 'Error fetching unique tokens');
+        });
+      fetchUniqueOrders(user, rawAssets, setRawAssets, account)
+        .then(res => {
+          return res;
+        })
+        .catch(err => {
+          console.error(err ? err.message : 'Error fetching unique raw tokens');
         });
       setUser(account);
       setUserData(user);

@@ -9,6 +9,7 @@ import { parseAccountUniqueTokens } from '@lib/utils/uniqueTokens';
 
 const useAppState = create<StateContext>((set, get) => ({
   assets: [],
+  rawAssets: [],
   isAuthenticated: false,
   contract: undefined,
   user: DEFAULT_USER,
@@ -72,6 +73,10 @@ const useAppState = create<StateContext>((set, get) => ({
   setAssets: async newAssets => {
     let combinedAssets: any = await newAssets;
     set({ assets: parseAccountUniqueTokens({ data: { assets: combinedAssets } }) });
+  },
+  setRawAssets: async (newRawAssets: any) => {
+    let combinedAssets: any = await newRawAssets;
+    set({ rawAssets: { data: { assets: combinedAssets } } });
   },
   setTokensOnSale: (tokensOnSale: TokenProps[]) => set({ tokensOnSale: tokensOnSale }),
   setEthPrice: (ethPrice: string) => set({ ethPrice: ethPrice }),
