@@ -50,12 +50,31 @@ const Profile = ({
       setCombinedLastSaleprice(localCombinedLastSaleprice);
     }
     setIsLoading(false);
-    function checkIfArrayIsUnique(myArray: any) {
+    const isArrUnique = (myArray: any) => {
       return myArray.length === new Set(myArray).size;
-    }
+    };
     let ids = Array.from(rawAssets, (item: any) => item.asset.id);
-    console.table(ids);
-    console.log(checkIfArrayIsUnique(ids));
+    let prices = Array.from(rawAssets, (item: any) => {
+      let obj: any = { name: '', token_id: '', price: '' };
+      obj.name = item.asset.collection.name;
+      obj.token_id = item.asset.token_id;
+      obj.price = item.current_price
+        ? (parseFloat(item.current_price) / 1000000000000000000).toFixed(2)
+        : 0;
+      return obj;
+    }).sort(function (a, b) {
+      var nameA = a.name.toUpperCase();
+      var nameB = b.name.toUpperCase();
+      if (nameA < nameB) {
+        return -1;
+      }
+      if (nameA > nameB) {
+        return 1;
+      }
+      return 0;
+    });
+    console.log('rawAssets', rawAssets);
+    console.table(prices);
   }, [ethAccount, acctBalance, acctData, isLoading, rawAssets]);
 
   return !isLoading && pageState === 'loggedin' && user ? (
