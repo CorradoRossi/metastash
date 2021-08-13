@@ -1,4 +1,4 @@
-import { useAppState } from '../state/state';
+import { useAppState } from '../apollo/state';
 
 export const fetcherETHUSD = async (url: string) => {
   try {

@@ -1,6 +1,6 @@
 import { Job, Sponsor, Platform, Collectible } from '@lib/types';
 import { API_URL, API_TOKEN } from '@lib/constants';
-import { useAppState } from '../state/state';
+import { useAppState } from '../apollo/state';
 
 async function fetchCmsAPI(query: string, { variables }: { variables?: Record<string, any> } = {}) {
   const res = await fetch(API_URL, {

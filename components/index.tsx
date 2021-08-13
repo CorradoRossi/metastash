@@ -11,13 +11,13 @@ import Profile from './profile/profile';
 import { fetchData } from '@lib/web3/opensea-fetch';
 import { fetchUser } from '@lib/web3/opensea-fetch-user';
 import { DEFAULT_USER } from '@lib/constants';
-import { useAppState } from '../lib/state/state';
+import { useAppState } from '@lib/apollo/state';
 import { fetchUniqueTokens } from '@lib/web3/fetch-unique';
 import { fetchOrders } from '@lib/web3/fetch-unique-order';
 
 const HomeContent = ({ defaultUserData, defaultPageState = 'registration' }: HomeProps) => {
-  const { library: libraryState, user, assets, rawAssets }: any = useAppState();
-  const { setUser, setLibrary, setAssets, setRawAssets, setEthPrice } = useAppState(
+  const { assets, rawAssets }: any = useAppState();
+  const { setUser, setLibrary, setAssets, setRawAssets, setEthPrice }: any = useAppState(
     useCallback(
       ({ setUser, setLibrary, setAssets, setRawAssets, setEthPrice }) => ({
         setUser,
@@ -33,8 +33,6 @@ const HomeContent = ({ defaultUserData, defaultPageState = 'registration' }: Hom
   const { data }: any = useETHBalance(account);
 
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [ethAccount, setEthAccount] = useState<string>('');
-  const [acctBalance, setAcctBalance] = useState<string>('0.0');
   const [acctData, setAcctData] = useState<object>({ assets: [] });
   const [userData, setUserData] = useState<UserData>(defaultUserData);
   const [pageState, setPageState] = useState<PageState>(defaultPageState);
@@ -42,45 +40,29 @@ const HomeContent = ({ defaultUserData, defaultPageState = 'registration' }: Hom
 
   async function doFetchData() {
     setIsLoading(true);
-    if (account) {
-      setEthAccount(account);
-      setAcctBalance(data);
+    if (account && data) {
+      setLibrary(library);
+      setUser(account);
       setEthPrice(data);
       fetchData(account)
         .then(res => setAcctData(res))
         .catch(err => {
-          console.error(err ? err.message : 'Error fetching data');
+          return console.error(err ? err.message : 'Error fetching data');
         });
       fetchUser(account)
-        .then(res => setLocalUser(res))
-        .catch(err => {
-          console.error(err ? err.message : 'Error fetching user');
-        });
-      fetchUniqueTokens(user, assets, setAssets, account)
         .then(res => {
-          return res;
+          setLocalUser(res);
+          setUserData(res);
+          fetchUniqueTokens(res, assets, setAssets, account).then(res => res);
+          fetchOrders(res, rawAssets, setRawAssets, account).then(res => res);
         })
         .catch(err => {
-          console.error(err ? err.message : 'Error fetching unique tokens');
+          return console.error(err ? err.message : 'Error fetching user');
         });
-      fetchOrders(user, rawAssets, setRawAssets, account)
-        .then(res => {
-          return res;
-        })
-        .catch(err => {
-          console.error(err ? err.message : 'Error fetching unique raw tokens');
-        });
-      setUser(account);
-      setUserData(user);
-      setLibrary(library);
       setPageState('loggedin');
       setIsLoading(false);
     }
   }
-
-  useEffect(() => {
-    doFetchData();
-  }, []);
 
   useEffect(() => {
     doFetchData();
@@ -90,11 +72,11 @@ const HomeContent = ({ defaultUserData, defaultPageState = 'registration' }: Hom
     <HomeDataContext.Provider value={{ acctData, userData, setUserData, setPageState }}>
       <Layout>
         <HomeContainer>
-          {account && pageState === 'loggedin' && !isLoading ? (
+          {account && data && pageState === 'loggedin' && !isLoading ? (
             <>
               <Profile
-                ethAccount={ethAccount}
-                acctBalance={acctBalance}
+                ethAccount={account}
+                acctBalance={data}
                 acctData={acctData}
                 pageState={pageState}
                 user={localUser}

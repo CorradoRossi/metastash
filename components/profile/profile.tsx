@@ -6,7 +6,7 @@ import GithubIcon from '@components/icons/icon-github-og';
 import TwitterIcon from '@components/icons/icon-twitterr';
 import { formatAddressShort, copyToClipBoard } from '@lib/utils/utils';
 import { DEFAULT_PROFILE_PIC } from '@lib/constants';
-import { useAppState } from '../../lib/state/state';
+import { useAppState } from '../../lib/apollo/state';
 import { formatPriceEthNum } from '@lib/utils/formatPriceEth';
 
 const Profile = ({
