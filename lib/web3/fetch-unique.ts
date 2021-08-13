@@ -20,44 +20,42 @@ export const fetchUniqueTokens = async (
   let uniqueTokens: any = [];
 
   const fetchPage = async () => {
-    try {
-      const newPageResults = await apiGetAccountUniqueTokens(accountAddress, page);
+    const newPageResults = await apiGetAccountUniqueTokens(accountAddress, page);
 
-      // check that the account address to fetch for has not changed
-      const currentAccountAddress = showcaseAddress || user?.address;
-      if (currentAccountAddress !== accountAddress) return;
+    // check that the account address to fetch for has not changed
+    const currentAccountAddress = showcaseAddress || user?.address;
+    if (currentAccountAddress !== accountAddress) return;
 
-      uniqueTokens = concat(uniqueTokens, newPageResults);
-      shouldStopFetching =
-        newPageResults.length < UNIQUE_TOKENS_LIMIT_PER_PAGE ||
-        uniqueTokens.length >= UNIQUE_TOKENS_LIMIT_TOTAL;
-      page += 1;
+    uniqueTokens = concat(uniqueTokens, newPageResults);
+    shouldStopFetching =
+      newPageResults.length < UNIQUE_TOKENS_LIMIT_PER_PAGE ||
+      uniqueTokens.length >= UNIQUE_TOKENS_LIMIT_TOTAL;
+    page += 1;
 
-      if (shouldUpdateInBatches) {
+    if (shouldUpdateInBatches) {
+      setAssets(uniqueTokens);
+    }
+
+    if (shouldStopFetching) {
+      if (!shouldUpdateInBatches) {
         setAssets(uniqueTokens);
       }
-
-      if (shouldStopFetching) {
-        if (!shouldUpdateInBatches) {
-          setAssets(uniqueTokens);
-        }
-        const existingFamilies = getFamilies(uniqueTokens);
-        const newFamilies = getFamilies(uniqueTokens);
-        const incomingFamilies = without(newFamilies, ...existingFamilies);
-        if (incomingFamilies.length) {
-          const dedupedAssets = dedupeAssetsWithFamilies(assets, incomingFamilies);
-        }
-        if (!showcaseAddress) {
-          console.log(uniqueTokens, accountAddress, 'whats going on here?');
-        }
-      } else {
-        uniqueTokensHandle = setTimeout(fetchPage, 200);
+      const existingFamilies = getFamilies(uniqueTokens);
+      const newFamilies = getFamilies(uniqueTokens);
+      const incomingFamilies = without(newFamilies, ...existingFamilies);
+      if (incomingFamilies.length) {
+        const dedupedAssets = dedupeAssetsWithFamilies(assets, incomingFamilies);
       }
-    } catch (error) {
-      showcase = user?.address;
-      console.log(error);
+      if (!showcaseAddress) {
+        console.log(uniqueTokens, accountAddress, 'whats going on here?');
+      }
+    } else {
+      uniqueTokensHandle = setTimeout(fetchPage, 200);
     }
   };
 
-  fetchPage();
+  fetchPage().catch(err => {
+    showcase = user?.address;
+    console.log(err);
+  });
 };

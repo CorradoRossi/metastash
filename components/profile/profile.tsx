@@ -26,7 +26,7 @@ const Profile = ({
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [account, setAccount] = useState<string>(ethAccount);
   const [balance, setBalance] = useState<string>(acctBalance);
-  const [combinedBids, setCombinedBids] = useState<any>(0);
+  const [combinedBidsUsd, setCombinedBidsUsd] = useState<any>(0);
   const [combinedBidsEth, setCombinedBidsEth] = useState<any>(0);
   const [combinedLastSaleprice, setCombinedLastSaleprice] = useState(0);
 
@@ -45,11 +45,17 @@ const Profile = ({
           localCombinedLastSaleprice += parseFloat(item?.last_sale_price) / 1000000000000000000;
         }
       });
-      setCombinedBids(formatPriceEthNum(localCombinedBids, ethPrice));
+      setCombinedBidsUsd(formatPriceEthNum(localCombinedBids, ethPrice));
       setCombinedBidsEth(localCombinedBids);
       setCombinedLastSaleprice(localCombinedLastSaleprice);
     }
     setIsLoading(false);
+    function checkIfArrayIsUnique(myArray: any) {
+      return myArray.length === new Set(myArray).size;
+    }
+    let ids = Array.from(rawAssets, (item: any) => item.asset.id);
+    console.table(ids);
+    console.log(checkIfArrayIsUnique(ids));
   }, [ethAccount, acctBalance, acctData, isLoading, rawAssets]);
 
   return !isLoading && pageState === 'loggedin' && user ? (
@@ -134,7 +140,7 @@ const Profile = ({
             </p>
             <p style={{ fontWeight: 600 }}>
               <span>Combined bids in USD: </span>
-              {combinedBids}
+              {combinedBidsUsd}
             </p>
             <p style={{ fontWeight: 600 }}>
               <span>Combined last sale price: </span>
