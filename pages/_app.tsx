@@ -4,13 +4,13 @@ import '@styles/chrome-bug.css';
 import type { AppProps } from 'next/app';
 import { useEffect } from 'react';
 import { SSRProvider, OverlayProvider } from 'react-aria';
+import { useApollo } from '../lib/apollo/client';
+import { ApolloProvider } from '@apollo/client';
+import { Web3ReactProvider } from '@web3-react/core';
+import { Web3Provider } from '@ethersproject/providers';
+import Web3Manager from '@lib/web3/web3manager';
 import NProgress from '@components/loading/nprogress';
 import ResizeHandler from '@components/loading/resize-handler';
-import { Web3ReactProvider } from '@web3-react/core';
-import Web3Manager from '@lib/web3/web3manager';
-import { Web3Provider } from '@ethersproject/providers';
-import { ApolloProvider } from '@apollo/client';
-import { useApollo } from '../lib/apollo/client';
 
 const getLibrary = (provider: any): Web3Provider => {
   const library = new Web3Provider(provider, 'any');

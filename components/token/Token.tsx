@@ -9,14 +9,7 @@ export const Token = ({ id, uri, registry, identifier, owner }: any) => {
   return (
     <div className={'allwrapper'}>
       <Link href={`/token/${id}`}>
-        <a
-          style={{
-            position: 'relative',
-            overflow: 'hidden',
-            textAlign: 'center'
-          }}
-          className={styles.card}
-        >
+        <a className={styles['card cardLink']}>
           <div className={styles['imageWrapper holder']}>
             <div className={'info'}>
               <div>
@@ -27,9 +20,7 @@ export const Token = ({ id, uri, registry, identifier, owner }: any) => {
               </div>
             </div>
             {image && (
-              <div
-                style={{ display: 'flex', justifyContent: 'center', aspectRatio: '1', zIndex: 5 }}
-              >
+              <div className="imgTightWrapper">
                 <img className={styles.image} src={image} />
               </div>
             )}
@@ -55,6 +46,17 @@ export const Token = ({ id, uri, registry, identifier, owner }: any) => {
           </div>
           <style>
             {`
+              .cardLink {
+                position: relative;
+                overflow: hidden;
+                textAlign: center;
+              }
+              .imgTightWrapper {
+                display: flex; 
+                justifyContent: center; 
+                aspectRatio: 1; 
+                zIndex: 5;
+              }
               .holder {
                 position: absolute;
                 height: 100%;

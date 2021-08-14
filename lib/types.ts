@@ -5,7 +5,7 @@ export type Image = {
 };
 
 export type DataObject = {
-  assets: [];
+  assets: object[];
 };
 
 export type Collectible = {

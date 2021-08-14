@@ -24,6 +24,7 @@ const Profile = ({
 }) => {
   const { assets, rawAssets }: any = useAppState();
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [account, setAccount] = useState<string>(ethAccount);
   const [balance, setBalance] = useState<string>(acctBalance);
   const [combinedBidsUsd, setCombinedBidsUsd] = useState<any>(0);
   const [combinedBidsEth, setCombinedBidsEth] = useState<any>(0);
@@ -33,21 +34,50 @@ const Profile = ({
     let localCombinedBids: any = 0;
     let localCombinedLastSaleprice: any = 0;
     if (rawAssets) {
+      setAccount(ethAccount);
       setBalance(acctBalance);
-      let ethPrice: string = rawAssets ? rawAssets[0]?.payment_token_contract?.usd_price : '3000';
-      rawAssets?.forEach(
-        (item: { current_price: string; last_sale: string; last_sale_price: string }) => {
-          item.current_price &&
-            (localCombinedBids += parseFloat(item?.current_price) / 1000000000000000000);
-          item.last_sale &&
-            (localCombinedLastSaleprice += parseFloat(item?.last_sale_price) / 1000000000000000000);
+      let ethPrice: any = rawAssets ? rawAssets[0]?.payment_token_contract?.usd_price : '';
+      rawAssets?.forEach((item: any) => {
+        if (item.current_price) {
+          localCombinedBids += parseFloat(item?.current_price) / 1000000000000000000;
         }
-      );
-      setCombinedBidsEth(localCombinedBids);
+        if (item.last_sale) {
+          localCombinedLastSaleprice += parseFloat(item?.last_sale_price) / 1000000000000000000;
+        }
+      });
       setCombinedBidsUsd(formatPriceEthNum(localCombinedBids, ethPrice));
+      setCombinedBidsEth(localCombinedBids);
       setCombinedLastSaleprice(localCombinedLastSaleprice);
     }
     setIsLoading(false);
+    {
+      /*const isArrUnique = (myArray: any) => {
+      return myArray.length === new Set(myArray).size;
+    };
+    let ids = Array.from(rawAssets, (item: any) => item.asset.id);
+    let prices = Array.from(rawAssets, (item: any) => {
+      let obj: any = { name: '', token_id: '', price: '' };
+      obj.name = item.asset.collection.name;
+      obj.token_id = item.asset.token_id;
+      obj.price = item.current_price
+        ? (parseFloat(item.current_price) / 1000000000000000000).toFixed(2)
+        : 0;
+      return obj;
+    }).sort(function (a, b) {
+      var nameA = a.name.toUpperCase();
+      var nameB = b.name.toUpperCase();
+      if (nameA < nameB) {
+        return -1;
+      }
+      if (nameA > nameB) {
+        return 1;
+      }
+      return 0;
+    });
+    console.log('rawAssets', rawAssets);
+    console.table(prices);*/
+      console.table(rawAssets);
+    }
   }, [ethAccount, acctBalance, acctData, isLoading, rawAssets]);
 
   return !isLoading && pageState === 'loggedin' && user ? (
@@ -112,11 +142,11 @@ const Profile = ({
             <h3 className={styles['socials-header']}>{user?.talk?.title}</h3>
             <p>{user?.talk?.description}</p>
             <p
-              onClick={() => copyToClipBoard(ethAccount)}
+              onClick={() => copyToClipBoard(account)}
               style={{ fontWeight: 600, cursor: 'pointer' }}
             >
               <span>Address: </span>
-              {formatAddressShort(ethAccount)}
+              {formatAddressShort(account)}
             </p>
             <p style={{ fontWeight: 600 }}>
               <span>Balance: </span>

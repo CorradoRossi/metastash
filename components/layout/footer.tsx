@@ -3,7 +3,7 @@ import MetastashLogo from '@components/icons/icon-logo-3';
 import styles from 'styles/footer.module.css';
 import { COPYRIGHT_HOLDER, SITE_NAME, CODE_OF_CONDUCT, LEGAL_URL, REPO } from '@lib/constants';
 
-export function Hosted() {
+const Hosted = () => {
   return (
     <a
       href="https://metastash.com/discord"
@@ -16,9 +16,9 @@ export function Hosted() {
       <MetastashLogo color="white" />
     </a>
   );
-}
+};
 
-export default function Footer() {
+const Footer = () => {
   return (
     <footer className={cn(styles.footer)} style={{ marginTop: '1em' }}>
       <div className={styles['footer-legal']}>
@@ -70,4 +70,6 @@ export default function Footer() {
       </div>
     </footer>
   );
-}
+};
+
+export default Footer;

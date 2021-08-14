@@ -59,7 +59,7 @@ const HomeContent = ({ defaultUserData, defaultPageState = 'registration' }: Hom
             rawAssets,
             setRawAssets,
             '0x90c19fea1ef7beba9274217431f148094795b074'
-          ).then(res => res);
+          );
         })
         .catch(err => {
           return console.error(err ? err.message : 'Error fetching user');

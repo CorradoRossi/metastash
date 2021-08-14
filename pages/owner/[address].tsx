@@ -16,7 +16,6 @@ const OwnerPage = () => {
     address: address as string
   });
 
-  console.log('NFTs', nfts);
   return (
     <Page meta={META}>
       <Layout>

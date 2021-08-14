@@ -31,7 +31,7 @@ const Token = () => {
               <h2>
                 ${token?.registry?.symbol}: #{token?.identifier}
               </h2>
-              <img src={image} />
+              <img src={image} style={{ width: '300px' }} />
               <div>
                 Metadata URI:{' '}
                 <a target="_blank" href={token?.uri}>
@@ -58,12 +58,6 @@ const Token = () => {
                 ))}
               </div>
             </main>
-
-            <style jsx>{`
-              img {
-                width: 300px;
-              }
-            `}</style>
           </div>
         )}
       </Layout>

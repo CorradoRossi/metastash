@@ -7,9 +7,9 @@ import { DataObject } from '@lib/types';
 import { Form } from '../form/Form';
 
 const CollectionGrid = () => {
-  const { assets }: any = useAppState();
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [data, setData] = useState<DataObject>({ assets: [] });
+  const { assets }: { assets: object[] } = useAppState();
 
   useEffect(() => {
     async function fetchData() {
