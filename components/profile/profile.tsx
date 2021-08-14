@@ -24,6 +24,7 @@ const Profile = ({
 }) => {
   const { assets, rawAssets }: any = useAppState();
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [account, setAccount] = useState<string>(ethAccount);
   const [balance, setBalance] = useState<string>(acctBalance);
   const [combinedBidsUsd, setCombinedBidsUsd] = useState<any>(0);
   const [combinedBidsEth, setCombinedBidsEth] = useState<any>(0);
@@ -33,18 +34,21 @@ const Profile = ({
     let localCombinedBids: any = 0;
     let localCombinedLastSaleprice: any = 0;
     if (rawAssets) {
+      setAccount(ethAccount);
       setBalance(acctBalance);
-      let ethPrice: string = rawAssets ? rawAssets[0]?.payment_token_contract?.usd_price : '3000';
+      let ethPrice: string = rawAssets ? rawAssets[0]?.payment_token_contract?.usd_price : '';
       rawAssets?.forEach(
         (item: { current_price: string; last_sale: string; last_sale_price: string }) => {
-          item.current_price &&
-            (localCombinedBids += parseFloat(item?.current_price) / 1000000000000000000);
-          item.last_sale &&
-            (localCombinedLastSaleprice += parseFloat(item?.last_sale_price) / 1000000000000000000);
+          if (item.current_price) {
+            localCombinedBids += parseFloat(item?.current_price) / 1000000000000000000;
+          }
+          if (item.last_sale) {
+            localCombinedLastSaleprice += parseFloat(item?.last_sale_price) / 1000000000000000000;
+          }
         }
       );
-      setCombinedBidsEth(localCombinedBids);
       setCombinedBidsUsd(formatPriceEthNum(localCombinedBids, ethPrice));
+      setCombinedBidsEth(localCombinedBids);
       setCombinedLastSaleprice(localCombinedLastSaleprice);
     }
     setIsLoading(false);
@@ -112,11 +116,11 @@ const Profile = ({
             <h3 className={styles['socials-header']}>{user?.talk?.title}</h3>
             <p>{user?.talk?.description}</p>
             <p
-              onClick={() => copyToClipBoard(ethAccount)}
+              onClick={() => copyToClipBoard(account)}
               style={{ fontWeight: 600, cursor: 'pointer' }}
             >
               <span>Address: </span>
-              {formatAddressShort(ethAccount)}
+              {formatAddressShort(account)}
             </p>
             <p style={{ fontWeight: 600 }}>
               <span>Balance: </span>

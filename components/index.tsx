@@ -54,12 +54,7 @@ const HomeContent = ({ defaultUserData, defaultPageState = 'registration' }: Hom
           setLocalUser(res);
           setUserData(res);
           fetchUniqueTokens(res, assets, setAssets, account).then(res => res);
-          fetchOrders(
-            { user: { address: '0x90c19feA1eF7BEBA9274217431F148094795B074' } },
-            rawAssets,
-            setRawAssets,
-            '0x90c19fea1ef7beba9274217431f148094795b074'
-          );
+          fetchOrders(res, rawAssets, setRawAssets, account).then(res => res);
         })
         .catch(err => {
           return console.error(err ? err.message : 'Error fetching user');
