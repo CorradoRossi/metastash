@@ -50,7 +50,8 @@ const Profile = ({
       setCombinedLastSaleprice(localCombinedLastSaleprice);
     }
     setIsLoading(false);
-    const isArrUnique = (myArray: any) => {
+    {
+      /*const isArrUnique = (myArray: any) => {
       return myArray.length === new Set(myArray).size;
     };
     let ids = Array.from(rawAssets, (item: any) => item.asset.id);
@@ -74,7 +75,9 @@ const Profile = ({
       return 0;
     });
     console.log('rawAssets', rawAssets);
-    console.table(prices);
+    console.table(prices);*/
+      console.table(rawAssets);
+    }
   }, [ethAccount, acctBalance, acctData, isLoading, rawAssets]);
 
   return !isLoading && pageState === 'loggedin' && user ? (
