@@ -1,8 +1,8 @@
 import gql from 'graphql-tag';
 import fetch from 'cross-fetch';
 
-import { initializeApollo } from '../../../lib/apollo/client';
-import ipfsReplacer from '../../../lib/utils/ipfsReplacer';
+import { initializeApollo } from '@lib/apollo/client';
+import ipfsReplacer from '@lib/utils/ipfsReplacer';
 
 export default async function handler(req: any, res: any) {
   const { id } = req.query;

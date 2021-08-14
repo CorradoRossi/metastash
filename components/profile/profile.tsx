@@ -6,8 +6,8 @@ import GithubIcon from '@components/icons/icon-github-og';
 import TwitterIcon from '@components/icons/icon-twitterr';
 import { formatAddressShort, copyToClipBoard } from '@lib/utils/utils';
 import { DEFAULT_PROFILE_PIC } from '@lib/constants';
-import { useAppState } from '../../lib/state/state';
-import { fetchAcct } from '@lib/web3/opensea-fetch-acct';
+import { useAppState } from '../../lib/apollo/state';
+import { formatPriceEthNum } from '@lib/utils/formatPriceEth';
 
 const Profile = ({
   ethAccount,
@@ -22,33 +22,37 @@ const Profile = ({
   acctData: object | any;
   user: object | any;
 }) => {
-  const { assets }: any = useAppState();
+  const { assets, rawAssets }: any = useAppState();
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [account, setAccount] = useState<string>(ethAccount);
   const [balance, setBalance] = useState<string>(acctBalance);
-  const [combinedBids, setCombinedBids] = useState<number>(0);
+  const [combinedBidsUsd, setCombinedBidsUsd] = useState<any>(0);
+  const [combinedBidsEth, setCombinedBidsEth] = useState<any>(0);
   const [combinedLastSaleprice, setCombinedLastSaleprice] = useState(0);
 
   useEffect(() => {
-    let localCombinedBids = 0;
-    let localCombinedLastSaleprice = 0;
-    if (acctData) {
+    let localCombinedBids: any = 0;
+    let localCombinedLastSaleprice: any = 0;
+    if (rawAssets) {
       setAccount(ethAccount);
-      //fetchAcct(ethAccount);
       setBalance(acctBalance);
-      acctData?.assets?.forEach((item: any) => {
-        if (item.topBid) {
-          localCombinedBids += item.topBid;
+      let ethPrice: string = rawAssets ? rawAssets[0]?.payment_token_contract?.usd_price : '';
+      rawAssets?.forEach(
+        (item: { current_price: string; last_sale: string; last_sale_price: string }) => {
+          if (item.current_price) {
+            localCombinedBids += parseFloat(item?.current_price) / 1000000000000000000;
+          }
+          if (item.last_sale) {
+            localCombinedLastSaleprice += parseFloat(item?.last_sale_price) / 1000000000000000000;
+          }
         }
-        if (item.last_sale) {
-          localCombinedLastSaleprice += item.last_sale_price;
-        }
-      });
-      setCombinedBids(localCombinedBids);
+      );
+      setCombinedBidsUsd(formatPriceEthNum(localCombinedBids, ethPrice));
+      setCombinedBidsEth(localCombinedBids);
       setCombinedLastSaleprice(localCombinedLastSaleprice);
     }
     setIsLoading(false);
-  }, [ethAccount, acctBalance, acctData, isLoading]);
+  }, [ethAccount, acctBalance, acctData, isLoading, rawAssets]);
 
   return !isLoading && pageState === 'loggedin' && user ? (
     <>
@@ -127,13 +131,27 @@ const Profile = ({
               {assets?.length}
             </p>
             <p style={{ fontWeight: 600 }}>
-              <span>Combined bids: </span>
-              {combinedBids}
+              <span>Combined bids in ETH: </span>
+              {combinedBidsEth.toFixed(2)}
             </p>
             <p style={{ fontWeight: 600 }}>
+              <span>Combined bids in USD: </span>
+              {combinedBidsUsd}
+            </p>
+            {/*<p style={{ fontWeight: 600 }}>
               <span>Combined last sale price: </span>
               {combinedLastSaleprice}
-            </p>
+            </p>*/}
+            {/*<ul style={{ fontWeight: 600 }}>
+              <span>Orders: </span>
+              {rawAssets?.map((order: any, index: number) => {
+                return order ? (
+                  <li key={index}>{parseFloat(order?.current_price) / 1000000000000000000}</li>
+                ) : (
+                  '0'
+                );
+              })}
+            </ul>*/}
           </div>
         )}
       </div>

@@ -2,14 +2,14 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import styles from 'styles/collection-grid.module.css';
-import { useAppState } from '../../lib/state/state';
+import { useAppState } from '../../lib/apollo/state';
 import { DataObject } from '@lib/types';
 import { Form } from '../form/Form';
 
 const CollectionGrid = () => {
-  const { assets }: any = useAppState();
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [data, setData] = useState<DataObject>({ assets: [] });
+  const { assets }: { assets: object[] } = useAppState();
 
   useEffect(() => {
     async function fetchData() {

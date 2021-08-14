@@ -5,7 +5,7 @@ export type Image = {
 };
 
 export type DataObject = {
-  assets: [];
+  assets: object[];
 };
 
 export type Collectible = {
@@ -361,6 +361,7 @@ export interface RainbowToken extends Asset {
 
 export interface StateContext {
   assets: any;
+  rawAssets: any;
   isAuthenticated: boolean;
   contract?: Contract;
   contractDetails?: ContractPropsDetails;
@@ -371,6 +372,7 @@ export interface StateContext {
   transaction?: any;
   library?: any;
   setAssets(newAssets: any): void;
+  setRawAssets(newAssets: any): void;
   setLibrary(library: any): void;
   setContract(library: any, chainId: any): void;
   setAuthenticated(authenticated: boolean): void;

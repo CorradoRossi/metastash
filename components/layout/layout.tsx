@@ -26,7 +26,6 @@ const Layout = ({ children, className, hideNav, layoutStyles }: LayoutProps) => 
             <div className={styles['header-logos']}>
               <MobileMenu key={router.asPath} />
               <Link href="/">
-                {/* eslint-disable-next-line */}
                 <a className={styles.logo}>{<Logo />}</a>
               </Link>
             </div>

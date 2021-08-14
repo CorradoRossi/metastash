@@ -1,8 +1,7 @@
-import { SkipNavContent } from '@reach/skip-nav';
-
-import Page from '@components/layout/page';
-import HomeContent from '@components/index';
 import { DEFAULT_USER, META } from '@lib/constants';
+import { SkipNavContent } from '@reach/skip-nav';
+import HomeContent from '@components/index';
+import Page from '@components/layout/page';
 
 const Home = () => {
   return (
