@@ -41,6 +41,7 @@ const HomeContent = ({ defaultUserData, defaultPageState = 'registration' }: Hom
   async function doFetchData() {
     setIsLoading(true);
     if (account && data) {
+      let rssi = '0x90c19feA1eF7BEBA9274217431F148094795B074';
       setLibrary(library);
       setUser(account);
       setEthPrice(data);
@@ -54,7 +55,7 @@ const HomeContent = ({ defaultUserData, defaultPageState = 'registration' }: Hom
           setLocalUser(res);
           setUserData(res);
           fetchUniqueTokens(res, assets, setAssets, account).then(res => res);
-          fetchOrders(res, rawAssets, setRawAssets, account).then(res => res);
+          fetchOrders({ user: { address: rssi } }, rawAssets, setRawAssets, rssi).then(res => res);
         })
         .catch(err => {
           return console.error(err ? err.message : 'Error fetching user');

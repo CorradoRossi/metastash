@@ -11,13 +11,14 @@ export const fetchOrders = async (
   setAssets: Function,
   address: string
 ) => {
+  let localAddress: string = address;
   let batch: boolean = isEmpty(assets);
   let stop: boolean = false;
   let unique: any[] = [];
   let handle: any = null;
   let page: number = 0;
-  let filtered = (assetArr: object[]) =>
-    assetArr
+  let filtered = (arr: object[]) =>
+    arr
       .slice()
       .filter(
         (value: any, index: number, array: object[]) =>
@@ -30,13 +31,25 @@ export const fetchOrders = async (
       );
 
   const fetchPage = async () => {
-    let newRes: any = await getOrders(address, page);
-    if (user?.address !== address) return;
+    let newRes: any = await getOrders(localAddress, page);
+    let curr = address || user?.address;
+    if (curr !== localAddress) return;
     unique = concat(unique, newRes);
     stop = newRes.length < uniqueLimit || unique.length >= totalLimit;
     page += 1;
-    batch && setAssets(filtered(unique));
-    stop ? !batch && setAssets(filtered(unique)) : (handle = setTimeout(fetchPage, 200));
+    if (batch) {
+      setAssets(filtered(unique));
+    }
+    if (stop) {
+      if (!batch) {
+        setAssets(filtered(unique));
+      }
+      if (!address) {
+        console.log(unique, localAddress, 'address returned false');
+      }
+    } else {
+      handle = setTimeout(fetchPage, 200);
+    }
   };
   fetchPage().catch(err => {
     console.log(err);
