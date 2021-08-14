@@ -52,7 +52,7 @@ const HomeContent = ({ defaultUserData, defaultPageState = 'registration' }: Hom
         };
         setScanData(data);
       })
-      .catch((err: any) => {
+      .catch((err: Error) => {
         console.log(err);
       });
   }
