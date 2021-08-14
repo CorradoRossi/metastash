@@ -1,7 +1,6 @@
-const { withSentryConfig } = require('@sentry/nextjs');
-const withImages = require("next-images");
+const withImages = require('next-images');
 
-const moduleExports = withImages({
+module.exports = withImages({
   images: {
     domains: [
       'www.datocms-assets.com',
@@ -32,9 +31,3 @@ const moduleExports = withImages({
       'https://6296b94f1426454f82a492d2a56b82dd@o804754.ingest.sentry.io/5803099'
   }
 });
-
-const SentryWebpackPluginOptions = {
-  silent: true
-};
-
-module.exports = withSentryConfig(moduleExports, SentryWebpackPluginOptions);
