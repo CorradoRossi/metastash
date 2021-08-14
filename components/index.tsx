@@ -15,9 +15,11 @@ import { DEFAULT_USER } from '@lib/constants';
 import { useAppState } from '@lib/apollo/state';
 import { fetchUniqueTokens } from '@lib/web3/fetch-unique';
 import { fetchOrders } from '@lib/web3/fetch-unique-order';
+import { Web3ReactContextInterface } from '@web3-react/core/dist/types';
+import { responseInterface } from 'swr';
 
 const HomeContent = ({ defaultUserData, defaultPageState = 'registration' }: HomeProps) => {
-  const { assets, rawAssets }: any = useAppState();
+  const { assets, rawAssets }: { assets: object[]; rawAssets: object[] } = useAppState();
   const { setUser, setLibrary, setAssets, setRawAssets, setEthPrice }: any = useAppState(
     useCallback(
       ({ setUser, setLibrary, setAssets, setRawAssets, setEthPrice }) => ({
@@ -30,8 +32,8 @@ const HomeContent = ({ defaultUserData, defaultPageState = 'registration' }: Hom
       []
     )
   );
-  const { library, account }: any = useWeb3React();
-  const { data }: any = useETHBalance(account);
+  const { library, account }: Web3ReactContextInterface = useWeb3React();
+  const { data }: responseInterface<string, Error> = useETHBalance(account);
 
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [acctData, setAcctData] = useState<object>({ assets: [] });
@@ -60,7 +62,7 @@ const HomeContent = ({ defaultUserData, defaultPageState = 'registration' }: Hom
       });
 
     txlist
-      .then((res: any) => {
+      .then((res: object) => {
         setTxList(res);
       })
       .catch((err: Error) => {
