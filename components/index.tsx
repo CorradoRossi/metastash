@@ -1,4 +1,5 @@
 import { useCallback, useState, useEffect } from 'react';
+import * as etherscanApi from 'etherscan-api';
 import { HomeDataContext } from '@lib/hooks/use-home-data';
 import { PageState, HomeProps, UserData } from '@lib/types';
 import { useWeb3React } from '@web3-react/core';
@@ -37,6 +38,24 @@ const HomeContent = ({ defaultUserData, defaultPageState = 'registration' }: Hom
   const [userData, setUserData] = useState<UserData>(defaultUserData);
   const [pageState, setPageState] = useState<PageState>(defaultPageState);
   const [localUser, setLocalUser] = useState<UserData>(DEFAULT_USER);
+  const [scanData, setScanData] = useState<object>({});
+
+  async function fetchEtherscanData(address: string) {
+    let api = etherscanApi.init('');
+    let balanceData = api.account.balance(address);
+    balanceData
+      .then((res: any) => {
+        let data = {
+          status: res.status,
+          result: res.result,
+          message: res.message
+        };
+        setScanData(data);
+      })
+      .catch((err: any) => {
+        console.log(err);
+      });
+  }
 
   async function doFetchData() {
     setIsLoading(true);
@@ -55,12 +74,13 @@ const HomeContent = ({ defaultUserData, defaultPageState = 'registration' }: Hom
           setUserData(res);
           fetchUniqueTokens(res, assets, setAssets, account).then(res => res);
           fetchOrders(res, rawAssets, setRawAssets, account).then(res => res);
-          //let rssi = '0x90c19feA1eF7BEBA9274217431F148094795B074';
-          //fetchOrders({ user: { address: rssi } }, rawAssets, setRawAssets, rssi).then(res => res);
         })
         .catch(err => {
           return console.error(err ? err.message : 'Error fetching user');
         });
+      if (Object.keys(scanData).length === 0) {
+        fetchEtherscanData(account);
+      }
       setPageState('loggedin');
       setIsLoading(false);
     }
@@ -70,6 +90,7 @@ const HomeContent = ({ defaultUserData, defaultPageState = 'registration' }: Hom
     doFetchData();
   }, [account, data]);
 
+  console.log('scanData', scanData);
   return (
     <HomeDataContext.Provider value={{ acctData, userData, setUserData, setPageState }}>
       <Layout>
