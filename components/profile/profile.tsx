@@ -50,7 +50,6 @@ const Profile = ({
       setCombinedBidsUsd(formatPriceEthNum(localCombinedBids, ethPrice));
       setCombinedBidsEth(localCombinedBids);
       setCombinedLastSaleprice(localCombinedLastSaleprice);
-      console.log('rawAssets', rawAssets);
     }
     setIsLoading(false);
   }, [ethAccount, acctBalance, acctData, isLoading, rawAssets]);

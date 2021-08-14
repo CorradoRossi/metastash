@@ -90,7 +90,6 @@ const HomeContent = ({ defaultUserData, defaultPageState = 'registration' }: Hom
     doFetchData();
   }, [account, data]);
 
-  console.log('scanData', scanData);
   return (
     <HomeDataContext.Provider value={{ acctData, userData, setUserData, setPageState }}>
       <Layout>
