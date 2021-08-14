@@ -39,10 +39,13 @@ const HomeContent = ({ defaultUserData, defaultPageState = 'registration' }: Hom
   const [pageState, setPageState] = useState<PageState>(defaultPageState);
   const [localUser, setLocalUser] = useState<UserData>(DEFAULT_USER);
   const [scanData, setScanData] = useState<object>({});
+  const [txList, setTxList] = useState<object>({});
 
   async function fetchEtherscanData(address: string) {
     let api = etherscanApi.init('');
     let balanceData = api.account.balance(address);
+    let txlist = api.account.txlist(address, 1, 'latest', 1, 100, 'asc');
+
     balanceData
       .then((res: any) => {
         let data = {
@@ -51,6 +54,14 @@ const HomeContent = ({ defaultUserData, defaultPageState = 'registration' }: Hom
           message: res.message
         };
         setScanData(data);
+      })
+      .catch((err: Error) => {
+        console.log(err);
+      });
+
+    txlist
+      .then((res: any) => {
+        setTxList(res);
       })
       .catch((err: Error) => {
         console.log(err);
@@ -90,6 +101,8 @@ const HomeContent = ({ defaultUserData, defaultPageState = 'registration' }: Hom
     doFetchData();
   }, [account, data]);
 
+  console.log('scanData', scanData);
+  console.log('txList', txList);
   return (
     <HomeDataContext.Provider value={{ acctData, userData, setUserData, setPageState }}>
       <Layout>

@@ -138,10 +138,10 @@ const Profile = ({
               <span>Combined bids in USD: </span>
               {combinedBidsUsd}
             </p>
-            <p style={{ fontWeight: 600 }}>
+            {/*<p style={{ fontWeight: 600 }}>
               <span>Combined last sale price: </span>
               {combinedLastSaleprice}
-            </p>
+            </p>*/}
             {/*<ul style={{ fontWeight: 600 }}>
               <span>Orders: </span>
               {rawAssets?.map((order: any, index: number) => {
