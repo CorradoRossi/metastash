@@ -11,7 +11,7 @@ import Form from './home/form';
 import Profile from './profile/profile';
 import { fetchData } from '@lib/web3/opensea-fetch';
 import { fetchUser } from '@lib/web3/opensea-fetch-user';
-import { DEFAULT_USER } from '@lib/constants';
+import { DEFAULT_USER, ETHERSCAN_API_KEY } from '@lib/constants';
 import { useAppState } from '@lib/apollo/state';
 import { fetchUniqueTokens } from '@lib/web3/fetch-unique';
 import { fetchOrders } from '@lib/web3/fetch-unique-order';
@@ -42,7 +42,7 @@ const HomeContent = ({ defaultUserData, defaultPageState = 'registration' }: Hom
   const [txList, setTxList] = useState<object>({});
 
   async function fetchEtherscanData(address: string) {
-    let api = etherscanApi.init('');
+    let api = etherscanApi.init(ETHERSCAN_API_KEY);
     let balanceData = api.account.balance(address);
     let txlist = api.account.txlist(address, 1, 'latest', 1, 100, 'asc');
 

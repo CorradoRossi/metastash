@@ -28,31 +28,33 @@ const Profile = ({
   const [balance, setBalance] = useState<string>(acctBalance);
   const [combinedBidsUsd, setCombinedBidsUsd] = useState<any>(0);
   const [combinedBidsEth, setCombinedBidsEth] = useState<any>(0);
-  const [combinedLastSaleprice, setCombinedLastSaleprice] = useState(0);
 
-  useEffect(() => {
-    let localCombinedBids: any = 0;
-    let localCombinedLastSaleprice: any = 0;
+  const combineBids = async () => {
+    let localCombinedBids: number = 0;
     if (rawAssets) {
-      setAccount(ethAccount);
-      setBalance(acctBalance);
-      let ethPrice: string = rawAssets ? rawAssets[0]?.payment_token_contract?.usd_price : '';
-      rawAssets?.forEach(
-        (item: { current_price: string; last_sale: string; last_sale_price: string }) => {
+      let ethPrice: string = rawAssets[0]?.payment_token_contract?.usd_price;
+      await rawAssets
+        ?.forEach((item: { current_price: string; last_sale: string; last_sale_price: string }) => {
           if (item.current_price) {
             localCombinedBids += parseFloat(item?.current_price) / 1000000000000000000;
           }
-          if (item.last_sale) {
-            localCombinedLastSaleprice += parseFloat(item?.last_sale_price) / 1000000000000000000;
-          }
-        }
-      );
-      setCombinedBidsUsd(formatPriceEthNum(localCombinedBids, ethPrice));
-      setCombinedBidsEth(localCombinedBids);
-      setCombinedLastSaleprice(localCombinedLastSaleprice);
+        })
+        .then(() => {
+          let formattedPriceEth = formatPriceEthNum(localCombinedBids, ethPrice);
+          setCombinedBidsUsd(formattedPriceEth);
+          setCombinedBidsEth(localCombinedBids);
+        })
+        .catch((err: any) => {
+          console.log(err, 'combinebids function error');
+        });
     }
-    setIsLoading(false);
-  }, [ethAccount, acctBalance, acctData, isLoading, rawAssets]);
+  };
+
+  useEffect(() => {
+    setAccount(ethAccount);
+    setBalance(acctBalance);
+    combineBids().then(() => setIsLoading(false));
+  }, [ethAccount, acctBalance, acctData, rawAssets]);
 
   return !isLoading && pageState === 'loggedin' && user ? (
     <>
