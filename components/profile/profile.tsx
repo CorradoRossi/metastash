@@ -31,7 +31,7 @@ const Profile = ({
 
   const combineBids = async () => {
     let localCombinedBids: number = 0;
-    if (rawAssets) {
+    if (rawAssets.length > 0) {
       let ethPrice: string = rawAssets[0]?.payment_token_contract?.usd_price;
       await rawAssets
         ?.forEach((item: { current_price: string; last_sale: string; last_sale_price: string }) => {
