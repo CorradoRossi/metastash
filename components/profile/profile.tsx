@@ -33,20 +33,16 @@ const Profile = ({
     let localCombinedBids: number = 0;
     if (rawAssets.length > 0) {
       let ethPrice: string = rawAssets[0]?.payment_token_contract?.usd_price;
-      await rawAssets
-        ?.forEach((item: { current_price: string; last_sale: string; last_sale_price: string }) => {
+      await rawAssets?.forEach(
+        (item: { current_price: string; last_sale: string; last_sale_price: string }) => {
           if (item.current_price) {
             localCombinedBids += parseFloat(item?.current_price) / 1000000000000000000;
+            let formattedPriceEth = formatPriceEthNum(localCombinedBids, ethPrice);
+            setCombinedBidsUsd(formattedPriceEth);
+            setCombinedBidsEth(localCombinedBids);
           }
-        })
-        .then(() => {
-          let formattedPriceEth = formatPriceEthNum(localCombinedBids, ethPrice);
-          setCombinedBidsUsd(formattedPriceEth);
-          setCombinedBidsEth(localCombinedBids);
-        })
-        .catch((err: any) => {
-          console.log(err, 'combinebids function error');
-        });
+        }
+      );
     }
   };
 
